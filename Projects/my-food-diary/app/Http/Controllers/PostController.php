@@ -11,29 +11,36 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('post_info');
+        return view('post');
     }
 
     public function create(Request $request)
     {
         $data = $request->all();
+
+        $photo = Photo::create([
+            'user_id' => $data['user_id'],
+            'path' => $data['path'],
+        ]);
+
         Post::create([
             'user_id' => $data['user_id'],
-            'photo_id' => $data['photo_id'],
+            'photo_id' => $photo['id'],
             'description' => $data['description'],
             'recipe_id' => $data['recipe_id'],
         ]);
+
         return redirect("/main")->withSuccess('You have created the post');
     }
 
-    public function getPhoto()
-    {
-        $userId = Auth::id();
-        $photo = Photo::where('user_id', $userId)
-            ->orderBy('created_at', 'desc')
-            ->first();
-
-        return view('post', ['photo' => $photo]);
-    }
+//    public function getPhoto()
+//    {
+//        $userId = Auth::id();
+//        $photo = Photo::where('user_id', $userId)
+//            ->orderBy('created_at', 'desc')
+//            ->first();
+//
+//        return view('post', ['photo' => $photo]);
+//    }
 
 }

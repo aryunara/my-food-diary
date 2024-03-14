@@ -15,18 +15,11 @@
     <div class="row">
         <main class="col-sm-10 offset-sm-1">
 
-            <form action="/photo" method="POST">
-                @csrf
-                <input type="hidden" value="{{Auth::id()}}" name="user_id" required>
-                <input type="text" placeholder="Enter photo's url" name="path" required>
-                <button type="submit" class="add-photo">Add photo</button>
-            </form>
-
             <form action="/post-creation" method="POST">
                 @csrf
                 <input type="hidden" value="{{Auth::id()}}" name="user_id" required>
+                <input type="text" placeholder="Enter photo's url" name="path" required>
                 <input type="text" placeholder="Enter description" name="description" required>
-                <input type="hidden" value="{{$photo->id}}" name="photo_id" required>
                 <input type="hidden" value="" name="recipe_id">
 
                 <button id="submit-button" type="submit" class="btn btn-primary">

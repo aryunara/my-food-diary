@@ -19,7 +19,7 @@ Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout')
 
 Route::get('main', [MainController::class, 'getPosts'])->name('main');
 Route::get('about', [MainController::class, 'about'])->name('about');
-Route::get('post-creation', [PostController::class, 'getPhoto'])->name('getPhoto');
+Route::get('post-creation', [PostController::class, 'index'])->name('createPost');
 Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
 Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
 Route::get('post', [PostController::class, 'index'])->name('postInfo');
