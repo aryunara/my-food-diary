@@ -6,6 +6,7 @@ use App\Models\Photo;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isNull;
 
 class MainController extends Controller
 {
@@ -25,9 +26,12 @@ class MainController extends Controller
         $posts = Post::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->get();
-        $photos = Photo::getPhotosByUserId($userId);
 
-        return view('main', ['posts' => $posts, 'photos' => $photos]);
+        if (!$posts->count()) {
+            return view('main', ['posts' => []]);
+        }
+
+        return view('main', ['posts' => $posts]);
     }
 
 }

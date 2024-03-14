@@ -41,4 +41,9 @@ class Photo extends Model
             ->select('photos.*')
             ->get();
     }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class, 'id', 'photo_id');
+    }
 }

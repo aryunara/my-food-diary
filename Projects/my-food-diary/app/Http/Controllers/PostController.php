@@ -33,14 +33,12 @@ class PostController extends Controller
         return redirect("/main")->withSuccess('You have created the post');
     }
 
-//    public function getPhoto()
-//    {
-//        $userId = Auth::id();
-//        $photo = Photo::where('user_id', $userId)
-//            ->orderBy('created_at', 'desc')
-//            ->first();
-//
-//        return view('post', ['photo' => $photo]);
-//    }
+    public function getInfo(Request $request)
+    {
+        $data = $request->all();
+        $data = json_decode($data['post_info']);
+
+        return view('post_info', ['post' => $data]);
+    }
 
 }

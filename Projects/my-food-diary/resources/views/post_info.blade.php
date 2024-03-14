@@ -1,12 +1,16 @@
+@extends('main_nav')
+@section('main_content')
+
 <div class="photo-details">
-    <div class="photo"><img src="https://picsum.photos/300/200?image=12" /></div>
+    <div class="photo"><img src="{{$post->photo->path}}" /></div>
     <div class="avatar"><img src="https://picsum.photos/50/50?image=12" /></div>
-    <div class="author">John Smith</div>
-    <div class="date">2018-10-03</div>
-    <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+    <div class="author"></div>
+    <div class="date">{{$post->created_at}}</div>
+    <div class="description">{{$post->description}}</div>
     <div class="like">&hearts;</div>
 </div>
 
+@endsection
 
 <style>
     body {

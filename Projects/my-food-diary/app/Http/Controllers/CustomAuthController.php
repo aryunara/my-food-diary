@@ -20,10 +20,13 @@ class CustomAuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
         $credentials = $request->only('email', 'password');
+
         if (Auth::attempt($credentials)) {
             return redirect('main');
         }
+
         return redirect("login")->withSuccess('Login details are not valid');
     }
 
@@ -39,12 +42,15 @@ class CustomAuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
         ]);
+
         $data = $request->all();
+
         User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
+
         return redirect("dashboard")->withSuccess('You have signed-in');
     }
 
@@ -53,6 +59,7 @@ class CustomAuthController extends Controller
         if (Auth::check()) {
             return view('auth.dashboard');
         }
+
         return redirect("login")->withSuccess('You are not allowed to access');
     }
 
@@ -60,6 +67,7 @@ class CustomAuthController extends Controller
     {
         Session::flush();
         Auth::logout();
+
         return Redirect('login');
     }
 }

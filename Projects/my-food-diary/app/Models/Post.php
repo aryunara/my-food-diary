@@ -31,4 +31,9 @@ class Post extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function photo()
+    {
+        return $this->hasOne(Photo::class, 'id', 'photo_id');
+    }
 }
