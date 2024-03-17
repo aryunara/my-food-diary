@@ -22,5 +22,5 @@ Route::get('about', [MainController::class, 'about'])->name('about');
 Route::get('post-creation', [PostController::class, 'index'])->name('createPost');
 Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
 Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
-Route::post('post-info', [PostController::class, 'getInfo'])->name('getInfo');
+Route::get('/post/{id}', [PostController::class, 'getPostById'])->name('getPostInfo');
 

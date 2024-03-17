@@ -4,7 +4,7 @@
 <div class="photo-details">
     <div class="photo"><img src="{{$post->photo->path}}" /></div>
     <div class="avatar"><img src="https://picsum.photos/50/50?image=12" /></div>
-    <div class="author"></div>
+    <div class="author">me</div>
     <div class="date">{{$post->created_at}}</div>
     <div class="description">{{$post->description}}</div>
     <div class="like">&hearts;</div>
@@ -15,13 +15,18 @@
 <style>
     body {
         font-family: Arial;
+        display: grid;
+        justify-content: center; /* Центрирование по горизонтали */
+        align-items: center; /* Центрирование по вертикали */
+        height: 100vh; /* Для центрирования по вертикали */
+        margin: 0;
     }
 
     .photo-details {
 
         /* grid */
 
-        max-width: 800px;
+        width: 1500px;
         display: grid;
         grid-template-columns: 50% min-content 1fr max-content;
         grid-template-rows: 0 min-content 1fr min-content;

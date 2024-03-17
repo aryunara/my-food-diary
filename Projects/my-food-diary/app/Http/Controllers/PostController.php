@@ -33,12 +33,11 @@ class PostController extends Controller
         return redirect("/main")->withSuccess('You have created the post');
     }
 
-    public function getInfo(Request $request)
+    public function getPostById($postId)
     {
-        $data = $request->all();
-        $data = json_decode($data['post_info']);
+        $post = Post::find($postId);
 
-        return view('post_info', ['post' => $data]);
+        return view('post_info', ['post' => $post]);
     }
 
 }

@@ -13,11 +13,7 @@
 
                         <div class="post">
 
-                            <form name="callback" method="POST" action="/post-info">
-                                @csrf
-                                <input type="hidden" value="{{$post}}" name="post_info" required>
-                                <img class="image" src="{{$photo->path}}" alt="send" onclick="document.forms['callback'].submit();">
-                            </form>
+                            <a href="/post/{{$post->id}}"><img class="image" src="{{$photo->path}}" alt="send"></a>
 
                             <div class="description">
                                 <div class="post-title">
