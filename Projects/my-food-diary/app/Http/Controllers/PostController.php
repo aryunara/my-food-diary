@@ -2,33 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Models\Photo;
 use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Recipe;
 
 class PostController extends Controller
 {
+
     public function index()
     {
         return view('post');
     }
 
-    public function create(Request $request)
+    public function create(PostRequest $request)
     {
-        $data = $request->all();
+        $validated = $request->validated();
 
         $photo = Photo::create([
-            'user_id' => $data['user_id'],
-            'path' => $data['path'],
+            'user_id' => $validated['user_id'],
+            'path' => $validated['path'],
         ]);
 
-        Post::create([
-            'user_id' => $data['user_id'],
-            'photo_id' => $photo['id'],
-            'description' => $data['description'],
-            'recipe_id' => $data['recipe_id'],
-        ]);
+        if (isset($validated['recipe_name'], $validated['cooking_time'], $validated['recipe_description'])) {
+            $recipe = Recipe::create([
+                'name' => $validated['recipe_name'],
+                'cooking_time' => $validated['cooking_time'],
+                'description' => $validated['recipe_description']
+            ]);
+
+            Post::create([
+                'user_id' => $validated['user_id'],
+                'photo_id' => $photo['id'],
+                'description' => $validated['description'],
+                'recipe_id' => $recipe['id'],
+            ]);
+        } else {
+            Post::create([
+                'user_id' => $validated['user_id'],
+                'photo_id' => $photo['id'],
+                'description' => $validated['description'],
+                'recipe_id' => null,
+            ]);
+        }
 
         return redirect("/main")->withSuccess('You have created the post');
     }

@@ -18,9 +18,36 @@
             <form action="/post-creation" method="POST">
                 @csrf
                 <input type="hidden" value="{{Auth::id()}}" name="user_id" required>
+                    @error('user_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 <input type="text" placeholder="Enter photo's url" name="path" required>
-                <input type="text" placeholder="Enter description" name="description" required>
-                <input type="hidden" value="" name="recipe_id">
+                    @error('path')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <br>
+                <input type="text" placeholder="Description to the post" name="description" required>
+                    @error('description')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <br>
+                    <br>
+                <input type="text" placeholder="Write the recipe name" name="recipe_name">
+                    @error('recipe_name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <br>
+                <input type="text" placeholder="Cooking time" name="cooking_time">
+                    @error('cooking_time')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <br>
+                <input type="text" placeholder="Description to the recipe" name="recipe_description">
+                    @error('recipe_description')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <br>
+                    <br>
 
                 <button id="submit-button" type="submit" class="btn btn-primary">
                     Submit

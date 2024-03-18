@@ -4,19 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Recipe extends Model
 {
-
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
+        'name',
+        'cooking_time',
         'description',
-        'photo_id',
-        'recipe_id'
     ];
 
     protected $hidden = [
@@ -32,13 +30,8 @@ class Post extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function photo()
+    public function post()
     {
-        return $this->hasOne(Photo::class, 'id', 'photo_id');
-    }
-
-    public function recipe()
-    {
-        return $this->hasOne(Recipe::class, 'id', 'recipe_id');
+        return $this->belongsTo(Post::class, 'id', 'recipe_id');
     }
 }

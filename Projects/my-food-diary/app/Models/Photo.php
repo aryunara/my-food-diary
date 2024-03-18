@@ -33,15 +33,6 @@ class Photo extends Model
         'updated_at' => 'datetime',
     ];
 
-    public static function getPhotosByUserId($userId) : \Illuminate\Support\Collection
-    {
-        return DB::table('photos')
-            ->join('posts', 'photos.id', '=', 'posts.photo_id')
-            ->where('posts.user_id', $userId)
-            ->select('photos.*')
-            ->get();
-    }
-
     public function post()
     {
         return $this->belongsTo(Post::class, 'id', 'photo_id');
