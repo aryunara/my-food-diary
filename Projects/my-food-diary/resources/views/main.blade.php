@@ -5,33 +5,31 @@
         <div class="container">
             <?php if (empty($posts)) { ?>
                 <h2>It's empty here! Let's create your first post.</h2>
-                   <?php } else { ?>
-                    @foreach($posts as $post)
-                        <?php $photo = $post->photo; ?>
+            <?php } else { ?>
+            @foreach($posts as $post)
+                    <?php $photo = $post->photo; ?>
 
-                <div class="col-3">
-
+                    <div class="col-3">
                         <div class="post">
-
                             <a href="/post/{{$post->id}}"><img class="image" src="{{$photo->path}}" alt="send"></a>
 
-                            <div class="description">
+{{--                            <div class="description">--}}
 {{--                                <div class="post-title">--}}
 {{--                                    <a href="/post/{{$post->id}}"><h2>{{$post->description}}</h2></a>--}}
 {{--                                </div>--}}
-                                <div class="info">
-                                    <div class="author">
-                                        <span class="date"><h6>{{$post->created_at}}</h6></span>
-                                    </div>
-                                </div>
-                            </div>
+{{--                                <div class="info">--}}
+{{--                                    <div class="author">--}}
+{{--                                        <span class="date"><h6>{{$post->created_at}}</h6></span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </div>
-                </div>
-                @endforeach <?php }; ?>
-
-            </div>
+                    </div>
+            @endforeach
+            <?php }; ?>
         </div>
-        @endsection
+    </div>
+    @endsection
 
 <style>
     @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Roboto:300,400,500,700,900");
@@ -84,26 +82,6 @@
         background-repeat: no-repeat;
         transition: 0.4s ease-in-out;
         position: relative;
-    }
-
-    .image.one {
-        background-image: url("https://preview.ibb.co/ch7EOd/berries_blueberries_food_160805.jpg");
-    }
-
-    .image.two {
-        background-image: url("https://preview.ibb.co/nMPAWy/buffet_delicious_dinner_5928.jpg");
-    }
-
-    .image.three {
-        background-image: url("https://preview.ibb.co/dxaHBy/asparagus_bread_burger_416594.jpg");
-    }
-
-    .image > .overlay {
-        opacity: 0;
-        width: 0%;
-        height: 90%;
-        position: absolute;
-        margin: 15px auto;
     }
 
     .overlay span {

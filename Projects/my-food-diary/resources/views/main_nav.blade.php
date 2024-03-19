@@ -1,13 +1,12 @@
 <header class="top">
     <h1><a href="#" title="Katosnap">MY FOOD DIARY</a></h1>
-</header>
 
-<nav class="flex-nav">
+    <nav class="flex-nav">
     <a href="#" class="toggleNav"><i class="fa fa-bars"></i> Menu</a>
     <ul>
         <li><a href="/about" title="About">About me</a></li>
         <li><a href="/main" title="Posts">Posts</a></li>
-        <li><a href="#" title="Friends">Friends</a></li>
+        <li><a href="/friends" title="Friends">Friends</a></li>
         <li><a href="#" title="Contact">Contact me</a></li>
         <li><a href="#" title="Socials">Socials</a></li>
 
@@ -24,14 +23,15 @@
             <a href="https://www.instagram.com/kathy.kato" title="Instagram"><i class="fa fa-instagram"></i></a>
         </li>
     </ul>
-</nav>
+    </nav>
+</header>
 
 <body>
 @yield('main_content')
 </body>
 
 <footer>
-    <p>&copy; aryunara</p>
+    <p>&copy;aryunara</p>
 </footer>
 
 <style>
@@ -130,6 +130,10 @@
 
     footer {
         border-top: 1px solid #e2e2e2;
+    }
+
+    header {
+        border-bottom: 1px solid #e2e2e2;
     }
 
     .flex-nav ul {

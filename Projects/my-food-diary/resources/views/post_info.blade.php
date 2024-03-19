@@ -11,15 +11,22 @@
 
     <div id="recipe" class="overlay">
         <div class="popup">
-            <h2>{{ $post->recipe->name }}</h2>
-            <a class="close" href="#">&times;</a>
-            <div class="content">
-                <p>Время приготовления: {{ $post->recipe->cooking_time }} мин.</p>
-                <p>{{ $post->recipe->description }}</p>
-            </div>
+            @if(isset($post->recipe))
+                <h2>{{ $post->recipe->name }}</h2>
+                <a class="close" href="#">&times;</a>
+                <div class="content">
+                    <p>Время приготовления: {{ $post->recipe->cooking_time }} мин.</p>
+                    <p>{{ $post->recipe->description }}</p>
+                </div>
+            @else
+                <h2>It's empty here!</h2>
+                <a class="close" href="#">&times;</a>
+                <div class="content">
+                    <p>You can ask the author to add a recipe in the comments.</p>
+                </div>
+            @endif
         </div>
     </div>
-
 
     <div class="button-container">
         <p><a class="button" href="#recipe">Recipe</a></p>
@@ -103,7 +110,7 @@
 
     / / > * {
         outline: 1px solid black;
-    } border: 1px solid #e8e8e8;
+        } border: 1px solid #e8e8e8;
         box-shadow: 0 0 8px 0px #dcdcdc;
         padding-right: 10px;
 

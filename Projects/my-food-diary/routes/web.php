@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PostController;
@@ -23,4 +24,7 @@ Route::get('post-creation', [PostController::class, 'index'])->name('createPost'
 Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
 Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
 Route::get('/post/{id}', [PostController::class, 'getPostById'])->name('getPostInfo');
+Route::get('friends', [FriendController::class, 'getAll'])->name('friends');
+Route::post('find-user', [FriendController::class, 'findUser'])->name('findUser');
+Route::post('find-friend', [FriendController::class, 'findFriend'])->name('findFriend');
 
