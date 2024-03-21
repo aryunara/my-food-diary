@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PostController;
@@ -27,4 +28,6 @@ Route::get('/post/{id}', [PostController::class, 'getPostById'])->name('getPostI
 Route::get('friends', [FriendController::class, 'getAll'])->name('friends');
 Route::post('find-user', [FriendController::class, 'findUser'])->name('findUser');
 Route::post('find-friend', [FriendController::class, 'findFriend'])->name('findFriend');
+Route::get('/add/{id}', [FriendController::class, 'create'])->name('createFriend');
+Route::get('friend-requests', [FriendRequestController::class, 'getRequests'])->name('getRequests');
 

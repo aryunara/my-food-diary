@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Following;
 use App\Models\Friend;
+use App\Models\FriendRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,28 +22,47 @@ class FriendController extends Controller
         $friends = Friend::where('user_id', $userId)
             ->get();
 
+        if (!$friends->count()) {
+            return view('friends', ['friends' => []]);
+        }
+
         return view('friends', ['friends' => $friends]);
-    }
-
-    public function findUser(Request $request)
-    {
-        $data = $request->all();
-        $user = User::where('name', $data['find-user'])
-            ->first();
-        $userId = Auth::id();
-        $friends = Friend::where('user_id', $userId)
-            ->get();
-
-        return view('friends', ['user' => $user, 'friends' => $friends]);
     }
 
     public function findFriend(Request $request)
     {
         $data = $request->all();
-        $friend = User::where('name', $data['find-friend'])
+        $friend = User::where('username', $data['find-friend'])
             ->first();
 
         return view('friends', ['friend' => $friend]);
+    }
+
+    public function findUser(Request $request)
+    {
+        $data = $request->all();
+        $user = User::where('username', $data['find-user'])
+            ->first();
+
+        $userId = Auth::id();
+        $friends = Friend::where('user_id', $userId)
+            ->get();
+
+        if (!$friends->count()) {
+            return view('friends', ['user' => $user, 'friends' => []]);
+        }
+
+        return view('friends', ['user' => $user, 'friends' => $friends]);
+    }
+
+    public function create($friendId)
+    {
+        FriendRequest::create([
+            'sender_id' => Auth::id(),
+            'receiver_id' => $friendId,
+        ]);
+
+        return redirect("/friends")->withSuccess('You have sent friend request');
     }
 
 }

@@ -2,65 +2,45 @@
 @section('main_content')
     <body>
     <div id="homework-container">
-        <a href="/friend-requests"><button>Friend requests</button></a>
-        <div class="head">FRIENDS</div>
-
-        <div class="row filter">
-            <form action="/find-friend" method="POST" class="col">
-                @csrf
-                <input type="text" class="search" id="search-list" placeholder="Enter friend's name" name="find-friend"/>
-                <button id="submit-button" type="submit" class="btn btn-primary">
-                    Search
-                </button>
-            </form>
-
-            <form action="/find-user" method="POST" class="col">
-                @csrf
-                <input type="text" class="search" id="search-list" placeholder="Enter user's name" name="find-user"/>
-                <button id="submit-button" type="submit" class="btn btn-primary">
-                    Search
-                </button>
-            </form>
-        </div>
+        <div class="head">FRIEND REQUESTS</div>
 
         <div class="row">
 
             <div class="col">
-                <h3>Your friends</h3>
-                <ul id="friends" class="friends-list">
-                    @if(isset($friend))
-                        <li>
-                            {{ $friend->username }}
-                        </li>
-                    @elseif(!empty($friends))
-                        @foreach($friends as $friend)
-                                <li>
-                                    {{ \App\Models\User::find($friend->friend_id)->username }}
-                                </li>
+                <h3>Received requests</h3>
+                <ul id="friends-filter" class="friends-list">
+                    @if($received_rs->count())
+                        @foreach($received_rs as $received_r)
+                                <?php $sender = \App\Models\User::find($received_r->sender_id); ?>
+                            <li>
+                                {{ $sender->username }}
+                            </li>
+                            <a href="/accept/{{$sender->id}}"><button>Accept</button></a>
                         @endforeach
                     @else
-                        No one was found for your request.
+                        You have not received any requests.
                     @endif
                 </ul>
             </div>
 
             <div class="col">
-                <h3>Find user</h3>
+                <h3>Sent requests</h3>
                 <ul id="friends-filter" class="friends-list">
-                    @if(isset($user))
-                        <div class="friend-item">
+                    @if($sent_rs->count())
+                        @foreach($sent_rs as $sent_r)
+                                <?php $receiver = \App\Models\User::find($sent_r->receiver_id); ?>
                             <li>
-                                {{$user->username}}
+                                {{ $receiver->username }}
                             </li>
-                            <a href="/add/{{$user->id}}"><button>Add</button></a>
-                        </div>
+                            <a href="/cancel/{{$receiver->id}}"><button>Cancel</button></a>
+                        @endforeach
                     @else
-                        No one was found for your request.
+                        You have not sent any requests.
                     @endif
                 </ul>
             </div>
-
         </div>
+
     </div>
     </body>
 
@@ -190,4 +170,3 @@
     }
 
 </style>
-
