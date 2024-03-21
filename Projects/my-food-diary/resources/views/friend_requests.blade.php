@@ -12,13 +12,16 @@
                     @if($received_rs->count())
                         @foreach($received_rs as $received_r)
                                 <?php $sender = \App\Models\User::find($received_r->sender_id); ?>
-                            <li>
-                                {{ $sender->username }}
-                            </li>
-                            <a href="/accept/{{$sender->id}}"><button>Accept</button></a>
+                            <div class="friend-item">
+                                <li>
+                                    {{ $sender->username }}
+                                </li>
+                                <a href="/accept/{{$sender->id}}/{{$received_r->id}}"><button>Accept</button></a>
+                                <a href="/decline/{{$received_r->id}}"><button>Decline</button></a>
+                            </div>
                         @endforeach
                     @else
-                        You have not received any requests.
+                        <li>You have not received any requests.</li>
                     @endif
                 </ul>
             </div>
@@ -29,18 +32,19 @@
                     @if($sent_rs->count())
                         @foreach($sent_rs as $sent_r)
                                 <?php $receiver = \App\Models\User::find($sent_r->receiver_id); ?>
-                            <li>
-                                {{ $receiver->username }}
-                            </li>
-                            <a href="/cancel/{{$receiver->id}}"><button>Cancel</button></a>
+                            <div class="friend-item">
+                                <li>
+                                    {{ $receiver->username }}
+                                </li>
+                                    <a href="/cancel/{{$sent_r->id}}"><button>Cancel</button></a>
+                            </div>
                         @endforeach
                     @else
-                        You have not sent any requests.
+                        <li>You have not sent any requests.</li>
                     @endif
                 </ul>
             </div>
         </div>
-
     </div>
     </body>
 
@@ -69,6 +73,7 @@
         text-shadow:1px 1px 0 rgba(0, 0, 0, 0.1);
         border-radius:14px 14px 0 0;
         background-color:#f6856e;
+        text-align: center;
     }
     .filter{
         background-color:#f1f1f1;

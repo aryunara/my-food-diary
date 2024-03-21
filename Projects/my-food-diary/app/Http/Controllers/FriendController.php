@@ -57,12 +57,28 @@ class FriendController extends Controller
 
     public function create($friendId)
     {
+        if (Friend::where('friend_id', $friendId)) {
+            return 'Error';
+        }
         FriendRequest::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $friendId,
         ]);
 
         return redirect("/friends")->withSuccess('You have sent friend request');
+    }
+
+    public function delete($friendId)
+    {
+        Friend::where('user_id', Auth::id())
+            ->where('friend_id', $friendId)
+            ->delete();
+
+        Friend::where('user_id', $friendId)
+            ->where('friend_id', Auth::id())
+            ->delete();
+
+        return redirect("/friends");
     }
 
 }

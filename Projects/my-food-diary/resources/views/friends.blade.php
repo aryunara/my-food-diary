@@ -28,35 +28,40 @@
             <div class="col">
                 <h3>Your friends</h3>
                 <ul id="friends" class="friends-list">
-                    @if(isset($friend))
-                        <li>
-                            {{ $friend->username }}
-                        </li>
-                    @elseif(!empty($friends))
-                        @foreach($friends as $friend)
+                    <div class="friend-item">
+                        @if(isset($friend))
+                            <li>
+                                {{ $friend->username }}
+                            </li>
+                        @elseif(!empty($friends))
+                            @foreach($friends as $friend)
                                 <li>
                                     {{ \App\Models\User::find($friend->friend_id)->username }}
                                 </li>
-                        @endforeach
-                    @else
-                        No one was found for your request.
-                    @endif
+                                <a href="/delete/{{$friend->friend_id}}"><button>Delete</button></a>
+                            @endforeach
+                        @else
+                            No one was found for your request.
+                        @endif
+                    </div>
                 </ul>
             </div>
 
             <div class="col">
                 <h3>Find user</h3>
                 <ul id="friends-filter" class="friends-list">
-                    @if(isset($user))
-                        <div class="friend-item">
-                            <li>
-                                {{$user->username}}
-                            </li>
-                            <a href="/add/{{$user->id}}"><button>Add</button></a>
-                        </div>
-                    @else
-                        No one was found for your request.
-                    @endif
+                    <div class="friend-item">
+                        @if(isset($user))
+                            <div class="friend-item">
+                                <li>
+                                    {{$user->username}}
+                                </li>
+                                <a href="/add/{{$user->id}}"><button>Add</button></a>
+                            </div>
+                        @else
+                            No one was found for your request.
+                        @endif
+                    </div>
                 </ul>
             </div>
 
@@ -89,6 +94,7 @@
         text-shadow:1px 1px 0 rgba(0, 0, 0, 0.1);
         border-radius:14px 14px 0 0;
         background-color:#f6856e;
+        text-align: center;
     }
     .filter{
         background-color:#f1f1f1;

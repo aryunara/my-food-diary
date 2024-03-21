@@ -29,5 +29,8 @@ Route::get('friends', [FriendController::class, 'getAll'])->name('friends');
 Route::post('find-user', [FriendController::class, 'findUser'])->name('findUser');
 Route::post('find-friend', [FriendController::class, 'findFriend'])->name('findFriend');
 Route::get('/add/{id}', [FriendController::class, 'create'])->name('createFriend');
-Route::get('friend-requests', [FriendRequestController::class, 'getRequests'])->name('getRequests');
-
+Route::get('/delete/{id}', [FriendController::class, 'delete'])->name('deleteFriend');
+Route::get('friend-requests', [FriendRequestController::class, 'getAll'])->name('getRequests');
+Route::get('/accept/{friendId}/{id}', [FriendRequestController::class, 'accept'])->name('acceptRequest');
+Route::get('/decline/{id}', [FriendRequestController::class, 'decline'])->name('declineRequest');
+Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest');
