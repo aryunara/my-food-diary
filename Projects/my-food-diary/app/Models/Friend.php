@@ -32,4 +32,9 @@ class Friend extends Model
         'updated_at' => 'datetime',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'friend_id');
+    }
+
 }

@@ -57,9 +57,9 @@ class FriendController extends Controller
 
     public function create($friendId)
     {
-        if (Friend::where('friend_id', $friendId)) {
-            return 'Error';
-        }
+//        if (Friend::where('friend_id', $friendId)) {
+//            return 'Error';
+//        }
         FriendRequest::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $friendId,

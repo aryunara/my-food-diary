@@ -43,4 +43,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function friends()
+    {
+        return $this->hasMany(Friend::class, 'friend_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

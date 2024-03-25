@@ -41,4 +41,9 @@ class Post extends Model
     {
         return $this->hasOne(Recipe::class, 'id', 'recipe_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -1,5 +1,5 @@
 <header class="top">
-    <h1><a href="#" title="Katosnap">MY FOOD DIARY</a></h1>
+    <h1><a href="/home" title="home">MY FOOD DIARY</a></h1>
 
     <nav class="flex-nav">
     <a href="#" class="toggleNav"><i class="fa fa-bars"></i> Menu</a>
@@ -27,7 +27,10 @@
 </header>
 
 <body>
+@include('sidebar')
+
 @yield('main_content')
+
 </body>
 
 <footer>

@@ -36,7 +36,7 @@
                         @elseif(!empty($friends))
                             @foreach($friends as $friend)
                                 <li>
-                                    {{ \App\Models\User::find($friend->friend_id)->username }}
+                                    {{ $friend->user->username }}
                                 </li>
                                 <a href="/delete/{{$friend->friend_id}}"><button>Delete</button></a>
                             @endforeach

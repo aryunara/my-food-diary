@@ -34,3 +34,4 @@ Route::get('friend-requests', [FriendRequestController::class, 'getAll'])->name(
 Route::get('/accept/{friendId}/{id}', [FriendRequestController::class, 'accept'])->name('acceptRequest');
 Route::get('/decline/{id}', [FriendRequestController::class, 'decline'])->name('declineRequest');
 Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest');
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
