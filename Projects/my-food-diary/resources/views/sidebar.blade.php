@@ -1,40 +1,43 @@
 <div class="wrapper">
     <sidebar>
-        <div class="logo">logo</div>
         <div class="avatar">
             <div class="avatar__img">
                 <img src="https://picsum.photos/70" alt="avatar">
             </div>
-            <div class="avatar__name">John Smith</div>
+            <div class="avatar__name">{{ \Illuminate\Support\Facades\Auth::user()->username }}</div>
         </div>
         <nav class="menu">
-            <a class="menu__item" href="#">
+            <a class="menu__item" href="/home">
                 <i class="menu__icon fa fa-home"></i>
-                <span class="menu__text">overview</span>
+                <span class="menu__text">HOME</span>
             </a>
-            <a class="menu__item" href="#">
-                <i class="menu__icon fa fa-envelope"></i>
-                <span class="menu__text">messages</span>
-            </a>
-            <a class="menu__item" href="#">
-                <i class="menu__icon fa fa-list"></i>
-                <span class="menu__text">workout</span>
-            </a>
-            <a class="menu__item menu__item--active" href="#">
+            <a class="menu__item menu__item--active" href="/friends/{{\Illuminate\Support\Facades\Auth::id()}}">
                 <i class="menu__icon fa fa-calendar"></i>
-                <span class="menu__text">calendar</span>
+                <span class="menu__text">FRIENDS</span>
             </a>
             <a class="menu__item" href="#">
                 <i class="menu__icon fa fa-bar-chart"></i>
-                <span class="menu__text">goals</span>
+                <span class="menu__text">MESSAGES</span>
+            </a>
+            <a class="menu__item" href="/main/{{\Illuminate\Support\Facades\Auth::id()}}">
+                <i class="menu__icon fa fa-list"></i>
+                <span class="menu__text">POSTS</span>
+            </a>
+            <a class="menu__item" href="/post-creation">
+                <i class="menu__icon fa fa-list"></i>
+                <span class="menu__text">CREATE NEW POST</span>
+            </a>
+            <a class="menu__item" href="/about">
+                <i class="menu__icon fa fa-envelope"></i>
+                <span class="menu__text">ABOUT ME</span>
             </a>
             <a class="menu__item" href="#">
                 <i class="menu__icon fa fa-trophy"></i>
-                <span class="menu__text">achivements</span>
+                <span class="menu__text">SETTINGS</span>
             </a>
-            <a class="menu__item" href="#">
+            <a class="menu__item" href="/signout">
                 <i class="menu__icon fa fa-sliders"></i>
-                <span class="menu__text">measurements</span>
+                <span class="menu__text">LOGOUT</span>
             </a>
         </nav>
         <div class="copyright">copyright &copy; 2018</div>
@@ -220,10 +223,6 @@
         font-weight: 400;
     }
 
-    .calendar {
-        background-color: white;
-        border: 1px solid #e1e1e1;
-    }
 
     .calendar__header > div {
         text-transform: uppercase;
@@ -231,44 +230,5 @@
         font-weight: bold;
     }
 
-    .calendar__day {
-        border-right: 1px solid #e1e1e1;
-        border-top: 1px solid #e1e1e1;
-    }
-
-    .calendar__day:last-child {
-        border-right: 0;
-    }
-
-    .toggle {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-
-        text-align: center;
-        font-size: 0.9em;
-    }
-    .toggle__option {
-        padding: 16px;
-        border: 1px solid #e1e1e1;
-        border-radius: 8px;
-        text-transform: capitalize;
-        cursor: pointer;
-    }
-    .toggle__option:first-child {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-    .toggle__option:last-child {
-        border-left: 0;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
-    .toggle__option--selected {
-        border-color: white;
-        background-color: white;
-        color: var(--red);
-        font-weight: 500;
-        box-shadow: 1px 2px 30px -5px var(--red);
-    }
 
 </style>

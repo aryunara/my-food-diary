@@ -16,9 +16,8 @@ class FriendController extends Controller
         return view('friends');
     }
 
-    public function getAll()
+    public function getAll($userId)
     {
-        $userId = Auth::id();
         $friends = Friend::where('user_id', $userId)
             ->get();
 
@@ -26,7 +25,7 @@ class FriendController extends Controller
             return view('friends', ['friends' => []]);
         }
 
-        return view('friends', ['friends' => $friends]);
+        return view('friends', ['friends' => $friends, 'userId' => $userId]);
     }
 
     public function findFriend(Request $request)
@@ -63,6 +62,7 @@ class FriendController extends Controller
         FriendRequest::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $friendId,
+            'status' => 'created'
         ]);
 
         return redirect("/friends")->withSuccess('You have sent friend request');

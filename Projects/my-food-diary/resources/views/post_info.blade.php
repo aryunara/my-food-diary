@@ -2,11 +2,11 @@
 @section('main_content')
 
 <div class="photo-details">
-    <div class="photo"><img src="{{$post->photo->path}}" /></div>
+    <div class="photo"><img src="{{ $post->photo->path }}" /></div>
     <div class="avatar"><img src="https://picsum.photos/50/50?image=12" /></div>
-    <div class="author">Author</div>
-    <div class="date">{{$post->created_at}}</div>
-    <div class="description">{{$post->description}}</div>
+    <div class="author">{{ $post->user->username }}</div>
+    <div class="date">{{ $post->created_at }}</div>
+    <div class="description">{{ $post->description }}</div>
     <div class="like">&hearts;</div>
 
     <div id="recipe" class="overlay">

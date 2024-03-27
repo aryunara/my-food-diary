@@ -18,6 +18,7 @@ class PostController extends Controller
     public function create(PostRequest $request)
     {
         $validated = $request->validated();
+        $userId = $validated['user_id'];
 
         $photo = Photo::create([
             'user_id' => $validated['user_id'],
@@ -52,8 +53,9 @@ class PostController extends Controller
     public function getPostById($postId)
     {
         $post = Post::find($postId);
+        $userId = $post->user->id;
 
-        return view('post_info', ['post' => $post]);
+        return view('post_info', ['post' => $post, 'userId' => $userId]);
     }
 
 }

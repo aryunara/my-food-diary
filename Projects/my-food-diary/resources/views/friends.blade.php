@@ -27,7 +27,7 @@
 
             <div class="col">
                 <h3>Your friends</h3>
-                <ul id="friends" class="friends-list">
+                <ul id="friends-filter" class="friends-list">
                     <div class="friend-item">
                         @if(isset($friend))
                             <li>
@@ -38,7 +38,7 @@
                                 <li>
                                     {{ $friend->user->username }}
                                 </li>
-                                <a href="/delete/{{$friend->friend_id}}"><button>Delete</button></a>
+                                <a href="/delete/{{ $friend->friend_id }}"><button>Delete</button></a>
                             @endforeach
                         @else
                             No one was found for your request.

@@ -1,36 +1,28 @@
 <header class="top">
     <h1><a href="/home" title="home">MY FOOD DIARY</a></h1>
 
-    <nav class="flex-nav">
-    <a href="#" class="toggleNav"><i class="fa fa-bars"></i> Menu</a>
-    <ul>
-        <li><a href="/about" title="About">About me</a></li>
-        <li><a href="/main" title="Posts">Posts</a></li>
-        <li><a href="/friends" title="Friends">Friends</a></li>
-        <li><a href="#" title="Contact">Contact me</a></li>
-        <li><a href="#" title="Socials">Socials</a></li>
+        @if($userId != \Illuminate\Support\Facades\Auth::id())
+        <nav class="flex-nav" id="nav">
+            <a href="#" class="toggleNav"><i class="fa fa-bars"></i> Menu</a>
+            <ul>
+                <li><a href="/about" title="About">About me</a></li>
+                <li><a href="/main/{{ $userId }}" title="Posts">Posts</a></li>
+                <li><a href="/friends/{{ $userId }}" title="Friends">Friends</a></li>
+                <li><a href="#" title="Contact">Contact me</a></li>
+            </ul>
+        </nav>
+        @endif
 
-        <li class="social">
-            <a href="https://twitter.com/kato_katherine" title="Twitter"><i class="fa fa-twitter"></i></a>
-        </li>
-        <li class="social">
-            <a href="https://dribbble.com/kathykato" title="Dribbble"><i class="fa fa-dribbble"></i></a>
-        </li>
-        <li class="social">
-            <a href="https://github.com/kathykato" title="GitHub"><i class="fa fa-github"></i></a>
-        </li>
-        <li class="social">
-            <a href="https://www.instagram.com/kathy.kato" title="Instagram"><i class="fa fa-instagram"></i></a>
-        </li>
-    </ul>
-    </nav>
 </header>
 
 <body>
-@include('sidebar')
+    <div class="sidebar">
+        @include('sidebar')
+    </div>
 
-@yield('main_content')
-
+    <div class="main-content">
+        @yield('main_content')
+    </div>
 </body>
 
 <footer>
@@ -137,6 +129,16 @@
 
     header {
         border-bottom: 1px solid #e2e2e2;
+    }
+
+    .sidebar {
+        text-align: center;
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        overflow-y: auto; /* Добавлено для прокрутки, если содержимое боковой панели превышает высоту */
     }
 
     .flex-nav ul {

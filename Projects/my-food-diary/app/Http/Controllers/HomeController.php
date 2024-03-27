@@ -22,12 +22,15 @@ class HomeController extends Controller
 
         foreach ($friends as $friend) {
             $userId = $friend->user->id;
-            $friendPosts = Post::where('user_id', $userId)->get();
+            $friendPosts = Post::where('user_id', $userId)
+                ->get();
+
             $posts = $posts->merge($friendPosts);
         }
 
         $sortedPosts = $posts->sortByDesc('created_at');
+        $userId = Auth::id();
 
-        return view('home', ['posts' => $sortedPosts]);
+        return view('home', ['posts' => $sortedPosts, 'userId' => $userId]);
     }
 }

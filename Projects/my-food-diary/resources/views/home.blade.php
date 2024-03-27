@@ -9,7 +9,7 @@
                     <div class="instagram-post-avatar">
                         <img src="https://placehold.it/100x100">
                     </div>
-                    <div class="instagram-post-name">
+                    <a href="/main/{{ $post->user->id }}"><div class="instagram-post-name">
                         {{ $post->user->username }}
                     </div>
                     <div class="instagram-post-date">
@@ -19,7 +19,7 @@
                         <span class="th th-bookmark-1-o"></span>
                     </div>
                 </div>
-                <div class="instagram-post-image">
+                <a href="/post/{{$post->id}}"><div class="instagram-post-image">
                     <img src="{{ $photo->path }}">
                 </div>
                 <div class="instagram-post-bottom">

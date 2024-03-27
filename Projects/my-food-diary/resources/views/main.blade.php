@@ -1,4 +1,4 @@
-@extends('main_nav')    <a href="/post-creation"><button class="createPost">Create post</button>
+@extends('main_nav')
 @section('main_content')
 
     <div class="latest">
@@ -29,6 +29,7 @@
             <?php }; ?>
         </div>
     </div>
+
     @endsection
 
 <style>

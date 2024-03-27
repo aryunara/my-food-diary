@@ -20,9 +20,8 @@ class MainController extends Controller
         return view('about');
     }
 
-    public function getPosts()
+    public function getPosts($userId)
     {
-        $userId = Auth::id();
         $posts = Post::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
             ->get();
@@ -31,7 +30,7 @@ class MainController extends Controller
             return view('main', ['posts' => []]);
         }
 
-        return view('main', ['posts' => $posts]);
+        return view('main', ['posts' => $posts, 'userId' => $userId]);
     }
 
 }

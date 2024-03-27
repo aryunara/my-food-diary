@@ -19,13 +19,13 @@ Route::get('register', [CustomAuthController::class, 'registration'])->name('reg
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
-Route::get('main', [MainController::class, 'getPosts'])->name('main');
+Route::get('/main/{id}', [MainController::class, 'getPosts'])->name('main');
 Route::get('about', [MainController::class, 'about'])->name('about');
 Route::get('post-creation', [PostController::class, 'index'])->name('createPost');
 Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
 Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
 Route::get('/post/{id}', [PostController::class, 'getPostById'])->name('getPostInfo');
-Route::get('friends', [FriendController::class, 'getAll'])->name('friends');
+Route::get('/friends/{id}', [FriendController::class, 'getAll'])->name('friends');
 Route::post('find-user', [FriendController::class, 'findUser'])->name('findUser');
 Route::post('find-friend', [FriendController::class, 'findFriend'])->name('findFriend');
 Route::get('/add/{id}', [FriendController::class, 'create'])->name('createFriend');
