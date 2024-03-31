@@ -1,37 +1,66 @@
 @extends('main_nav')
 @section('main_content')
 
-<div class="photo-details">
-    <div class="photo"><img src="{{ $post->photo->path }}" /></div>
-    <div class="avatar"><img src="https://picsum.photos/50/50?image=12" /></div>
-    <div class="author">{{ $post->user->username }}</div>
-    <div class="date">{{ $post->created_at }}</div>
-    <div class="description">{{ $post->description }}</div>
-    <div class="like">&hearts;</div>
-
-    <div id="recipe" class="overlay">
-        <div class="popup">
-            @if(isset($post->recipe))
-                <h2>{{ $post->recipe->name }}</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    <p>Время приготовления: {{ $post->recipe->cooking_time }} мин.</p>
-                    <p>{{ $post->recipe->description }}</p>
-                </div>
-            @else
-                <h2>It's empty here!</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    <p>You can ask the author to add a recipe in the comments.</p>
-                </div>
-            @endif
+    <div class="photo-details">
+        <div class="photo">
+            <a href="#recipe" style="display: block; width: 100%; height: 100%;">
+                <img src="{{ $post->photo->path }}" style="width: 100%; height: 100%; object-fit: cover; overflow: hidden;">
+            </a>
+        </div>
+        <div class="avatar"><img src="https://picsum.photos/50/50?image=12" /></div>
+        <div class="author">{{ $post->user->username }}</div>
+        <div class="description">
+            <div class="commentBox">
+                <p class="taskDescription">{{ $post->description }}</p>
+            </div>
+            <div class="actionBox">
+                    <ul class="commentList">
+                        @php($comments = $post->comments)
+                        @foreach($comments as $comment)
+                        <li>
+                            <div class="commenterImage">
+                                <img src="http://placekitten.com/50/50" />
+                            </div>
+                            <div class="commentText">
+                                <span class="date sub-text">{{ $comment->user->username }} {{ $comment->created_at }}</span>
+                                <p class="">{{ $comment->text }}</p>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                <form class="form-inline" role="form" action="/add-comment" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <input class="form-control" type="text" placeholder="Your comment" name="text"/>
+                    </div>
+                    <input type="hidden" value="{{ $post->id }}" name="post_id" required>
+                    <input type="hidden" value="{{ \Illuminate\Support\Facades\Auth::id() }}" name="commentator_id" required>
+                    <div class="form-group">
+                        <button class="btn btn-default">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="date">{{ $post->created_at }}</div>
+        <div id="recipe" class="overlay">
+            <div class="popup">
+                @if(isset($post->recipe))
+                    <h2>{{ $post->recipe->name }}</h2>
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                        <p>Время приготовления: {{ $post->recipe->cooking_time }} мин.</p>
+                        <p>{{ $post->recipe->description }}</p>
+                    </div>
+                @else
+                    <h2>It's empty here!</h2>
+                    <a class="close" href="#">&times;</a>
+                    <div class="content">
+                        <p>You can ask the author to add a recipe in the comments.</p>
+                    </div>
+                @endif
+            </div>
         </div>
     </div>
-
-    <div class="button-container">
-        <p><a class="button" href="#recipe">Recipe</a></p>
-    </div>
-</div>
 
 @endsection
 
@@ -46,11 +75,72 @@
         margin: 0;
     }
 
+    /*comments*/
+    .titleBox label{
+        color:#444;
+        margin:0;
+        display:inline-block;
+    }
+
+    .commentBox {
+        padding:10px;
+        border-top:1px dotted #bbb;
+    }
+    .commentBox .form-group input[type="text"] {
+        width:80%;
+    }
+    .commentBox .form-group button {
+        margin-left: 10px;
+    }
+    .actionBox .form-group * {
+        width:100%;
+    }
+    .taskDescription {
+        margin-top:10px 0;
+    }
+    .commentList {
+        max-height: 300px; /* Установите максимальную высоту, которая вам подходит */
+        overflow: auto; /* Разрешить прокрутку при необходимости */
+        padding: 0; /* Уберите отступы, чтобы контейнер не выходил за границы */
+        list-style: none; /* Уберите маркеры списка */
+    }
+    .commentList li {
+        margin: 10px 0 0;
+        padding: 10px; /* Добавьте отступы вокруг каждого комментария */
+        background-color: #f9f9f9; /* Добавьте фоновый цвет для отделения комментариев */
+    }
+    .commentList li > div {
+        display:table-cell;
+    }
+    .commenterImage {
+        width:30px;
+        margin-right:5px;
+        height:100%;
+        float:left;
+    }
+    .commenterImage img {
+        width:100%;
+        border-radius:50%;
+    }
+    .commentText p {
+        margin:0;
+    }
+    .sub-text {
+        color:#aaa;
+        font-family:verdana;
+        font-size:11px;
+    }
+    .actionBox {
+        border-top:1px dotted #bbb;
+        padding:10px;
+    }
+
     .photo-details {
 
         /* grid */
 
-        width: 1500px;
+        width: 1400px; /* Устанавливаем ширину в 500 пикселей */
+        height: 700px; /* Устанавливаем высоту в 400 пикселей */
         display: grid;
         grid-template-columns: 50% min-content 1fr max-content;
         grid-template-rows: 0 min-content 1fr min-content;
@@ -88,6 +178,7 @@
 
         .author {
             grid-area: author;
+            margin-bottom: 10px;
         }
 
         .date {

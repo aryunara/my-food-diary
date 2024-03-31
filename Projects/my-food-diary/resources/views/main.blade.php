@@ -43,13 +43,12 @@
         display: table;
     }
 
-    .latest {
-        background-color: fafafa;
-    }
-
     .container {
         max-width: 1200px;
         margin: 70px auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Это создаст 3 равные колонки */
+        gap: 10px; /* Пространство между колонками */
     }
 
     .section-title {
@@ -61,8 +60,8 @@
     }
 
     .col-3 {
-        float: left;
-        width: calc(100% / 3);
+        /*float: left;*/
+        /*width: calc(100% / 3);*/
         box-sizing: border-box;
         padding: 0 15px;
     }
