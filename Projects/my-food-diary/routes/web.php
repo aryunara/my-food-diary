@@ -25,7 +25,8 @@ Route::get('post-creation', [PostController::class, 'index'])->name('createPost'
 Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
 Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
 Route::get('/post/{id}', [PostController::class, 'getPostById'])->name('getPostInfo');
-Route::get('/friends/{id}', [FriendController::class, 'getAll'])->name('friends');
+Route::get('/friendlist/{id}', [FriendController::class, 'getFriendList'])->name('friendlist');
+Route::get('friends', [FriendController::class, 'getAll'])->name('friends');
 Route::post('find-user', [FriendController::class, 'findUser'])->name('findUser');
 Route::post('find-friend', [FriendController::class, 'findFriend'])->name('findFriend');
 Route::get('/add/{id}', [FriendController::class, 'create'])->name('createFriend');

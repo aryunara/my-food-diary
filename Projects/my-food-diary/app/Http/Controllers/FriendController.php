@@ -13,19 +13,32 @@ class FriendController extends Controller
 {
     public function index()
     {
-        return view('friends');
+        return view('friendlist');
     }
 
-    public function getAll($userId)
+    public function getAll()
+    {
+        $userId = Auth::id();
+        $friends = Friend::where('user_id', $userId)
+            ->get();
+
+        if (!$friends->count()) {
+            return view('friends', ['friends' => [], 'userId' => $userId]);
+        }
+
+        return view('friends', ['friends' => $friends, 'userId' => $userId]);
+    }
+
+    public function getFriendList($userId)
     {
         $friends = Friend::where('user_id', $userId)
             ->get();
 
         if (!$friends->count()) {
-            return view('friends', ['friends' => []]);
+            return view('friendlist', ['friends' => [], 'userId' => $userId]);
         }
 
-        return view('friends', ['friends' => $friends, 'userId' => $userId]);
+        return view('friendlist', ['friends' => $friends, 'userId' => $userId]);
     }
 
     public function findFriend(Request $request)
@@ -34,7 +47,7 @@ class FriendController extends Controller
         $friend = User::where('username', $data['find-friend'])
             ->first();
 
-        return view('friends', ['friend' => $friend]);
+        return view('friends', ['friend' => $friend, 'userId' => Auth::id()]);
     }
 
     public function findUser(Request $request)
@@ -48,17 +61,21 @@ class FriendController extends Controller
             ->get();
 
         if (!$friends->count()) {
-            return view('friends', ['user' => $user, 'friends' => []]);
+            return view('friends', ['user' => $user, 'friends' => [], 'userId' => $userId]);
         }
 
-        return view('friends', ['user' => $user, 'friends' => $friends]);
+        return view('friends', ['user' => $user, 'friends' => $friends, 'userId' => $userId]);
     }
 
     public function create($friendId)
     {
-//        if (Friend::where('friend_id', $friendId)) {
-//            return 'Error';
-//        }
+        if (Friend::where('user_id', Auth::id())
+            ->where('friend_id', $friendId)
+            ->get()
+            ->count()) {
+            return 'Error';
+        }
+
         FriendRequest::create([
             'sender_id' => Auth::id(),
             'receiver_id' => $friendId,

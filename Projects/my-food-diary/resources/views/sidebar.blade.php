@@ -11,7 +11,7 @@
                 <i class="menu__icon fa fa-home"></i>
                 <span class="menu__text">HOME</span>
             </a>
-            <a class="menu__item menu__item--active" href="/friends/{{\Illuminate\Support\Facades\Auth::id()}}">
+            <a class="menu__item menu__item--active" href="/friends">
                 <i class="menu__icon fa fa-calendar"></i>
                 <span class="menu__text">FRIENDS</span>
             </a>

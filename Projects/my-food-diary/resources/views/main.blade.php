@@ -11,18 +11,15 @@
 
                     <div class="col-3">
                         <div class="post">
-                            <a href="/post/{{$post->id}}"><img class="image" src="{{$photo->path}}" alt="send"></a>
+                            <a href="/post/{{ $post->id }}"><img class="image" src="{{ $photo->path }}" alt="send"></a>
 
-                            <div class="description">
-                                <div class="post-title">
-                                    <a href="/post/{{$post->id}}"><h2>{{$post->description}}</h2></a>
-                                </div>
-                                <div class="info">
-                                    <div class="author">
-                                        <span class="date"><h6>{{$post->created_at}}</h6></span>
-                                    </div>
-                                </div>
-                            </div>
+{{--                            <div class="description">--}}
+{{--                                <div class="info">--}}
+{{--                                    <div class="author">--}}
+{{--                                        <span class="date"><h6>{{ $post->created_at }}</h6></span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </div>
                     </div>
             @endforeach

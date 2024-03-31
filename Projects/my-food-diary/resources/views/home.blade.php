@@ -11,7 +11,7 @@
                     </div>
                     <a href="/main/{{ $post->user->id }}"><div class="instagram-post-name">
                         {{ $post->user->username }}
-                    </div>
+                    </div></a>
                     <div class="instagram-post-date">
                         {{ $post->created_at }}
                     </div>
@@ -21,22 +21,14 @@
                 </div>
                 <a href="/post/{{$post->id}}"><div class="instagram-post-image">
                     <img src="{{ $photo->path }}">
-                </div>
+                    </div></a>
                 <div class="instagram-post-bottom">
                     <div class="instagram-post-desc">
                         {{ $post->description }}
                     </div>
-                </div>
-                <div class="instagram-post-icons">
-                    <span class="th th-heart-1-o"></span>
-                    <span class="th th-chat-bubble-o"></span>
-                    <span class="th th-share-o"></span>
-                </div>
-                <div class="instagram-post-likes">
-                    2300 <span>likes</span>
-                </div>
-                <div class="instagram-post-comment">
-                    <div>Add a comment <span>∙∙∙</span></div>
+                    <div class="instagram-post-comment">
+                        <div>Add a comment <span>∙∙∙</span></div>
+                    </div>
                 </div>
             </div>
     </div>

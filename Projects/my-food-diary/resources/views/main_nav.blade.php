@@ -1,17 +1,15 @@
 <header class="top">
     <h1><a href="/home" title="home">MY FOOD DIARY</a></h1>
 
-        @if($userId != \Illuminate\Support\Facades\Auth::id())
         <nav class="flex-nav" id="nav">
             <a href="#" class="toggleNav"><i class="fa fa-bars"></i> Menu</a>
             <ul>
                 <li><a href="/about" title="About">About me</a></li>
                 <li><a href="/main/{{ $userId }}" title="Posts">Posts</a></li>
-                <li><a href="/friends/{{ $userId }}" title="Friends">Friends</a></li>
+                <li><a href="/friendlist/{{ $userId }}" title="Friends">Friends</a></li>
                 <li><a href="#" title="Contact">Contact me</a></li>
             </ul>
         </nav>
-        @endif
 
 </header>
 

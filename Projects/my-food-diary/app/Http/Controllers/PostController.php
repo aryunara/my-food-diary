@@ -6,13 +6,15 @@ use App\Http\Requests\PostRequest;
 use App\Models\Photo;
 use App\Models\Post;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
 
     public function index()
     {
-        return view('post');
+        $userId = Auth::id();
+        return view('post', ['userId' => $userId]);
     }
 
     public function create(PostRequest $request)
@@ -47,7 +49,7 @@ class PostController extends Controller
             ]);
         }
 
-        return redirect("/main")->withSuccess('You have created the post');
+        return redirect("/main/$userId")->withSuccess('You have created the post');
     }
 
     public function getPostById($postId)
