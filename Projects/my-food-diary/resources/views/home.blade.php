@@ -1,9 +1,8 @@
 @extends('main_nav')
 @section('main_content')
 
-    <div class="instagram-post">
-        @foreach($posts as $post)
-                <?php $photo = $post->photo; ?>
+    @foreach($posts as $post)
+        @php($photo = $post->photo)
             <div class="instagram-post">
                 <div class="instagram-post-top">
                     <div class="instagram-post-avatar">
@@ -15,23 +14,30 @@
                     <div class="instagram-post-date">
                         {{ $post->created_at }}
                     </div>
-                    <div class="instagram-post-bookmark">
-                        <span class="th th-bookmark-1-o"></span>
-                    </div>
                 </div>
                 <a href="/post/{{$post->id}}"><div class="instagram-post-image">
                     <img src="{{ $photo->path }}">
                     </div></a>
                 <div class="instagram-post-bottom">
+                    <div class="likes">
+                        <a href="/like/{{ $post->id }}"></a><img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png">
+                        <span>{{ \App\Models\Like::where('post_id', $post->id)->count() }}</span>
+                        <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
+                        <span>{{ \App\Models\Comment::where('post_id', $post->id)->count() }}</span>
+                    </div>
                     <div class="instagram-post-desc">
                         {{ $post->description }}
                     </div>
-                    <div class="instagram-post-comment">
-                        <div>Add a comment <span>∙∙∙</span></div>
-                    </div>
+{{--                    <div class="buttons">--}}
+{{--                        <div class="like">--}}
+{{--                            <img src="https://cdn.iconscout.com/icon/free/png-256/like-1767386-1505250.png"> Like--}}
+{{--                        </div>--}}
+{{--                        <div class="comment">--}}
+{{--                            <img src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png"> Comment--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
-    </div>
     @endforeach
 
 @endsection
@@ -83,7 +89,7 @@
     .instagram-post {
         position: relative;
         height: 600px;
-        width: 440px;
+        width: 540px;
         margin: 0 auto;
         background-color: #ffffff;
         overflow: hidden;
@@ -98,42 +104,35 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        height: 40px;
-        width: 40px;
+        height: 50px;
+        width: 50px;
         overflow: hidden;
         border-radius: 100%;
     }
     .instagram-post-name {
         position: absolute;
-        top: 16px;
-        left: 60px;
+        top: 25px;
+        left: 70px;
         font-family: montserrat alternates;
         text-transform: lowercase;
         font-weight: bold;
         color: #909090;
-        font-size: 12px;
+        font-size: 16px;
     }
     .instagram-post-date {
         position: absolute;
-        right: 56px;
-        top: 25px;
+        right: 5px;
+        top: 30px;
         font-family: montserrat alternates;
-        font-size: 8px;
+        font-size: 12px;
         font-weight: bold;
         color: #bebebe;
-    }
-    .instagram-post-bookmark {
-        position: absolute;
-        right: 20px;
-        top: 18px;
-        font-size: 24px;
-        color: #cecece;
     }
     .instagram-post-image {
         position: relative;
     }
     .instagram-post-image img {
-        max-width: 440px;
+        max-width: 540px;
         min-width: 440px;
         max-height: 370px;
         min-height: 370px;
@@ -144,74 +143,65 @@
     }
     .instagram-post-desc {
         position: relative;
-        width: 350px;
-        height: 50px;
-        margin: 20px auto 0 auto;
-        border-bottom: 1px solid #dedede;
-        overflow: hidden;
+        margin: 20px;
     }
     .instagram-post-desc div {
         position: relative;
         font-family: montserrat;
-        font-size: 10px;
+        font-size: 14px;
         color: #707070;
-    }
-    .instagram-post-desc div name {
-        display: inline-block;
-        margin-right: 3px;
-        font-family: montserrat alternates;
-        font-size: 12px;
-        font-weight: bold;
-        color: #e1cbcf;
     }
     .instagram-post-desc div i {
         color: #e1cbcf;
     }
-    .instagram-post-icons {
-        position: absolute;
-        width: 200px;
-        height: 30px;
-        left: 44px;
-        margin-top: 10px;
-        overflow: hidden;
+    /*likes and comms*/
+    .likes {
+        cursor: pointer;
     }
-    .instagram-post-icons span {
-        display: inline-block;
-        margin-right: 8px;
-        font-size: 20px;
-        color: #cecece;
-    }
-    .instagram-post-likes {
-        position: absolute;
-        right: 50px;
-        margin-top: 13px;
-        text-align: right;
-        font-family: montserrat alternates;
-        font-size: 12px;
-        font-weight: bold;
-        color: #aeaeae;
-    }
-    .instagram-post-likes span {
-        color: #e1cbcf;
-    }
-    .instagram-post-comment {
+
+    .likes > .love-icon {
         position: relative;
-        width: 350px;
-        height: 20px;
-        padding-top: 18px;
-        margin: 40px auto 0 auto;
-        border-top: 1px solid #dedede;
+        top: -4px;
+        width: 16px;
+        margin-left: 10px;
     }
-    .instagram-post-comment div {
-        font-family: montserrat;
-        font-size: 12px;
-        color: #909090;
+    .likes > .comment-icon {
+        position: relative;
+        top: -4px;
+        width: 16px;
+        margin-left: 10px;
     }
-    .instagram-post-comment div span {
-        display: inline-block;
-        position: absolute;
-        right: 0px;
-        margin-top: -10px;
-        font-size: 30px;
+
+    .likes > span {
+        position: relative;
+        top: -7px;
     }
+    .buttons {
+        display: flex;
+        margin-top: 4px;
+        border-width: 1px;
+        border-color: #ddd;
+        border-style: solid none;
+    }
+
+    .buttons img {
+        width: 20px;
+        opacity: 0.5;
+        margin-right: 4px;
+    }
+
+    .like,
+    .comment {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        padding: 8px;
+    }
+
+    .like:hover,
+    .comment:hover {
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
 </style>

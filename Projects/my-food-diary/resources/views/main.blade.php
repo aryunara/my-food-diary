@@ -12,14 +12,6 @@
                     <div class="col-3">
                         <div class="post">
                             <a href="/post/{{ $post->id }}"><img class="image" src="{{ $photo->path }}" alt="send"></a>
-
-{{--                            <div class="description">--}}
-{{--                                <div class="info">--}}
-{{--                                    <div class="author">--}}
-{{--                                        <span class="date"><h6>{{ $post->created_at }}</h6></span>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
                     </div>
             @endforeach
@@ -44,7 +36,7 @@
     }
 
     .container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 70px auto;
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* Это создаст 3 равные колонки */
@@ -60,8 +52,6 @@
     }
 
     .col-3 {
-        /*float: left;*/
-        /*width: calc(100% / 3);*/
         box-sizing: border-box;
         padding: 0 15px;
     }

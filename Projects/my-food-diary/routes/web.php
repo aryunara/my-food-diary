@@ -37,3 +37,4 @@ Route::get('/decline/{id}', [FriendRequestController::class, 'decline'])->name('
 Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest');
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
 Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment');
+Route::get('/like/{id}', [\App\Http\Controllers\LikeController::class, 'create'])->name('addLike');
