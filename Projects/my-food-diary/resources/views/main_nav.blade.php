@@ -7,7 +7,7 @@
                 <li><a href="/about" title="About">About me</a></li>
                 <li><a href="/main/{{ $userId }}" title="Posts">Posts</a></li>
                 <li><a href="/friendlist/{{ $userId }}" title="Friends">Friends</a></li>
-                <li><a href="#" title="Contact">Contact me</a></li>
+                <li><a href="/message/{{ $userId }}" title="Message me">Message me</a></li>
             </ul>
         </nav>
 

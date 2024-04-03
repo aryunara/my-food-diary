@@ -21,9 +21,9 @@
                 <div class="instagram-post-bottom">
                     <div class="likes">
                         <a href="/like/{{ $post->id }}"></a><img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png">
-                        <span>{{ \App\Models\Like::where('post_id', $post->id)->count() }}</span>
+                        <span>{{ $post->likes->count() }}</span>
                         <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
-                        <span>{{ \App\Models\Comment::where('post_id', $post->id)->count() }}</span>
+                        <span>{{ $post->comments->count() }}</span>
                     </div>
                     <div class="instagram-post-desc">
                         {{ $post->description }}

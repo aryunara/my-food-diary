@@ -15,7 +15,7 @@
                 <i class="menu__icon fa fa-calendar"></i>
                 <span class="menu__text">FRIENDS</span>
             </a>
-            <a class="menu__item" href="#">
+            <a class="menu__item" href="/messages">
                 <i class="menu__icon fa fa-bar-chart"></i>
                 <span class="menu__text">MESSAGES</span>
             </a>

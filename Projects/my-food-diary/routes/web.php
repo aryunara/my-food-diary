@@ -38,3 +38,6 @@ Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('ca
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
 Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment');
 Route::get('/like/{id}', [\App\Http\Controllers\LikeController::class, 'create'])->name('addLike');
+Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages');
+Route::get('/dialog/{id}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
+
