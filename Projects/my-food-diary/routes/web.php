@@ -39,5 +39,6 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->n
 Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment');
 Route::get('/like/{id}', [\App\Http\Controllers\LikeController::class, 'create'])->name('addLike');
 Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages');
-Route::get('/dialog/{id}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
+Route::get('/dialog/{id}{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
+Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);
 
