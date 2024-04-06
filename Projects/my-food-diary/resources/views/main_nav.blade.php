@@ -7,7 +7,7 @@
                 <li><a href="/about" title="About">About me</a></li>
                 <li><a href="/main/{{ $userId }}" title="Posts">Posts</a></li>
                 <li><a href="/friendlist/{{ $userId }}" title="Friends">Friends</a></li>
-                <li><a href="/message/{{ $userId }}" title="Message me">Message me</a></li>
+                <li><a href="/dialog/{{ \Illuminate\Support\Facades\Auth::id() }}/{{ $userId }}" title="Message me">Message me</a></li>
             </ul>
         </nav>
 

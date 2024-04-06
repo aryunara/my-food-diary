@@ -13,12 +13,14 @@ class MessageController extends Controller
     {
         $userId = Auth::id();
 
-        $friends = User::whereIn('id', function ($query) {
+        $friends = User::whereIn('id', function ($query) use ($userId) {
             $query->select('sender_id')
                 ->from('messages')
+                ->where('recipient_id', $userId)
                 ->union(
                     Message::select('recipient_id')
                         ->from('messages')
+                        ->where('sender_id', $userId)
                 );
         })
             ->whereNotIn('id', [$userId])
@@ -32,13 +34,14 @@ class MessageController extends Controller
     {
         $user = Auth::user();
 
-        $friends = User::whereIn('id', function ($query) {
+        $friends = User::whereIn('id', function ($query) use ($userId) {
             $query->select('sender_id')
                 ->from('messages')
-                ->where('sender_id')
+                ->where('recipient_id', $userId)
                 ->union(
                     Message::select('recipient_id')
                         ->from('messages')
+                        ->where('sender_id', $userId)
                 );
         })
             ->whereNotIn('id', [$userId])
@@ -70,6 +73,6 @@ class MessageController extends Controller
             'text_changed' => false
         ]);
 
-        return redirect("/dialog/$userId$friendId");
+        return redirect("/dialog/$userId/$friendId");
     }
 }

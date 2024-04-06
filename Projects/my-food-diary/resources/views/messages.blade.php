@@ -8,7 +8,8 @@
         </header>
         <ul>
             @foreach($friends as $friend)
-                <a href="/dialog/{{\Illuminate\Support\Facades\Auth::id()}}{{$friend->id}}"><li>
+                <li>
+                <a href="/dialog/{{\Illuminate\Support\Facades\Auth::id()}}/{{$friend->id}}">
                     <div>
                         <h2>{{ $friend->username }}</h2>
                         <h3>
@@ -16,7 +17,8 @@
                             offline
                         </h3>
                     </div>
-                </li></a>
+                </a>
+                </li>
             @endforeach
         </ul>
     </aside>
@@ -61,7 +63,7 @@
                         <li class="you">
                             <div class="entete">
                                 <span class="status green"></span>
-                                <h2>{{ $message->recipient->username }}</h2>
+                                <h2>{{ $message->sender->username }}</h2>
                                 <h3>{{ $message->created_at->format('h:iA, M d') }}</h3>
                             </div>
                             <div class="message">
@@ -108,7 +110,7 @@
     aside {
         width: 300px;
         height: 750px;
-        background-color: #3b3e49;
+        background-color: #517f57;
         display: inline-block;
         font-size: 15px;
         vertical-align: top;
@@ -129,7 +131,7 @@
         height: 40px;
         line-height: 50px;
         padding: 0 50px 0 20px;
-        background-color: #5e616a;
+        background-color: #315a37;
         border: none;
         border-radius: 3px;
         color: #fff;
@@ -142,18 +144,20 @@
         color: #fff;
     }
     aside ul {
-        padding-left: 0;
-        margin: 0;
-        list-style-type: none;
-        overflow-y: scroll;
-        height: 650px;
+        padding-left:0;
+        margin:0;
+        list-style-type:none;
+        overflow-y:scroll;
+        height:690px;
     }
-    aside li {
-        padding: 10px 20px;
+    aside li a {
+        padding:10px 10px;
+        background-color: #517f57;
     }
-    aside li:hover {
-        background-color: #5e616a;
+    aside li:hover a {
+        background-color: #315a37;
     }
+
     h2,
     h3 {
         margin: 0;
@@ -234,6 +238,7 @@
         list-style-type: none;
         overflow-y: scroll;
         height: 500px;
+        max-width: 1400px;
         border-top: 2px solid #fff;
         border-bottom: 2px solid #fff;
     }
@@ -264,11 +269,14 @@
     #chat .me {
         text-align: right;
     }
+
     #chat .you .message {
         background-color: #58b666;
+        max-width: 100%;
     }
     #chat .me .message {
         background-color: #6fbced;
+        max-width: 100%;
     }
     #chat .triangle {
         width: 0;
