@@ -15,7 +15,9 @@ class HomeController extends Controller
 
     public function getFeed()
     {
-        $friends = Friend::where('user_id', Auth::id())
+        $userId = Auth::id();
+
+        $friends = Friend::where('user_id', $userId)
             ->get();
 
         $posts = collect();
@@ -29,7 +31,6 @@ class HomeController extends Controller
         }
 
         $sortedPosts = $posts->sortByDesc('created_at');
-        $userId = Auth::id();
 
         return view('home', ['posts' => $sortedPosts, 'userId' => $userId]);
     }

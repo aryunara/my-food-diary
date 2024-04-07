@@ -17,7 +17,7 @@
 
             <form action="/post-creation" method="POST">
                 @csrf
-                <input type="hidden" value="{{Auth::id()}}" name="user_id" required>
+                <input type="hidden" value="{{ Auth::id() }}" name="user_id" required>
                     @error('user_id')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

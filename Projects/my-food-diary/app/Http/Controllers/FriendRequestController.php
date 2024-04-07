@@ -11,6 +11,7 @@ class FriendRequestController extends Controller
     public function getAll()
     {
         $userId = Auth::id();
+
         $received_rs = FriendRequest::where('receiver_id', $userId)
             ->where('status', 'created')
             ->get();
@@ -24,14 +25,16 @@ class FriendRequestController extends Controller
 
     public function accept($friendId, $id)
     {
+        $userId = Auth::id();
+
         Friend::create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId,
             'friend_id' => $friendId
         ]);
 
         Friend::create([
             'user_id' => $friendId,
-            'friend_id' => Auth::id()
+            'friend_id' => $userId
         ]);
 
         FriendRequest::find($id)

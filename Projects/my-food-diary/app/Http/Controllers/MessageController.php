@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessageRequest;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -48,12 +49,12 @@ class MessageController extends Controller
             ->distinct()
             ->get();
 
-        $dialog = Message::where(function ($query) use ($friendId) {
-            $query->where('sender_id', '=', Auth::id())
+        $dialog = Message::where(function ($query) use ($friendId, $userId) {
+            $query->where('sender_id', '=', $userId)
                 ->orWhere('sender_id', '=', $friendId);
         })
-            ->where(function ($query) use ($friendId) {
-            $query->where('recipient_id', '=', Auth::id())
+            ->where(function ($query) use ($friendId, $userId) {
+            $query->where('recipient_id', '=', $userId)
                 ->orWhere('recipient_id', '=', $friendId);
         })
             ->orderBy('created_at')
@@ -62,15 +63,17 @@ class MessageController extends Controller
         return view('messages', ['userId' => $userId, 'user' => $user, 'dialog' => $dialog, 'friends' => $friends, 'friendId' => $friendId]);
     }
 
-    public function create(Request $request)
+    public function create(MessageRequest $request)
     {
-        $userId = $request['sender_id'];
-        $friendId = $request['recipient_id'];
+        $data = $request->validated();
+
+        $userId = $data['sender_id'];
+        $friendId = $data['recipient_id'];
 
         Message::create([
-            'sender_id' => $request['sender_id'],
-            'recipient_id' => $request['recipient_id'],
-            'text' => $request['text'],
+            'sender_id' => $userId,
+            'recipient_id' => $friendId,
+            'text' => $data['text'],
             'text_changed' => false
         ]);
 

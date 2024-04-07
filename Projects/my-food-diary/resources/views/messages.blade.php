@@ -77,9 +77,18 @@
         <footer>
             <form action="/send-message" method="POST">
                 @csrf
+                    @error('text')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 <textarea placeholder="Type your message" name="text"></textarea>
                 <input type="hidden" value="{{ \Illuminate\Support\Facades\Auth::id() }}" name="sender_id" required>
+                    @error('sender_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 <input type="hidden" value="{{ $friendId }}" name="recipient_id" required>
+                    @error('recipient_id')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 <button class="btn btn-default">Send</button>
             </form>
         </footer>
@@ -295,14 +304,14 @@
 
     main footer {
         height: 155px;
-        padding: 0px 30px 10px 20px;
+        padding: 0px 10px 60px 20px;
         background-color: #fcfbfc;
     }
     main footer textarea {
         resize: none;
         border: none;
         display: block;
-        width: 100%;
+        width: 95%;
         height: 60px;
         border-radius: 3px;
         padding: 20px;
@@ -312,19 +321,20 @@
     main footer textarea::placeholder {
         color: #101010;
     }
-    main footer img {
-        height: 30px;
-        cursor: pointer;
-    }
-    main footer a {
+
+    main footer .btn-default {
         text-decoration: none;
         text-transform: uppercase;
         font-weight: bold;
-        color: #6fbced;
+        color: #222222;
         vertical-align: top;
-        margin-left: 333px;
-        margin-top: -20px;
+        margin-left: 910px;
+        margin-top: -50px;
         display: inline-block;
+    }
+
+    main footer .text-danger {
+        color: #c21c24;
     }
 
 </style>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Following;
 use App\Models\Friend;
 use App\Models\FriendRequest;
 use App\Models\User;
@@ -19,6 +18,7 @@ class FriendController extends Controller
     public function getAll()
     {
         $userId = Auth::id();
+
         $friends = Friend::where('user_id', $userId)
             ->get();
 
@@ -44,6 +44,7 @@ class FriendController extends Controller
     public function findFriend(Request $request)
     {
         $data = $request->all();
+
         $friend = User::where('username', $data['find-friend'])
             ->first();
 
@@ -53,10 +54,11 @@ class FriendController extends Controller
     public function findUser(Request $request)
     {
         $data = $request->all();
+        $userId = Auth::id();
+
         $user = User::where('username', $data['find-user'])
             ->first();
 
-        $userId = Auth::id();
         $friends = Friend::where('user_id', $userId)
             ->get();
 
@@ -69,7 +71,9 @@ class FriendController extends Controller
 
     public function create($friendId)
     {
-        if (Friend::where('user_id', Auth::id())
+        $userId = Auth::id();
+
+        if (Friend::where('user_id', $userId)
             ->where('friend_id', $friendId)
             ->get()
             ->count()) {
@@ -77,7 +81,7 @@ class FriendController extends Controller
         }
 
         FriendRequest::create([
-            'sender_id' => Auth::id(),
+            'sender_id' => $userId,
             'receiver_id' => $friendId,
             'status' => 'created'
         ]);
@@ -87,12 +91,14 @@ class FriendController extends Controller
 
     public function delete($friendId)
     {
-        Friend::where('user_id', Auth::id())
+        $userId = Auth::id();
+
+        Friend::where('user_id', $userId)
             ->where('friend_id', $friendId)
             ->delete();
 
         Friend::where('user_id', $friendId)
-            ->where('friend_id', Auth::id())
+            ->where('friend_id', $userId)
             ->delete();
 
         return redirect("/friends");

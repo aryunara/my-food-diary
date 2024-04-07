@@ -7,8 +7,11 @@
                 <img src="{{ $post->photo->path }}" style="width: 100%; height: 100%; object-fit: cover; overflow: hidden;">
             </a>
         </div>
+
         <div class="avatar"><img src="https://picsum.photos/50/50?image=12" /></div>
+
         <div class="author">{{ $post->user->username }}</div>
+
         <div class="description">
             <div class="commentBox">
                 <p class="taskDescription">{{ $post->description }}</p>
@@ -38,17 +41,28 @@
                 <form class="form-inline" role="form" action="/add-comment" method="POST">
                     @csrf
                     <div class="form-group">
+                        @error('text')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                         <input class="form-control" type="text" placeholder="Your comment" name="text"/>
                     </div>
                     <input type="hidden" value="{{ $post->id }}" name="post_id" required>
+                        @error('post_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     <input type="hidden" value="{{ \Illuminate\Support\Facades\Auth::id() }}" name="commentator_id" required>
+                        @error('commentator_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     <div class="form-group">
                         <button class="btn btn-default">Add</button>
                     </div>
                 </form>
             </div>
         </div>
+
         <div class="date">{{ $post->created_at }}</div>
+
         <div id="recipe" class="overlay">
             <div class="popup">
                 @if(isset($post->recipe))
@@ -67,6 +81,7 @@
                 @endif
             </div>
         </div>
+
     </div>
 
 @endsection
@@ -87,6 +102,10 @@
         color:#444;
         margin:0;
         display:inline-block;
+    }
+
+    .text-danger {
+        color: #c21c24;
     }
 
     .commentBox {

@@ -22,7 +22,7 @@ class LikeController extends Controller
         } else {
             Like::create([
                 'post_id' => $postId,
-                'liker_id' => Auth::id(),
+                'liker_id' => $likerId,
             ]);
         }
 
@@ -44,7 +44,7 @@ class LikeController extends Controller
         } else {
             Like::create([
                 'post_id' => $postId,
-                'liker_id' => Auth::id(),
+                'liker_id' => $likerId,
             ]);
         }
 

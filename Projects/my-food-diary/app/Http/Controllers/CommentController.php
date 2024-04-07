@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
-use App\Models\Post;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function create(Request $request)
+    public function create(CommentRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $postId = $data['post_id'];
 
         Comment::create([
