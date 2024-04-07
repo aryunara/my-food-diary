@@ -20,7 +20,7 @@ Route::post('custom-registration', [CustomAuthController::class, 'customRegistra
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 Route::get('/main/{id}', [MainController::class, 'getPosts'])->name('main');
-Route::get('about', [MainController::class, 'about'])->name('about');
+Route::get('about', [\App\Http\Controllers\AboutController::class, 'index'])->name('about');
 Route::get('post-creation', [PostController::class, 'index'])->name('createPost');
 Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
 Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
@@ -37,7 +37,8 @@ Route::get('/decline/{id}', [FriendRequestController::class, 'decline'])->name('
 Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest');
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
 Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment');
-Route::get('/like/{id}', [\App\Http\Controllers\LikeController::class, 'create'])->name('addLike');
+Route::get('/like-feed/{id}', [\App\Http\Controllers\LikeController::class, 'addToFeed'])->name('addOnFeedPage');
+Route::get('/like-post/{id}', [\App\Http\Controllers\LikeController::class, 'addToPost'])->name('addOnPostPage');
 Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages');
 Route::get('/dialog/{id}/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
 Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);

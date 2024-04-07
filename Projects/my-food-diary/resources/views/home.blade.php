@@ -20,22 +20,16 @@
                     </div></a>
                 <div class="instagram-post-bottom">
                     <div class="likes">
-                        <a href="/like/{{ $post->id }}"></a><img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png">
+                        <a href="/like-feed/{{ $post->id }}" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">
+                            <img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png"></a>
                         <span>{{ $post->likes->count() }}</span>
-                        <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
+                        <a href="/post/{{ $post->id }}" style="position: relative; top: -4.5px; left: 5px; width: 27px;">
+                            <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png"></a>
                         <span>{{ $post->comments->count() }}</span>
                     </div>
                     <div class="instagram-post-desc">
                         {{ $post->description }}
                     </div>
-{{--                    <div class="buttons">--}}
-{{--                        <div class="like">--}}
-{{--                            <img src="https://cdn.iconscout.com/icon/free/png-256/like-1767386-1505250.png"> Like--}}
-{{--                        </div>--}}
-{{--                        <div class="comment">--}}
-{{--                            <img src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png"> Comment--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                 </div>
             </div>
     @endforeach
@@ -90,10 +84,12 @@
         position: relative;
         height: 600px;
         width: 540px;
-        margin: 0 auto;
+        margin: 10px auto;
         background-color: #ffffff;
         overflow: hidden;
         cursor: default;
+        font-family: "Roboto";
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1), 0 6px 50px 0 rgba(0, 0, 0, 0.1);
     }
     .instagram-post-top {
         position: relative;
@@ -143,7 +139,8 @@
     }
     .instagram-post-desc {
         position: relative;
-        margin: 20px;
+        margin-top: -5px;
+        margin-left: 20px;
     }
     .instagram-post-desc div {
         position: relative;
@@ -157,6 +154,7 @@
     /*likes and comms*/
     .likes {
         cursor: pointer;
+        margin-top: -15px;
     }
 
     .likes > .love-icon {

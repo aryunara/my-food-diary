@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function create($postId)
+    public function addToFeed($postId)
     {
         $likerId = Auth::id();
 
@@ -26,6 +26,28 @@ class LikeController extends Controller
             ]);
         }
 
-        return redirect("home");
+        return redirect("/home");
+    }
+
+    public function addToPost($postId)
+    {
+        $likerId = Auth::id();
+
+        if (Like::where('post_id', $postId)
+            ->where('liker_id', $likerId)
+            ->get()
+            ->count())
+        {
+            Like::where('post_id', $postId)
+                ->where('liker_id', $likerId)
+                ->delete();
+        } else {
+            Like::create([
+                'post_id' => $postId,
+                'liker_id' => Auth::id(),
+            ]);
+        }
+
+        return redirect("/post/$postId");
     }
 }

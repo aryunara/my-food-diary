@@ -51,7 +51,8 @@ class MessageController extends Controller
         $dialog = Message::where(function ($query) use ($friendId) {
             $query->where('sender_id', '=', Auth::id())
                 ->orWhere('sender_id', '=', $friendId);
-        })->where(function ($query) use ($friendId) {
+        })
+            ->where(function ($query) use ($friendId) {
             $query->where('recipient_id', '=', Auth::id())
                 ->orWhere('recipient_id', '=', $friendId);
         })

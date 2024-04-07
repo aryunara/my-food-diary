@@ -36,7 +36,7 @@
     }
 
     .container {
-        max-width: 1400px;
+        max-width: 1300px;
         margin: 70px auto;
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* Это создаст 3 равные колонки */

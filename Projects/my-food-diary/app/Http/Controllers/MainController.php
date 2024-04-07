@@ -15,11 +15,6 @@ class MainController extends Controller
         return view('main');
     }
 
-    public function about()
-    {
-        return view('about');
-    }
-
     public function getPosts($userId)
     {
         $posts = Post::where('user_id', $userId)

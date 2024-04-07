@@ -13,6 +13,13 @@
             <div class="commentBox">
                 <p class="taskDescription">{{ $post->description }}</p>
             </div>
+            <div class="likes">
+                <a href="/like-post/{{ $post->id }}" style="position: relative; top: -1px; right: 5px; width: 28px; margin-left: 10px;">
+                    <img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png"></a>
+                <span>{{ $post->likes->count() }}</span>
+                <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
+                <span>{{ $post->comments->count() }}</span>
+            </div>
             <div class="actionBox">
                     <ul class="commentList">
                         @php($comments = $post->comments)
@@ -192,9 +199,26 @@
             padding-left: 10px; /* Добавляем отступ слева */
         }
 
-        .like {
-            grid-area: like;
-            justify-self: right;
+        .likes {
+            cursor: pointer;
+        }
+
+        .likes > a .love-icon {
+            position: relative;
+            top: -4px;
+            width: 16px;
+            margin-left: 10px;
+        }
+        .likes > .comment-icon {
+            position: relative;
+            top: -4px;
+            width: 16px;
+            margin-left: 10px;
+        }
+
+        .likes > span {
+            position: relative;
+            top: -7px;
         }
 
         /* styling */

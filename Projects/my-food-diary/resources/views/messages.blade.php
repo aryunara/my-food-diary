@@ -110,7 +110,7 @@
     aside {
         width: 300px;
         height: 750px;
-        background-color: #517f57;
+        background-color: #47584C;
         display: inline-block;
         font-size: 15px;
         vertical-align: top;
@@ -131,7 +131,7 @@
         height: 40px;
         line-height: 50px;
         padding: 0 50px 0 20px;
-        background-color: #315a37;
+        background-color: #28382c;
         border: none;
         border-radius: 3px;
         color: #fff;
@@ -152,10 +152,10 @@
     }
     aside li a {
         padding:10px 10px;
-        background-color: #517f57;
+        background-color: #47584C;
     }
     aside li:hover a {
-        background-color: #315a37;
+        background-color: #28382c;
     }
 
     h2,
