@@ -1,117 +1,116 @@
 @extends('main_nav')
 @section('main_content')
 
-<div id="container">
-    <aside>
-        <header>
-            <input type="text" placeholder="search">
-        </header>
-        <ul>
-            @foreach($friends as $friend)
-                <li>
-                <a href="/dialog/{{\Illuminate\Support\Facades\Auth::id()}}/{{$friend->id}}">
-                    <div>
-                        <h2>{{ $friend->username }}</h2>
-                        <h3>
-                            <span class="status orange"></span>
-                            offline
-                        </h3>
-                    </div>
-                </a>
-                </li>
-            @endforeach
-        </ul>
-    </aside>
-
-    @if(!isset($dialog))
-        <main>
+    <div id="container">
+        <aside>
             <header>
-                <div>
-                    <h2>Please select a chat from the list</h2>
-                </div>
+                <input type="text" placeholder="search">
             </header>
-
-            <ul id="chat">
-            </ul>
-
-            <footer>
-            </footer>
-
-        </main>
-    @else
-        <main>
-            <header>
-                <div>
-                    <h2>Chat with {{ \App\Models\User::find($friendId)->username }}</h2>
-                </div>
-            </header>
-
-            <ul id="chat">
-                @foreach($dialog as $message)
-                    @if($message->sender->id == \Illuminate\Support\Facades\Auth::id())
-                        <li class="me">
-                            <div class="entete">
-                                <h3>{{ $message->created_at->format('h:iA, M d') }}</h3>
-                                <h2>{{ $message->sender->username }}</h2>
-                                <span class="status blue"></span>
+            <ul>
+                @foreach($friends as $friend)
+                    <li>
+                        <a href="/dialog/{{ $friend->id }}">
+                            <div>
+                                <h2>{{ $friend->username }}</h2>
+                                <h3>
+                                    <span class="status orange"></span>
+                                    offline
+                                </h3>
                             </div>
-                            <div class="message">
-                                {{ $message->text }}
-                            </div>
-                        </li>
-                    @else
-                        <li class="you">
-                            <div class="entete">
-                                <span class="status green"></span>
-                                <h2>{{ $message->sender->username }}</h2>
-                                <h3>{{ $message->created_at->format('h:iA, M d') }}</h3>
-                            </div>
-                            <div class="message">
-                                {{ $message->text }}
-                            </div>
-                        </li>
-                    @endif
+                        </a>
+                    </li>
                 @endforeach
             </ul>
+        </aside>
 
-        <footer>
-            <form action="/send-message" method="POST">
-                @csrf
-                    @error('text')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                <textarea placeholder="Type your message" name="text"></textarea>
-                <input type="hidden" value="{{ \Illuminate\Support\Facades\Auth::id() }}" name="sender_id" required>
-                    @error('sender_id')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                <input type="hidden" value="{{ $friendId }}" name="recipient_id" required>
-                    @error('recipient_id')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                <button class="btn btn-default">Send</button>
-            </form>
-        </footer>
+        @if(!isset($dialog))
+            <main>
+                <header>
+                    <div>
+                        <h2>Please select a chat from the list</h2>
+                    </div>
+                </header>
 
-    </main>
-    @endif
-</div>
+                <ul id="chat">
+                </ul>
+
+                <footer>
+                </footer>
+
+            </main>
+        @else
+            <main>
+                <header>
+                    <div>
+                        <h2>Chat with {{ \App\Models\User::find($friendId)->username }}</h2>
+                    </div>
+                </header>
+
+                <ul id="chat">
+                    @foreach($dialog as $message)
+                        @if($message->sender->id == \Illuminate\Support\Facades\Auth::id())
+                            <li class="me">
+                                <div class="entete">
+                                    <h3>{{ $message->created_at->format('h:iA, M d') }}</h3>
+                                    <h2>{{ $message->sender->username }}</h2>
+                                    <span class="status blue"></span>
+                                </div>
+                                <div class="message">
+                                    {{ $message->text }}
+                                </div>
+                            </li>
+                        @else
+                            <li class="you">
+                                <div class="entete">
+                                    <span class="status green"></span>
+                                    <h2>{{ $message->sender->username }}</h2>
+                                    <h3>{{ $message->created_at->format('h:iA, M d') }}</h3>
+                                </div>
+                                <div class="message">
+                                    {{ $message->text }}
+                                </div>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+
+                <footer>
+                    <form action="/send-message" method="POST">
+                        @csrf
+                        @error('text')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <textarea placeholder="Type your message" name="text"></textarea>
+                        <input type="hidden" value="{{ \Illuminate\Support\Facades\Auth::id() }}" name="sender_id" required>
+                        @error('sender_id')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <input type="hidden" value="{{ $friendId }}" name="recipient_id" required>
+                        @error('recipient_id')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <button class="btn btn-default">Send</button>
+                    </form>
+                </footer>
+
+            </main>
+        @endif
+    </div>
 
 @endsection
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
+
     body {
-        background-color: #abd9e9;
+        background-color: #ffffff;
         font-family: Arial;
     }
     #container {
         width: 1400px;
         height: 750px;
-        background: #eff3f7;
-        margin: 0 auto;
+        background-color: #ffffff;
+        margin-top: 25px;
+        margin-left: 250px;
         font-size: 0;
         border-radius: 5px;
         overflow: hidden;
@@ -130,6 +129,7 @@
         display: inline-block;
         font-size: 15px;
         vertical-align: top;
+        background-color: #ffffff;
     }
 
     aside header {
@@ -194,6 +194,7 @@
     }
 
     .status {
+        background-color: #ffffff;
         width: 8px;
         height: 8px;
         border-radius: 50%;
@@ -243,6 +244,7 @@
 
     #chat {
         padding-left: 0;
+        background-color: #ffffff;
         margin: 0;
         list-style-type: none;
         overflow-y: scroll;
@@ -305,7 +307,7 @@
     main footer {
         height: 155px;
         padding: 0px 10px 60px 20px;
-        background-color: #fcfbfc;
+        background-color: #ffffff;
     }
     main footer textarea {
         resize: none;

@@ -9,14 +9,9 @@
             <div class="main-box">
                 <div class="main-sub-box-1">
                     <a onclick="" class="profile-pic"></a>
-                    <div class="sub-title-box">
-                        <a class="sub-link" href="#AB">
-                            <h2 class="sub-title">ABOUT ME</h2>
-                        </a>
-                    </div>
                 </div>
                 <div class="main-sub-box-2">
-                    <h1 class="title main-title">HI, I'M JACQUIE</h1>
+                    <h1 class="title main-title">HI, I'M {{ strtoupper(\Illuminate\Support\Facades\Auth::user()->username) }}</h1>
                     <div class="paragraph">
                         <p>I am a software engineering & finance student who has a passion for programming and visual design. This page is a work in progress and features projects completed in my spare time, thank you for taking a moment to look at my work!
                         </p>
@@ -59,34 +54,27 @@
             <table class="info-box">
                 <tr>
                     <td><img class="education-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">EDUCATION</b>
+                    <td class="paragraph"><b class="grey-title">MY AGE</b>
                         <br><br>
-                        <a href="http://www.uwa.edu.au" target="_blank" class="sub-link"><b>UNIVERSITY OF WESTERN AUSTRALIA</b></a>
-                        <br>2014-2019
-                        <ul><u><a href="http://handbooks.uwa.edu.au/majors/majordetails?code=MJD-ENGSC" target="_blank" class="sub-link"> Undergraduate - Bachelor of Science</a></u><br>
-                            <li>Engineering Science and Finance (specialisation in software engineering).<br> WAM: 82.75 &nbsp &nbsp GPA: 6.7
-                            </li>
-                            <u><a href="http://handbooks.uwa.edu.au/courses/coursedetails?code=62550" target="_blank" class="sub-link"> Postgraduate - Master of Software Engineering</a></u> <i><br> Expected enrolment: 2017-19</i>
-                        </ul>
-                        <a href="http://global.ntu.edu.sg/GMP/GEMTrailblazer/Pages/GEMTrailblazer.aspx" target="_blank" class="sub-link"><b>NANYANG TECHNOLOGICAL UNIVERSITY, SINGAPORE</b></a><br>
-                        Feb 2016 - GEM Trailblazer Winter Program<br>Chinese Language and Culture<br><br>
-                        <a href="http://www.allsaints.wa.edu.au" class="sub-link"><b>ALL SAINTS' COLLEGE</b></a>
-                        <br>2001-2014 - High School Diploma
-                        </li>
-                        </ul>
+                        <a href="http://www.uwa.edu.au" target="_blank" class="sub-link"><b>23</b></a>
                     </td>
                 </tr>
             </table>
             <table class="info-box">
                 <tr>
                     <td><img class="work-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">WORK EXPERIENCE</b>
+                    <td class="paragraph"><b class="grey-title">I WORK AS A...</b>
                         <br><br>
-                        <a href="https://www2.deloitte.com/au/en.html" target="_blank" class="sub-link"><b>DELOITTE AUSTRALIA</b></a>
-                        <br>Jan 2017- Feb 2017
-                        <ul><u>Vacationer - Consulting Technology Strategy & Architecture </u><br>
-                            <li>Experience working with the TS&A project team emphasised the importance of building & maintaining good client relationships. Highlights include a research collation activity on eMarketplaces and a presentation to the consulting team. The program contributed greatly to my level of confidence in public speaking and communicating within a professional environment.</li>
-                        </ul>
+                        <a href="https://www2.deloitte.com/au/en.html" target="_blank" class="sub-link"><b>???</b></a>
+                    </td>
+                </tr>
+            </table>
+            <table class="info-box">
+                <tr>
+                    <td><img class="work-icon ab-icon" </td>
+                    <td class="paragraph"><b class="grey-title">MY ZODIAC SIGN</b>
+                        <br><br>
+                        <a href="https://www2.deloitte.com/au/en.html" target="_blank" class="sub-link"><b>AQUARIUS</b></a>
                     </td>
                 </tr>
             </table>
@@ -103,7 +91,7 @@
     body{
         overflow-x: hidden;
         font-size: 16px;
-        background-color: white;
+        background-color: #fafafa;
         width: 100%;
         height: 100%;
         margin: 0px;
@@ -112,21 +100,24 @@
 
     /*MAIN PAGE*/
     .main-page {
-        display: inline-block;
-        background-color: #EEEEEE;
+        display: flex; /* Используем flexbox */
+        justify-content: center; /* Выравниваем по горизонтали */
+        align-items: center; /* Выравниваем по вертикали */
+        width: 100vw;
         height: 100vh;
-        max-height: 500px;
+        max-height: 300px;
         overflow: visible;
         border: none;
+        background-color: #fafafa;
     }
     .left {
         display: inline-block;
         top: 50px;
-        right: 0px;
+        left: 0px;
         width: 60vw;
         height: 100%;
         max-height: 800px;
-        background-color: white;
+        background-color: #fafafa;
     }
     .right {
         position: absolute;
@@ -140,16 +131,18 @@
         background-repeat: no-repeat;
     }
     .main-box {
-        margin-top: 0px;
+        margin-top: 150px;
         margin-bottom: 0px;
-        margin-left: 700px;
+        margin-right: 50px;
     }
     .main-sub-box-1{
         display: inline-block;
         width: 150px;
-        background-color: white;
+        background-color: #fafafa;
         overflow: visible;
-        padding-right: 800px;
+        margin-top: -130px;
+        padding-right: 50px;
+        padding-left: 220px;
     }
     .profile-pic:hover, .profile-pic:active {
         background-position: -280px -20px;
@@ -201,9 +194,11 @@
         height: 250px;
         width: 48%;
         text-align: left;
-        background-color: white;
+        background-color: #fafafa;
         overflow: visible;
         vertical-align: top;
+        margin-left: 180px;
+        margin-top: -125px;
     }
     .title{
         font-family:'Ek Mukta', sans-serif;
@@ -231,7 +226,7 @@
         width: 110%;
         margin-left: -15px;
         margin-top: 0px;
-        margin-bottom: 40px
+        margin-bottom: 40px;
     }
     .round-button{
         display: inline-block;
@@ -294,6 +289,7 @@
         background-color: #ZZZZZ;
         padding-top: 30px;
         text-align: left;
+        margin-left: 40px;
     }
 
     .parent-page{
@@ -345,117 +341,6 @@
         font-size: 110%;
         letter-spacing: 4px;
         color: black;
-    }
-    /*PORTFOLIO PAGE*/
-    .portfolio{
-        font-family: '-apple-system', BlinkMacSystemFont,'Open Sans', sans-serif;
-        font-size: 95%;
-        text-align: left;
-        font-weight: lighter;
-        line-height: 26px;
-        letter-spacing: 0.3px;
-        width: 100%;
-        margin: 0 auto;
-        margin-top: -10px;
-    }
-
-    .project1{
-        content:url("https://s3-us-west-2.amazonaws.com/i.cdpn.io/1317966.jwBygP.5d725d2b-f457-4a74-ac22-bda3665c07a0.png");
-        width: 90%;
-        border: 1px solid #E1E1E1;
-    }
-    .portfolio-gallery{
-        padding-top: 3%;
-        text-align: center;
-        width: 100%;
-        margin: 0 auto;
-    }
-    .portfolio-box{
-        display: inline-block;
-        width: 30%;
-    }
-    .project:hover {
-        opacity: 0.5;
-    }
-    .footer-text {
-        background-color: #fafafa;
-        height; 500px;
-        width: 100%;
-        text-align: center;
-        font-family: 'Open Sans';
-        font-weight: light;
-        letter-spacing: 1px;
-        font-size: 70%;
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-    @media screen and (max-width: 1000px){
-        .title{
-        }
-        .left{
-            width: 100%;
-        }
-        .right{
-            display: inline-block;
-            width: 100vw;
-            top: none;
-            position: static;
-            background-position: 0% 40%;
-        }
-        .main-page {
-            overflow: visible;
-            height: 600px;
-        }
-        .stripe-border{
-            width: 100vw;
-        }
-        .main-sub-box-2{
-            width: 60%;
-        }
-    }
-    @media screen and (max-width: 799px){
-        .title{
-            text-align: center;
-            font-size: 150%;
-            letter-spacing: 6px;
-            margin-top: 30px;
-        }
-        .info-box{
-            width: 80vw;
-        }
-        .paragraph{
-            font-size: 90%;
-        }
-        .sub-title-box{
-            text-align: center;
-        }
-        .left{
-            text-align: center;
-            height: 650px;
-            width: 100vw;
-        }
-        .button-line{
-            text-align: center;
-            margin-top: 50px;
-        }
-        .main-box{
-            margin: 0px;
-            margin-top: 50px;
-        }
-        .main-sub-box-1{
-            padding: 0px;
-            width: 100vw;
-            text-align: center;
-        }
-        .main-sub-box-2{
-            width: 80%;
-        }
-        .profile-pic{
-            margin: auto;
-        }
-        .sub-title{
-            display: none;
-        }
     }
 </style>
 

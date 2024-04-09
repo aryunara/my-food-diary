@@ -81,7 +81,6 @@
                 @endif
             </div>
         </div>
-
     </div>
 
 @endsection
@@ -91,9 +90,6 @@
         font-family: Arial, sans-serif;
         background: #ddd;
         display: grid;
-        justify-content: center; /* Центрирование по горизонтали */
-        align-items: center; /* Центрирование по вертикали */
-        height: 100vh; /* Для центрирования по вертикали */
         margin: 0;
     }
 
@@ -168,6 +164,8 @@
         width: 1400px; /* Устанавливаем ширину в 500 пикселей */
         height: 700px; /* Устанавливаем высоту в 400 пикселей */
         display: grid;
+        margin-top: 25px;
+        margin-left: 250px;
         grid-template-columns: 50% min-content 1fr max-content;
         grid-template-rows: 0 min-content 1fr min-content;
         grid-gap: 10px;

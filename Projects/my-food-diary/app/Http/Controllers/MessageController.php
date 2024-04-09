@@ -31,9 +31,10 @@ class MessageController extends Controller
         return view('messages', ['userId' => $userId, 'friends' => $friends]);
     }
 
-    public function getDialog($userId, $friendId)
+    public function getDialog($friendId)
     {
         $user = Auth::user();
+        $userId = Auth::id();
 
         $friends = User::whereIn('id', function ($query) use ($userId) {
             $query->select('sender_id')
@@ -77,6 +78,6 @@ class MessageController extends Controller
             'text_changed' => false
         ]);
 
-        return redirect("/dialog/$userId/$friendId");
+        return redirect("/dialog/$friendId");
     }
 }

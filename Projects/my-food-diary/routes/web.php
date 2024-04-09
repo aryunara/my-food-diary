@@ -40,6 +40,6 @@ Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'cr
 Route::get('/like-feed/{id}', [\App\Http\Controllers\LikeController::class, 'addToFeed'])->name('addOnFeedPage');
 Route::get('/like-post/{id}', [\App\Http\Controllers\LikeController::class, 'addToPost'])->name('addOnPostPage');
 Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages');
-Route::get('/dialog/{id}/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
+Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
 Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);
 

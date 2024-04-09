@@ -1,13 +1,12 @@
 @extends('main_nav')
 @section('main_content')
 
-    <div class="latest">
-        <div class="container">
-            <?php if (empty($posts)) { ?>
-                <h2>It's empty here! Let's create your first post.</h2>
-            <?php } else { ?>
+    <div class="container">
+        <?php if (empty($posts)) { ?>
+            <h2>It's empty here! Let's create your first post.</h2>
+        <?php } else { ?>
             @foreach($posts as $post)
-                    <?php $photo = $post->photo; ?>
+                <?php $photo = $post->photo; ?>
 
                     <div class="col-3">
                         <div class="post">
@@ -15,19 +14,13 @@
                         </div>
                     </div>
             @endforeach
-            <?php }; ?>
-        </div>
+        <?php }; ?>
     </div>
 
-    @endsection
+@endsection
 
 <style>
     @import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Roboto:300,400,500,700,900");
-
-    * {
-        margin: 0;
-        padding: 0;
-    }
 
     .description::after {
         content: "";
@@ -37,7 +30,7 @@
 
     .container {
         max-width: 1300px;
-        margin: 70px auto;
+        margin: 25px auto;
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* Это создаст 3 равные колонки */
         gap: 10px; /* Пространство между колонками */
@@ -53,17 +46,21 @@
 
     .col-3 {
         box-sizing: border-box;
-        padding: 0 15px;
+        padding: 0 10px;
     }
 
     .post {
         background-color: white;
         font-family: "Roboto";
-        box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1), 0 6px 50px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 6px 50px 0 rgba(0, 0, 0, 0.1), 0 6px 50px 0 rgba(0, 0, 0, 0.1);
+        height: 320px; /* Фиксированная высота элемента .post */
+        margin-bottom: 25px;
     }
 
     .image {
-        height: 320px;
+        height: 100%;
+        width: 100%;
+        object-fit: cover; /* Заполнение контейнера, сохраняя пропорции и обрезая изображение при необходимости */
         background-position: center center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -192,10 +189,3 @@
 
 </style>
 
-<script>
-    $(function() {
-        $('.toggleNav').on('click',function() {
-            $('.flex-nav ul').toggleClass('open');
-        });
-    });
-</script>

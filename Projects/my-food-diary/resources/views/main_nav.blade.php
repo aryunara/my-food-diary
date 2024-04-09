@@ -7,7 +7,11 @@
                 <li><a href="/about" title="About">About me</a></li>
                 <li><a href="/main/{{ $userId }}" title="Posts">Posts</a></li>
                 <li><a href="/friendlist/{{ $userId }}" title="Friends">Friends</a></li>
-                <li><a href="/dialog/{{ \Illuminate\Support\Facades\Auth::id() }}/{{ $userId }}" title="Message me">Message me</a></li>
+                @if($userId != \Illuminate\Support\Facades\Auth::id())
+                    <li><a href="/dialog/{{ $userId }}" title="Message me">Message me</a></li>
+                @else
+                    <li><a href="/messages" title="Message me">Message me</a></li>
+                @endif
             </ul>
         </nav>
 
@@ -48,7 +52,7 @@
         font-family: "Lato", sans-serif;
         font-size: 1rem;
         margin: 0;
-        background: #fff;
+        background: #fafafa;
         color: #222;
     }
 
@@ -57,8 +61,8 @@
         font-weight: 400;
         letter-spacing: 1px;
         text-decoration: none;
-        background: #fff;
-        padding: 20px 5px;
+        background: #fafafa;
+        padding: 5px 10px 20px 5px;
         display: inline-block;
         width: 100%;
         text-align: center;
@@ -96,6 +100,7 @@
     .top h1 a {
         font-size: 2rem;
         font-weight: 900;
+        margin-left: 25px;
     }
 
     h2 {
@@ -123,6 +128,7 @@
 
     footer {
         border-top: 1px solid #e2e2e2;
+        background-color: #fafafa;
     }
 
     header {
@@ -141,8 +147,7 @@
 
     .flex-nav ul {
         list-style: none;
-        margin: 0;
-        padding: 0;
+        margin-left: 20px;
         display: -webkit-box;
         display: flex;
     }
@@ -159,11 +164,6 @@
     .flex-nav li a:hover,
     .flex-nav li a:focus {
         color: #222;
-    }
-
-    .flex-nav .social {
-        -webkit-box-flex: 1;
-        flex: 1;
     }
 
     .gallery ul {
