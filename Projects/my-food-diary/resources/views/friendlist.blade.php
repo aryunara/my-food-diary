@@ -15,24 +15,20 @@
         </div>
 
         <div class="row">
-
             <div class="col">
                 <ul id="friends-filter" class="friends-list">
-                    <div class="friend-item">
-                        @if(isset($friend))
-                            <li>
-                                {{ $friend->username }}
-                            </li>
-                        @elseif(!empty($friends))
-                            @foreach($friends as $friend)
-                                <li>
-                                    {{ $friend->user->username }}
-                                </li>
-                            @endforeach
-                        @else
-                            No one was found for your request.
-                        @endif
-                    </div>
+                    @if(isset($friend))
+                        <li>{{ $friend->username }}</li>
+                    @elseif(!empty($friends))
+                        @foreach($friends as $friend)
+                            <li>{{ $friend->user->username }}</li>
+                        @endforeach
+                    @else
+                        <div class="empty_state">
+                            <h3>No friends</h3>
+                            <p>There have been no friends in this section yet</p>
+                        </div>
+                    @endif
                 </ul>
             </div>
         </div>
@@ -47,7 +43,10 @@
         margin-top: 25px;
         margin-left: 250px;
         border-radius:15px;
+        height: 650px;
+        font-family: "Lato", sans-serif;
     }
+
     .head{
         color:#fff;
         font-size: 18px;
@@ -92,6 +91,8 @@
         padding:0;
         overflow:hidden;
         overflow-y:auto;
+        font-size: 19px;
+        font-family: "Lato", sans-serif;
     }
     .friends-list li{
         list-style-type:none;
@@ -151,6 +152,47 @@
     .friend-item {
         display: flex;
         align-items: center;
+    }
+
+    .friend-item .empty_state {
+        position: relative;
+        top: -25px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-left: 310px;
+        margin-bottom: -300px;
+
+        h3 {
+            margin-right: 580px;
+            margin-top: 45px;
+            text-align: center;
+            font-weight: normal;
+            font-size: 25px;
+        }
+        p {
+            font-size: 15px;
+            color: #999;
+            text-align: center;
+            margin-right: 580px;
+            margin-top: -10px;
+        }
+        button {
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 8px;
+            margin-right: 560px;
+            margin-top: 10px;
+            width: 50%;
+            max-width: 200px;
+            background: #348ac7;
+            color: white;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
     }
 
     .friend-item button {

@@ -19,7 +19,7 @@
                 <i class="menu__icon fa fa-bar-chart"></i>
                 <span class="menu__text">MESSAGES</span>
             </a>
-            <a class="menu__item" href="/main/{{\Illuminate\Support\Facades\Auth::id()}}">
+            <a class="menu__item" href="/main/{{ \Illuminate\Support\Facades\Auth::id() }}">
                 <i class="menu__icon fa fa-list"></i>
                 <span class="menu__text">POSTS</span>
             </a>

@@ -2,9 +2,16 @@
 @section('main_content')
 
     <div class="container">
-        <?php if (empty($posts)) { ?>
-            <h2>It's empty here! Let's create your first post.</h2>
-        <?php } else { ?>
+        @if(empty($posts))
+            <div class="empty_state">
+                <img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png" alt="search">
+                <h3 class="">No posts</h3>
+                <p>There have been no posts in this section yet</p>
+                @if($userId = \Illuminate\Support\Facades\Auth::id())
+                    <a href="/post-creation"><button>CREATE</button></a>
+                @endif
+            </div>
+        @else
             @foreach($posts as $post)
                 <?php $photo = $post->photo; ?>
 
@@ -14,7 +21,7 @@
                         </div>
                     </div>
             @endforeach
-        <?php }; ?>
+        @endif
     </div>
 
 @endsection
@@ -34,6 +41,51 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* Это создаст 3 равные колонки */
         gap: 10px; /* Пространство между колонками */
+    }
+
+    .empty_state {
+        position: relative;
+        top: -25px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-left: 310px;
+        margin-bottom: 400px;
+
+        img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: -30px;
+            margin-left: 310px;
+        }
+
+        h3 {
+            margin-left: 0;
+            text-align: center;
+            font-weight: normal;
+            font-size: 25px;
+        }
+        p {
+            font-size: 15px;
+            color: #999;
+            text-align: center;
+            margin-top: -10px;
+        }
+        button {
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 8px;
+            margin: 20px auto auto auto;
+            width: 50%;
+            max-width: 200px;
+            background: #348ac7;
+            color: white;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
     }
 
     .section-title {

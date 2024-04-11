@@ -2,7 +2,6 @@
 @section('main_content')
     <body>
     <div id="homework-container">
-        <a href="/friend-requests"><button>Friend requests</button></a>
         <div class="head">FRIENDS</div>
 
         <div class="row filter">
@@ -28,7 +27,6 @@
             <div class="col">
                 <h3>Your friends</h3>
                 <ul id="friends-filter" class="friends-list">
-                    <div class="friend-item">
                         @if(isset($friend))
                             <li>
                                 {{ $friend->username }}
@@ -43,14 +41,12 @@
                         @else
                             No one was found for your request.
                         @endif
-                    </div>
                 </ul>
             </div>
 
             <div class="col">
                 <h3>Find user</h3>
                 <ul id="friends-filter" class="friends-list">
-                    <div class="friend-item">
                         @if(isset($user))
                             <div class="friend-item">
                                 <li>
@@ -61,8 +57,8 @@
                         @else
                             No one was found for your request.
                         @endif
-                    </div>
                 </ul>
+                <a href="/friend-requests"><button>Friend requests</button></a>
             </div>
 
         </div>
@@ -76,15 +72,12 @@
         background-color: #a0a0a0;
 
     }
-    body  *{
-        font-family: "Open Sans", serif;
-        box-sizing:border-box;
-    }
     #homework-container{
-        width: 1500px;
-        margin: 0 auto;
+        width: 1400px;
         border-radius:15px;
         background-color:#fff;
+        margin-top: 25px;
+        margin-left: 250px;
     }
     .head{
         color:#fff;
@@ -93,9 +86,10 @@
         line-height:52px;
         text-shadow:1px 1px 0 rgba(0, 0, 0, 0.1);
         border-radius:14px 14px 0 0;
-        background-color:#f6856e;
+        background-color: #da5e3d;
         text-align: center;
     }
+
     .filter{
         background-color:#f1f1f1;
         height:53px;

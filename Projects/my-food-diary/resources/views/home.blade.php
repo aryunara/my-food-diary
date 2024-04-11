@@ -1,6 +1,14 @@
 @extends('main_nav')
 @section('main_content')
 
+    @if(!count($posts))
+        <div class="empty_state">
+            <h3 class="">No posts</h3>
+            <p>There have been no your friend's posts in this section yet</p>
+            <a href="/friends"><button>ADD FRIENDS</button></a>
+        </div>
+    @endif
+
     @foreach($posts as $post)
         @php($photo = $post->photo)
             <div class="instagram-post">
@@ -15,7 +23,7 @@
                         {{ $post->created_at }}
                     </div>
                 </div>
-                <a href="/post/{{$post->id}}"><div class="instagram-post-image">
+                <a href="/post/{{ $post->id }}"><div class="instagram-post-image">
                     <img src="{{ $photo->path }}">
                     </div></a>
                 <div class="instagram-post-bottom">
@@ -42,6 +50,48 @@
     body {
         background-color: #101010;
     }
+
+    .empty_state {
+        position: relative;
+        top: -25px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-left: 310px;
+        margin-bottom: -300px;
+
+        h3 {
+            margin-right: 580px;
+            margin-top: 45px;
+            text-align: center;
+            font-weight: normal;
+            font-size: 25px;
+        }
+        p {
+            font-size: 15px;
+            color: #999;
+            text-align: center;
+            margin-right: 580px;
+            margin-top: -10px;
+        }
+        button {
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 8px;
+            margin-right: 560px;
+            margin-top: 10px;
+            width: 50%;
+            max-width: 200px;
+            background: #348ac7;
+            color: white;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+    }
+
     .instagram-avatar img {
         max-height: 100px;
         min-height: 100px;

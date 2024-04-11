@@ -22,7 +22,7 @@ class MainController extends Controller
             ->get();
 
         if (!$posts->count()) {
-            return view('main', ['posts' => []]);
+            return view('main', ['posts' => [], 'userId' => $userId]);
         }
 
         return view('main', ['posts' => $posts, 'userId' => $userId]);

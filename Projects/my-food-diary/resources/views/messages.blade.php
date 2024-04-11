@@ -31,8 +31,11 @@
                     </div>
                 </header>
 
-                <ul id="chat">
-                </ul>
+                    <div class="empty_state">
+                        <h3 class="">No messages</h3>
+                        <p>There have been no messages in this section yet</p>
+                        <a href="/friends"><button>Send message</button></a>
+                    </div>
 
                 <footer>
                 </footer>
@@ -114,6 +117,47 @@
         font-size: 0;
         border-radius: 5px;
         overflow: hidden;
+    }
+
+    .empty_state {
+        position: relative;
+        top: -25px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-left: 310px;
+        margin-bottom: -150px;
+
+        h3 {
+            margin-right: 580px;
+            margin-top: 55px;
+            text-align: center;
+            font-weight: normal;
+            font-size: 25px;
+        }
+        p {
+            font-size: 15px;
+            color: #999;
+            text-align: center;
+            margin-right: 580px;
+            margin-top: 10px;
+        }
+        button {
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            padding: 8px 8px;
+            margin-right: 560px;
+            margin-top: 10px;
+            width: 50%;
+            max-width: 200px;
+            background: #348ac7;
+            color: white;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
     }
     aside {
         width: 300px;

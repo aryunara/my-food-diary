@@ -12,13 +12,11 @@
                     @if($received_rs->count())
                         @foreach($received_rs as $received_r)
                                 <?php $sender = \App\Models\User::find($received_r->sender_id); ?>
-                            <div class="friend-item">
                                 <li>
                                     {{ $sender->username }}
                                 </li>
                                 <a href="/accept/{{$sender->id}}/{{$received_r->id}}"><button>Accept</button></a>
                                 <a href="/decline/{{$received_r->id}}"><button>Decline</button></a>
-                            </div>
                         @endforeach
                     @else
                         <li>You have not received any requests.</li>
@@ -32,12 +30,10 @@
                     @if($sent_rs->count())
                         @foreach($sent_rs as $sent_r)
                                 <?php $receiver = \App\Models\User::find($sent_r->receiver_id); ?>
-                            <div class="friend-item">
                                 <li>
                                     {{ $receiver->username }}
                                 </li>
                                     <a href="/cancel/{{$sent_r->id}}"><button>Cancel</button></a>
-                            </div>
                         @endforeach
                     @else
                         <li>You have not sent any requests.</li>
@@ -55,15 +51,12 @@
         background-color: #a0a0a0;
 
     }
-    body  *{
-        font-family: "Open Sans", serif;
-        box-sizing:border-box;
-    }
     #homework-container{
-        width: 1500px;
-        margin: 0 auto;
+        width: 1400px;
         border-radius:15px;
         background-color:#fff;
+        margin-top: 25px;
+        margin-left: 250px;
     }
     .head{
         color:#fff;
