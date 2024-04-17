@@ -27,6 +27,9 @@ class CustomAuthController extends Controller
             return redirect('home');
         }
 
+        Session::flash('message', 'This is a message!');
+        Session::flash('alert-class', 'alert-danger');
+
         return redirect("login")->withSuccess('Login details are not valid');
     }
 

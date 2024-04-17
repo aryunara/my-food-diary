@@ -150,7 +150,6 @@
         opacity: 0.7;
         width: 90%;
         height: 90%;
-        opacity: 100%;
         position: relative;
         margin: 15px auto;
         transition: 0.4s ease-in-out;

@@ -7,25 +7,24 @@
             <p>There have been no your friend's posts in this section yet</p>
             <a href="/friends"><button>ADD FRIENDS</button></a>
         </div>
-    @endif
-
-    @foreach($posts as $post)
-        @php($photo = $post->photo)
+    @else
+        @foreach($posts as $post)
+            @php($photo = $post->photo)
             <div class="instagram-post">
                 <div class="instagram-post-top">
                     <div class="instagram-post-avatar">
                         <img src="https://placehold.it/100x100">
                     </div>
                     <a href="/main/{{ $post->user->id }}"><div class="instagram-post-name">
-                        {{ $post->user->username }}
-                    </div></a>
+                        {{ $post->user->username }}</div>
+                    </a>
                     <div class="instagram-post-date">
                         {{ $post->created_at }}
                     </div>
                 </div>
                 <a href="/post/{{ $post->id }}"><div class="instagram-post-image">
-                    <img src="{{ $photo->path }}">
-                    </div></a>
+                    <img src="{{ $photo->path }}"></div>
+                </a>
                 <div class="instagram-post-bottom">
                     <div class="likes">
                         <a href="/like-feed/{{ $post->id }}" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">
@@ -40,7 +39,8 @@
                     </div>
                 </div>
             </div>
-    @endforeach
+      @endforeach
+    @endif
 
 @endsection
 
@@ -49,6 +49,11 @@
 
     body {
         background-color: #101010;
+    }
+    /* Стили для обычной ссылки */
+    a {
+        color: #000; /* Цвет текста */
+        text-decoration: none; /* Убираем подчеркивание */
     }
 
     .empty_state {
@@ -122,29 +127,23 @@
         color: #e1cbcf;
         font-size: 10px;
     }
-    .instagram-images img {
-        max-width: 120px;
-        min-width: 120px;
-        max-height: 120px;
-        min-height: 120px;
-        overflow: hidden;
-    }
 
     .instagram-post {
         position: relative;
-        height: 600px;
+        height: 550px;
         width: 540px;
         margin: 10px auto;
         background-color: #ffffff;
         overflow: hidden;
         cursor: default;
         font-family: "Roboto";
-        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1), 0 6px 50px 0 rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 6px 50px 0 rgba(0, 0, 0, 0.1);
     }
     .instagram-post-top {
         position: relative;
         height: 60px;
         overflow: hidden;
+        background-color: #ffffff;
     }
     .instagram-post-avatar {
         position: absolute;
@@ -164,6 +163,7 @@
         font-weight: bold;
         color: #909090;
         font-size: 16px;
+        background-color: #ffffff;
     }
     .instagram-post-date {
         position: absolute;
@@ -183,9 +183,12 @@
         max-height: 370px;
         min-height: 370px;
         overflow: hidden;
+        object-fit: cover;
+        margin-top: 10px;
     }
     .instagram-post-bottom {
         position: relative;
+        background-color: #ffffff;
     }
     .instagram-post-desc {
         position: relative;
@@ -204,7 +207,7 @@
     /*likes and comms*/
     .likes {
         cursor: pointer;
-        margin-top: -15px;
+        margin-top: -10px;
     }
 
     .likes > .love-icon {

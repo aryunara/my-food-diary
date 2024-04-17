@@ -42,4 +42,9 @@ Route::get('/like-post/{id}', [\App\Http\Controllers\LikeController::class, 'add
 Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages');
 Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
 Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);
+Route::get('questionnaire', [\App\Http\Controllers\AboutController::class, 'getQuestionnaire']);
+
+Route::get('sendbasicemail', [\App\Http\Controllers\MailController::class, 'basic_email']);
+Route::get('sendhtmlemail', [\App\Http\Controllers\MailController::class, 'html_email']);
+Route::get('sendattachmentemail', [\App\Http\Controllers\MailController::class, 'attachment_email']);
 

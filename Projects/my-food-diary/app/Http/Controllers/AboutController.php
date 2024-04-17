@@ -13,4 +13,11 @@ class AboutController extends Controller
         return view('about', ['userId' => $userId]);
     }
 
+    public function getQuestionnaire()
+    {
+        $userId = Auth::id();
+
+        return view('questionnaire', ['userId' => $userId]);
+    }
+
 }

@@ -11,9 +11,9 @@
                     <a onclick="" class="profile-pic"></a>
                 </div>
                 <div class="main-sub-box-2">
-                    <h1 class="title main-title">HI, I'M {{ strtoupper(\Illuminate\Support\Facades\Auth::user()->username) }}</h1>
+                    <h1 class="title main-title">HI, I'M {{ \Illuminate\Support\Facades\Auth::user()->username }}</h1>
                     <div class="paragraph">
-                        <p>I am a software engineering & finance student who has a passion for programming and visual design. This page is a work in progress and features projects completed in my spare time, thank you for taking a moment to look at my work!
+                        <p>{{ $info->goal }}
                         </p>
                     </div>
                     <div class="button-line">
@@ -210,6 +210,7 @@
     }
     .main-title{
         margin-top: -10px;
+        text-transform: uppercase;
     }
     .paragraph {
         font-family: '-apple-system', BlinkMacSystemFont,'Open Sans', sans-serif;

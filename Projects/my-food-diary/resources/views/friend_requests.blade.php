@@ -13,7 +13,7 @@
                         @foreach($received_rs as $received_r)
                                 <?php $sender = \App\Models\User::find($received_r->sender_id); ?>
                                 <li>
-                                    {{ $sender->username }}
+                                    <a href="/main/{{ $sender->id }}">{{ $sender->username }}</a>
                                 </li>
                                 <a href="/accept/{{$sender->id}}/{{$received_r->id}}"><button>Accept</button></a>
                                 <a href="/decline/{{$received_r->id}}"><button>Decline</button></a>
@@ -31,9 +31,9 @@
                         @foreach($sent_rs as $sent_r)
                                 <?php $receiver = \App\Models\User::find($sent_r->receiver_id); ?>
                                 <li>
-                                    {{ $receiver->username }}
+                                    <a href="/main/{{ $receiver->id }}">{{ $receiver->username }}</a>
                                 </li>
-                                    <a href="/cancel/{{$sent_r->id}}"><button>Cancel</button></a>
+                                    <a href="/cancel/{{$sent_r->id}}"><button class="cancel">Cancel</button></a>
                         @endforeach
                     @else
                         <li>You have not sent any requests.</li>
@@ -97,7 +97,7 @@
         padding-bottom:5px;
     }
     .friends-list{
-        /*height:450px;*/
+        height:550px;
         margin:0;
         padding:0;
         overflow:hidden;
@@ -111,6 +111,15 @@
         width:100%;
         padding:10px 32px 10px 8px;
         position:relative;
+    }
+    .friends-list li a {
+        text-decoration: none; /* Убираем подчеркивание ссылки */
+        color: inherit; /* Наследуем цвет текста */
+        background-color: transparent; /* Убираем задний фон ссылки */
+    }
+    .delete {
+        margin-top: -62px;
+        margin-left: 550px;
     }
 
     .friends-list li:hover{

@@ -34,9 +34,12 @@
                         @elseif(!empty($friends))
                             @foreach($friends as $friend)
                                 <li>
-                                    {{ $friend->user->username }}
+                                    <a href="/main/{{ $friend->id }}">
+                                        {{ $friend->user->username }}
+                                    </a>
+                                    <a href="/delete/{{ $friend->friend_id }}"><button class="delete">Delete</button></a>
                                 </li>
-                                <a href="/delete/{{ $friend->friend_id }}"><button>Delete</button></a>
+
                             @endforeach
                         @else
                             No one was found for your request.
@@ -48,12 +51,11 @@
                 <h3>Find user</h3>
                 <ul id="friends-filter" class="friends-list">
                         @if(isset($user))
-                            <div class="friend-item">
-                                <li>
-                                    {{$user->username}}
-                                </li>
-                                <a href="/add/{{$user->id}}"><button>Add</button></a>
-                            </div>
+                            <li>
+                                <a href="/main/{{ $user->id }}">{{$user->username}}</a>
+                                <a href="/add/{{$user->id}}"><button class="delete">Add</button></a>
+                            </li>
+
                         @else
                             No one was found for your request.
                         @endif
@@ -78,6 +80,7 @@
         background-color:#fff;
         margin-top: 25px;
         margin-left: 250px;
+        max-height: 650px;
     }
     .head{
         color:#fff;
@@ -119,7 +122,7 @@
         padding-bottom:5px;
     }
     .friends-list{
-        /*height:450px;*/
+        height:550px;
         margin:0;
         padding:0;
         overflow:hidden;
@@ -133,6 +136,15 @@
         width:100%;
         padding:10px 32px 10px 8px;
         position:relative;
+    }
+    .friends-list li a {
+        text-decoration: none; /* Убираем подчеркивание ссылки */
+        color: inherit; /* Наследуем цвет текста */
+        background-color: transparent; /* Убираем задний фон ссылки */
+    }
+    .delete {
+        margin-top: -62px;
+        margin-left: 550px;
     }
 
     .friends-list li:hover{

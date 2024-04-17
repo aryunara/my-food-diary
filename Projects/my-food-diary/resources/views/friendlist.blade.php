@@ -21,7 +21,9 @@
                         <li>{{ $friend->username }}</li>
                     @elseif(!empty($friends))
                         @foreach($friends as $friend)
-                            <li>{{ $friend->user->username }}</li>
+                            <li>
+                                <a href="/main/{{ $friend->id }}">{{ $friend->user->username }}</a>
+                            </li>
                         @endforeach
                     @else
                         <div class="empty_state">
@@ -43,8 +45,9 @@
         margin-top: 25px;
         margin-left: 250px;
         border-radius:15px;
-        height: 650px;
+        max-height: 650px;
         font-family: "Lato", sans-serif;
+        background-color: #ffffff;
     }
 
     .head{
@@ -86,12 +89,12 @@
         padding-bottom:5px;
     }
     .friends-list{
-        /*height:450px;*/
+        height:550px;
         margin:0;
         padding:0;
         overflow:hidden;
         overflow-y:auto;
-        font-size: 19px;
+        font-size: 16px;
         font-family: "Lato", sans-serif;
     }
     .friends-list li{
@@ -102,6 +105,11 @@
         width:100%;
         padding:10px 32px 10px 8px;
         position:relative;
+    }
+    .friends-list li a {
+        text-decoration: none; /* Убираем подчеркивание ссылки */
+        color: inherit; /* Наследуем цвет текста */
+        background-color: transparent; /* Убираем задний фон ссылки */
     }
 
     .friends-list li:hover{

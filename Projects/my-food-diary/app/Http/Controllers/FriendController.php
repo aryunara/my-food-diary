@@ -7,6 +7,7 @@ use App\Models\FriendRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class FriendController extends Controller
 {
@@ -77,7 +78,7 @@ class FriendController extends Controller
             ->where('friend_id', $friendId)
             ->get()
             ->count()) {
-            return 'Error';
+            return redirect("/friends");
         }
 
         FriendRequest::create([
@@ -85,6 +86,17 @@ class FriendController extends Controller
             'receiver_id' => $friendId,
             'status' => 'created'
         ]);
+
+        $friend = User::find($friendId);
+        $user = User::find($userId);
+
+        $data = array('name'=>"$friend->username", 'sender'=>"$user->username");
+
+        Mail::send(['text'=>'mail'], $data, function($message) use ($user, $friend) {
+            $message->to("$friend->email", "$friend->username")->subject
+            ("You received a friend request.");
+            $message->from('my-food-diary@gmail.com','my-food-diary');
+        });
 
         return redirect("/friends")->withSuccess('You have sent friend request');
     }
