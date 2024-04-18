@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\MailService;
+use App\Http\Services\RabbitMQService;
 use App\Models\Friend;
 use App\Models\FriendRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 class FriendController extends Controller
 {
@@ -87,16 +91,8 @@ class FriendController extends Controller
             'status' => 'created'
         ]);
 
-        $friend = User::find($friendId);
-        $user = User::find($userId);
-
-        $data = array('name'=>"$friend->username", 'sender'=>"$user->username");
-
-        Mail::send(['text'=>'mail'], $data, function($message) use ($user, $friend) {
-            $message->to("$friend->email", "$friend->username")->subject
-            ("You received a friend request.");
-            $message->from('my-food-diary@gmail.com','my-food-diary');
-        });
+        $rabbitMQService = new RabbitMQService();
+        $rabbitMQService->sendMsg($friendId);
 
         return redirect("/friends")->withSuccess('You have sent friend request');
     }
