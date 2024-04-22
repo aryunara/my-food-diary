@@ -1,6 +1,6 @@
 @extends('main_nav')
 @section('main_content')
-    <body>
+
     <div id="homework-container">
         <div class="head">FRIEND REQUESTS</div>
 
@@ -14,9 +14,9 @@
                                 <?php $sender = \App\Models\User::find($received_r->sender_id); ?>
                                 <li>
                                     <a href="/main/{{ $sender->id }}">{{ $sender->username }}</a>
+                                    <a href="/accept/{{$sender->id}}/{{$received_r->id}}"><button class="accept">Accept</button></a>
+                                    <a href="/decline/{{$received_r->id}}"><button class="decline">Decline</button></a>
                                 </li>
-                                <a href="/accept/{{$sender->id}}/{{$received_r->id}}"><button>Accept</button></a>
-                                <a href="/decline/{{$received_r->id}}"><button>Decline</button></a>
                         @endforeach
                     @else
                         <li>You have not received any requests.</li>
@@ -32,8 +32,8 @@
                                 <?php $receiver = \App\Models\User::find($sent_r->receiver_id); ?>
                                 <li>
                                     <a href="/main/{{ $receiver->id }}">{{ $receiver->username }}</a>
-                                </li>
                                     <a href="/cancel/{{$sent_r->id}}"><button class="cancel">Cancel</button></a>
+                                </li>
                         @endforeach
                     @else
                         <li>You have not sent any requests.</li>
@@ -42,14 +42,12 @@
             </div>
         </div>
     </div>
-    </body>
 
 @endsection
 
 <style>
     body {
         background-color: #a0a0a0;
-
     }
     #homework-container{
         width: 1400px;
@@ -57,6 +55,7 @@
         background-color:#fff;
         margin-top: 25px;
         margin-left: 250px;
+        max-height: 650px;
     }
     .head{
         color:#fff;
@@ -65,9 +64,10 @@
         line-height:52px;
         text-shadow:1px 1px 0 rgba(0, 0, 0, 0.1);
         border-radius:14px 14px 0 0;
-        background-color:#f6856e;
+        background-color: #da5e3d;
         text-align: center;
     }
+
     .filter{
         background-color:#f1f1f1;
         height:53px;
@@ -117,9 +117,19 @@
         color: inherit; /* Наследуем цвет текста */
         background-color: transparent; /* Убираем задний фон ссылки */
     }
-    .delete {
+    .cancel {
         margin-top: -62px;
         margin-left: 550px;
+    }
+
+    .accept {
+        margin-top: -50px;
+        margin-left: 550px;
+    }
+
+    .decline {
+        margin-top: -86px;
+        margin-left: 400px;
     }
 
     .friends-list li:hover{

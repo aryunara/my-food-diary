@@ -1,6 +1,6 @@
 @extends('main_nav')
 @section('main_content')
-    <body>
+
     <div id="homework-container">
         <div class="head">FRIENDS</div>
 
@@ -50,29 +50,30 @@
             <div class="col">
                 <h3>Find user</h3>
                 <ul id="friends-filter" class="friends-list">
-                        @if(isset($user))
+                        @if(!empty($user))
                             <li>
                                 <a href="/main/{{ $user->id }}">{{$user->username}}</a>
-                                <a href="/add/{{$user->id}}"><button class="delete">Add</button></a>
+                                @if(!$userIsFriend)
+                                    @if($user->id != \Illuminate\Support\Facades\Auth::id())
+                                        <a href="/add/{{$user->id}}"><button class="add">Add</button></a>
+                                    @endif
+                                @endif
                             </li>
-
                         @else
                             No one was found for your request.
                         @endif
                 </ul>
-                <a href="/friend-requests"><button>Friend requests</button></a>
+                <a href="/friend-requests"><button class="friend-requests">Friend requests</button></a>
             </div>
 
         </div>
     </div>
-    </body>
 
 @endsection
 
 <style>
     body {
         background-color: #a0a0a0;
-
     }
     #homework-container{
         width: 1400px;
@@ -104,7 +105,6 @@
         width:50%;
         float:left;
         padding:15px;
-
     }
     .row:before,
     .row:after{
@@ -116,10 +116,10 @@
         clear:both;
     }
     h2{
-        font-size:16px;
-        margin:0;
+        font-size:12px;
         border-bottom:1px solid #f4f4f4;
         padding-bottom:5px;
+        margin-top: -460px;
     }
     .friends-list{
         height:550px;
@@ -145,6 +145,14 @@
     .delete {
         margin-top: -62px;
         margin-left: 550px;
+    }
+    .add {
+        margin-top: -62px;
+        margin-left: 550px;
+    }
+    .friend-requests {
+        margin-top: -420px;
+        margin-right: 540px;
     }
 
     .friends-list li:hover{

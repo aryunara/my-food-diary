@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Services\MailService;
 use App\Http\Services\RabbitMQService;
 use Illuminate\Console\Command;
 
@@ -27,6 +28,12 @@ class SendMails extends Command
     public function handle()
     {
         $rabbitMQService = new RabbitMQService();
-        $rabbitMQService->receiveMsg();
+
+        $callback = function ($msg) {
+            $mailService = new MailService();
+            $mailService->send($msg);
+        };
+
+        $rabbitMQService->receiveMsg('friend_request', $callback);
     }
 }

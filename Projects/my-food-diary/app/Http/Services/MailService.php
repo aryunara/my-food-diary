@@ -3,14 +3,15 @@
 namespace App\Http\Services;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class MailService
 {
-    public function send($friendId)
+    public function send($msg)
     {
+        $friendId = (int)$msg->body;
         $friend = User::find($friendId);
+
         $data = array('name'=>"$friend->username");
 
         Mail::send('mail', $data, function($message) use ($friend) {

@@ -2,39 +2,35 @@
 
 namespace App\Http\Services;
 
-require_once './../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
 class RabbitMQService
 {
-    public function sendMsg($friendId)
+    public function sendMsg(string $queue, $data)
     {
         $connection = new AMQPStreamConnection('rabbitmq', 5672, 'user', 'user');
         $channel = $connection->channel();
 
-        $channel->queue_declare('friend_request', false, false, false, false);
+        $channel->queue_declare($queue, false, false, false, false);
 
-        $msg = new AMQPMessage($friendId);
-        $channel->basic_publish($msg, '', 'friend_request');
+        $msg = new AMQPMessage($data);
+
+        $channel->basic_publish($msg, '', $queue);
 
         $channel->close();
     }
 
-    public function receiveMsg()
+    public function receiveMsg(string $queue, callable $callback)
     {
         $connection = new AMQPStreamConnection('rabbitmq', 5672, 'user', 'user');
         $channel = $connection->channel();
 
-        $channel->queue_declare('friend_request', false, false, false, false);
+        $channel->queue_declare($queue, false, false, false, false);
 
-        $callback = function ($msg) {
-            $mailService = new MailService();
-            $mailService->send($msg);
-        };
-
-        $channel->basic_consume('friend_request', '', false, true, false, false, $callback);
+        $channel->basic_consume($queue, '', false, true, false, false, $callback);
 
         try {
             $channel->consume();
