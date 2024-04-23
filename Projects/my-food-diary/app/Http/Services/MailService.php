@@ -21,4 +21,17 @@ class MailService
         });
     }
 
+    public function sendConfirmationLetter($userId)
+    {
+        $userId = (int)$userId;
+        $user = User::find($userId);
+        $data = array('name'=>"$user->username");
+
+        Mail::send('confirmation', $data, function($message) use ($user) {
+            $message->to("$user->email", "$user->username")->subject
+            ("You have successfully registered on the My-food-diary");
+            $message->from('my-food-diary@gmail.com','my-food-diary');
+        });
+    }
+
 }

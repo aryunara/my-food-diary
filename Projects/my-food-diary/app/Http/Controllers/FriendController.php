@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\MailService;
 use App\Http\Services\RabbitMQService;
 use App\Models\Friend;
 use App\Models\FriendRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-use PhpAmqpLib\Message\AMQPMessage;
 
 class FriendController extends Controller
 {

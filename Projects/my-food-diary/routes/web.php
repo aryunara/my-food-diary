@@ -44,7 +44,5 @@ Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class
 Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);
 Route::get('questionnaire', [\App\Http\Controllers\AboutController::class, 'getQuestionnaire']);
 
-Route::get('sendbasicemail', [\App\Http\Controllers\MailController::class, 'basic_email']);
-Route::get('sendhtmlemail', [\App\Http\Controllers\MailController::class, 'html_email']);
-Route::get('sendattachmentemail', [\App\Http\Controllers\MailController::class, 'attachment_email']);
+Route::get('send-confirmation/{id}', [\App\Http\Controllers\SendController::class, 'sendText']);
 

@@ -48,13 +48,13 @@ class CustomAuthController extends Controller
 
         $data = $request->all();
 
-        User::create([
+        $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);
 
-        return redirect("dashboard")->withSuccess('You have signed-in');
+        return redirect("send-confirmation/" . $user->id)->withSuccess('You have signed-in');
     }
 
     public function dashboard()
