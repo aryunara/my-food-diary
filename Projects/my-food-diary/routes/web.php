@@ -43,6 +43,8 @@ Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll
 Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
 Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);
 Route::get('questionnaire', [\App\Http\Controllers\AboutController::class, 'getQuestionnaire']);
+Route::get('support-msg', [\App\Http\Controllers\SupportController::class, 'index']);
+Route::post('support-msg', [\App\Http\Controllers\SupportController::class, 'send']);
 
 Route::get('send-confirmation/{id}', [\App\Http\Controllers\SendController::class, 'sendText']);
 

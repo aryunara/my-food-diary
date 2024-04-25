@@ -61,7 +61,7 @@ class MessageController extends Controller
             ->orderBy('created_at')
             ->get();
 
-        return view('messages', ['userId' => $userId, 'user' => $user, 'dialog' => $dialog, 'friends' => $friends, 'friendId' => $friendId]);
+        return view('messages', ['userId' => $friendId, 'user' => $user, 'dialog' => $dialog, 'friends' => $friends, 'friendId' => $friendId]);
     }
 
     public function create(MessageRequest $request)

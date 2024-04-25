@@ -29,12 +29,12 @@
                 <ul id="friends-filter" class="friends-list">
                         @if(isset($friend))
                             <li>
-                                {{ $friend->username }}
+                                {{ $friend->user->username }}
                             </li>
                         @elseif(!empty($friends))
                             @foreach($friends as $friend)
                                 <li>
-                                    <a href="/main/{{ $friend->id }}">
+                                    <a href="/main/{{ $friend->user->id }}">
                                         {{ $friend->user->username }}
                                     </a>
                                     <a href="/delete/{{ $friend->friend_id }}"><button class="delete">Delete</button></a>
@@ -52,10 +52,10 @@
                 <ul id="friends-filter" class="friends-list">
                         @if(!empty($user))
                             <li>
-                                <a href="/main/{{ $user->id }}">{{$user->username}}</a>
+                                <a href="/main/{{ $user->id }}">{{ $user->username }}</a>
                                 @if(!$userIsFriend)
                                     @if($user->id != \Illuminate\Support\Facades\Auth::id())
-                                        <a href="/add/{{$user->id}}"><button class="add">Add</button></a>
+                                        <a href="/add/{{ $user->id }}"><button class="add">Add</button></a>
                                     @endif
                                 @endif
                             </li>

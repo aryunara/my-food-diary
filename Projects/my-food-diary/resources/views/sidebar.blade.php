@@ -35,6 +35,10 @@
                 <i class="menu__icon fa fa-trophy"></i>
                 <span class="menu__text">SETTINGS</span>
             </a>
+            <a class="menu__item" href="/support-msg">
+                <i class="menu__icon fa fa-sliders"></i>
+                <span class="menu__text">SUPPORT</span>
+            </a>
             <a class="menu__item" href="/signout">
                 <i class="menu__icon fa fa-sliders"></i>
                 <span class="menu__text">LOGOUT</span>
