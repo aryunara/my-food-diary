@@ -9,9 +9,9 @@
             <ul>
                 @foreach($friends as $friend)
                     <li>
-                        <a href="/dialog/{{ $friend->user->id }}">
+                        <a href="/dialog/{{ $friend->id }}">
                             <div>
-                                <h2>{{ $friend->user->username }}</h2>
+                                <h2>{{ $friend->username }}</h2>
                                 <h3>
                                     <span class="status orange"></span>
                                     offline

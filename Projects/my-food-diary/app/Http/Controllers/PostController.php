@@ -53,7 +53,7 @@ class PostController extends Controller
         return redirect("/main/$userId")->withSuccess('You have created the post');
     }
 
-    public function getPostById($postId)
+    public function getPostById(int $postId)
     {
         $post = Post::find($postId);
         $userId = $post->user->id;

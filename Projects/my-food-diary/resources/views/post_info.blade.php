@@ -8,8 +8,6 @@
             </a>
         </div>
 
-        <div class="avatar"><img src="https://picsum.photos/50/50?image=12" /></div>
-
         <div class="author">{{ $post->user->username }}</div>
 
         <div class="description">
@@ -29,7 +27,11 @@
                         @foreach($comments as $comment)
                         <li>
                             <div class="commenterImage">
-                                <img src="http://placekitten.com/50/50" />
+                                @if(\App\Models\UserInfo::where('user_id', $comment->user->id)->value('avatar') !== null)
+                                    <img src="{{ \App\Models\UserInfo::where('user_id', $comment->user->id)->value('avatar') }}" alt="avatar">
+                                @else
+                                    <img src="https://i0.wp.com/abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png?ssl=1" alt="avatar">
+                                @endif
                             </div>
                             <div class="commentText">
                                 <span class="date sub-text">{{ $comment->user->username }} {{ $comment->created_at }}</span>

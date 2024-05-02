@@ -15,7 +15,7 @@ class MainController extends Controller
         return view('main');
     }
 
-    public function getPosts($userId)
+    public function getPosts(int $userId)
     {
         $posts = Post::where('user_id', $userId)
             ->orderBy('created_at', 'desc')

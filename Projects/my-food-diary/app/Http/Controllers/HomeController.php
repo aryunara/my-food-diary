@@ -23,8 +23,8 @@ class HomeController extends Controller
         $posts = collect();
 
         foreach ($friends as $friend) {
-            $userId = $friend->user->id;
-            $friendPosts = Post::where('user_id', $userId)
+            $friendId = $friend->user->id;
+            $friendPosts = Post::where('user_id', $friendId)
                 ->get();
 
             $posts = $posts->merge($friendPosts);

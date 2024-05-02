@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('users_info', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->string('real_name')->nullable();
+            $table->string('pronouns')->nullable();
             $table->text('avatar')->nullable();
-            $table->string('status')->nullable();
             $table->text('goal')->nullable();
             $table->text('social1')->nullable();
             $table->text('social2')->nullable();
             $table->text('social3')->nullable();
-            $table->text('social4')->nullable();
-            $table->text('social5')->nullable();
-            $table->string('pronouns')->nullable();
             $table->integer('age')->nullable();
             $table->string('job')->nullable();
             $table->string('favorite_food')->nullable();
@@ -39,4 +37,5 @@ return new class extends Migration
         Schema::dropIfExists('users_info');
     }
 };
+
 

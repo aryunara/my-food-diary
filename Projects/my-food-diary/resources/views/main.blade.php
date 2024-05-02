@@ -7,7 +7,7 @@
                 <img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png" alt="search">
                 <h3 class="">No posts</h3>
                 <p>There have been no posts in this section yet</p>
-                @if($userId = \Illuminate\Support\Facades\Auth::id())
+                @if($userId === \Illuminate\Support\Facades\Auth::id())
                     <a href="/post-creation"><button>CREATE</button></a>
                 @endif
             </div>

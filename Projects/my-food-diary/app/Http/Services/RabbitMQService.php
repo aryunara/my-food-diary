@@ -9,7 +9,7 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class RabbitMQService
 {
-    public function sendMsg(string $queue, $data)
+    public function sendMsg(string $queue, mixed $data)
     {
         $connection = new AMQPStreamConnection('rabbitmq', 5672, 'user', 'user');
         $channel = $connection->channel();

@@ -31,7 +31,7 @@ class MessageController extends Controller
         return view('messages', ['userId' => $userId, 'friends' => $friends]);
     }
 
-    public function getDialog($friendId)
+    public function getDialog(int $friendId)
     {
         $user = Auth::user();
         $userId = Auth::id();

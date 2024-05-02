@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <div class="main-page">
         <!---->
+        @if(\App\Models\User::find($userId)->count())
+            @php($user = \App\Models\User::find($userId))
         <div class="left">
             <div class="stripe-border"></div>
             <div class="main-box">
@@ -11,9 +13,9 @@
                     <a onclick="" class="profile-pic"></a>
                 </div>
                 <div class="main-sub-box-2">
-                    <h1 class="title main-title">HI, I'M {{ \Illuminate\Support\Facades\Auth::user()->username }}</h1>
+                    <h1 class="title main-title">HI, I'M {{ $user->username }}</h1>
                     <div class="paragraph">
-                        <p>{{ $info->goal }}
+                        <p>{{ $user->userInfo->goal }}
                         </p>
                     </div>
                     <div class="button-line">
@@ -53,10 +55,28 @@
             <h1 class="title">ABOUT ME</h1>
             <table class="info-box">
                 <tr>
+                    <td><img class="work-icon ab-icon" </td>
+                    <td class="paragraph"><b class="grey-title">MY NAME IS...</b>
+                        <br><br>
+                        <b>{{ $user->userInfo->real_name }}</b>
+                    </td>
+                </tr>
+            </table>
+            <table class="info-box">
+                <tr>
+                    <td><img class="work-icon ab-icon" </td>
+                    <td class="paragraph"><b class="grey-title">MY PRONOUNS</b>
+                        <br><br>
+                        <b>{{ $user->userInfo->pronouns }}</b>
+                    </td>
+                </tr>
+            </table>
+            <table class="info-box">
+                <tr>
                     <td><img class="education-icon ab-icon" </td>
                     <td class="paragraph"><b class="grey-title">MY AGE</b>
                         <br><br>
-                        <a href="http://www.uwa.edu.au" target="_blank" class="sub-link"><b>23</b></a>
+                        <b>{{ $user->userInfo->age }}</b>
                     </td>
                 </tr>
             </table>
@@ -65,22 +85,31 @@
                     <td><img class="work-icon ab-icon" </td>
                     <td class="paragraph"><b class="grey-title">I WORK AS A...</b>
                         <br><br>
-                        <a href="https://www2.deloitte.com/au/en.html" target="_blank" class="sub-link"><b>???</b></a>
+                        <b>{{ $user->userInfo->job }}</b>
                     </td>
                 </tr>
             </table>
             <table class="info-box">
                 <tr>
                     <td><img class="work-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">MY ZODIAC SIGN</b>
+                    <td class="paragraph"><b class="grey-title">MY FAVORITE FOOD</b>
                         <br><br>
-                        <a href="https://www2.deloitte.com/au/en.html" target="_blank" class="sub-link"><b>AQUARIUS</b></a>
+                        <b>{{ $user->userInfo->favorite_food }}</b>
+                    </td>
+                </tr>
+            </table>
+            <table class="info-box">
+                <tr>
+                    <td><img class="work-icon ab-icon" </td>
+                    <td class="paragraph"><b class="grey-title">MY LEAST FAVORITE FOOD</b>
+                        <br><br>
+                        <b>{{ $user->userInfo->least_favorite_food }}</b>
                     </td>
                 </tr>
             </table>
         </center>
     </div>
-
+    @endif
 @endsection
 
 <style>
@@ -144,9 +173,6 @@
         padding-right: 50px;
         padding-left: 220px;
     }
-    .profile-pic:hover, .profile-pic:active {
-        background-position: -280px -20px;
-    }
     .profile-pic{
         right: 0px;
         width: 150px;
@@ -154,10 +180,8 @@
         display: block;
         border-radius: 50%;
         border: 1px solid #DDDDDD;
-        background: url("https://lh3.googleusercontent.com/aNLif24V9ChJHNCJTgz-shTdDjbuETUN1r7W9SCvHn4YqFIyE25cJqQJ_eNdnMbA-OjK6E4Bo7arHys5Wgb5lBm0bP75wFU2ML5TUkP1WUwqsjyfYPDeoM5EOAVsA-xq8XPH1CBOln-tdjB47KHfT0GmXXcjX6OvBLH3c-2ISWSuy9fRmhJ7lmub8nb6fv9BdyeFXHpS6dVhP2Z4Tu9X-qxIsHCm0EQ3Djh6oYAaQ4jWRH1gycVNMVGNsh7CCclsMU2vGzWLzrAfWvcC6L8WwnSIryW_IFBWML_K6if-ja0zu5w2arvzr2jJDPWOnj6IavKac0-kVbwid2kIi090axwuZY0oBFwHQl8QRT2EeBKbLXHyvT9auARyNvK420fz_G9OkJ5iG9PeaNfWaECUd-vpH-g7mYo5HXc9nWygqYtkyvGZMj9oqP022-qJiFYHl4S994nlKJTcWT7oPgCqG2d-0zaXD3v3SAn1atS7LqTped3TuvskdrIOVy9kVLq_rvmGPJZb05UcrPQlaMEj4r0RfI66ZSzlZtdmxFbzUT4znzzR6F3NK2u2E1FnStN2EQH86hFdyC19Ix-q8nbzO5MN3DMdUIvOXsaOjrQPH3i7TNVPwUxJ=w2560-h1314-no");
-        background-repeat: no-repeat;
-        background-position: -40px -20px;
-        background-size: 320%;
+        background: url("{{ $user->userInfo->avatar }}") no-repeat -35px;
+        background-size: cover;
     }
     .sub-title{
         font-family:'-apple-system', BlinkMacSystemFont,'Open Sans', sans-serif;

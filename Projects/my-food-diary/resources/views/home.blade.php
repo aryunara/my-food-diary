@@ -13,7 +13,11 @@
             <div class="instagram-post">
                 <div class="instagram-post-top">
                     <div class="instagram-post-avatar">
-                        <img src="https://placehold.it/100x100">
+                        @if(\App\Models\UserInfo::where('user_id', $post->user->id)->value('avatar'))
+                            <img src="{{ \App\Models\UserInfo::where('user_id', $post->user->id)->value('avatar') }}" alt="avatar">
+                        @else
+                            <img src="https://i0.wp.com/abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png?ssl=1" alt="avatar">
+                        @endif
                     </div>
                     <a href="/main/{{ $post->user->id }}"><div class="instagram-post-name">
                         {{ $post->user->username }}</div>

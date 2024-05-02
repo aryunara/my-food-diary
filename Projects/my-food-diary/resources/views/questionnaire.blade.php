@@ -2,7 +2,9 @@
     <p id="description">
         Please fill in information about yourself (you can skip it)
     </p>
-    <form id="survey-form" method="POST" action="/sendQuestionnaire">
+    <form id="survey-form" method="POST" action="/questionnaire">
+        @csrf
+        <input type="hidden" name="user_id" id="user_id" class="input-field" value="{{ \Illuminate\Support\Facades\Auth::id() }}" required>
         <div class="rowTab">
             <div class="labels">
                 <label id="name-label" for="name"> Full name:</label>
@@ -14,10 +16,19 @@
         </div>
         <div class="rowTab">
             <div class="labels">
+                <label id="pronouns-label" for="pronouns"> Pronouns:</label>
+            </div>
+            <div class="rightTab">
+                <input autofocus type="text" name="pronouns" id="pronouns" class="input-field" placeholder="Enter your pronouns" required>
+            </div>
+            <!--Field creation for name -->
+        </div>
+        <div class="rowTab">
+            <div class="labels">
                 <label id="avatar-label" for="avatar"> Avatar url:</label>
             </div>
             <div class="rightTab">
-                <input type="email" name="email" id="email" class="input-field" required placeholder="Enter url">
+                <input type="url" name="avatar" id="avatar" class="input-field" required placeholder="Enter url">
                 <!--Field for email -->
             </div>
         </div>
@@ -27,7 +38,7 @@
                 <label for="goal">Your goal</label>
             </div>
             <div class="rightTab">
-                <textarea id="goal" class="input-field" style="height:50px;resize:vertical;" name="comment" placeholder="Describe your goal"></textarea>
+                <textarea id="goal" class="input-field" style="height:50px;resize:vertical;" name="goal" placeholder="Describe your goal"></textarea>
             </div>
         </div>
         <div class="rowTab">
@@ -35,75 +46,63 @@
                 <label id="social1-label" for="social1">Social 1:</label>
             </div>
             <div class="rightTab">
-                <input type="number" name="age" id="number" min="1" max="99" class="input-field" placeholder="Enter your url">
+                <input type="url" name="social1" id="social1" class="input-field" placeholder="Enter your url">
                 <!--Field for Number -->
             </div>
         </div>
         <div class="rowTab">
             <div class="labels">
-                <label="currentPos">Please select your gender:</label>
+                <label id="social2-label" for="social2">Social 2:</label>
             </div>
             <div class="rightTab">
-                <select id="dropdown" name="currentPos" class="dropdown">
-                    <option disabled value>Select an option</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
+                <input type="url" name="social2" id="social2" class="input-field" placeholder="Enter your url">
+                <!--Field for Number -->
             </div>
         </div>
         <div class="rowTab">
             <div class="labels">
-                <label for="userRating">Working hours:</label>
+                <label id="social3-label" for="social3">Social 3:</label>
             </div>
-            <!--Respostas Unicas! -->
             <div class="rightTab">
-                <ul style="list-style: none;">
-                    <li class="radio">
-                        <label>Full Time<input name="radio-buttons" value="1" type="radio" class="userRatings">
-                        </label>
-                    </li>
-                    <li class="radio"><label>Half Time<input name="radio-buttons" value="2" type="radio" class="userRatings"></label></li>
-                    <li class="radio"><label>Not Working<input name="radio-buttons" value="3" type="radio" class="userRatings"></label></li>
-                </ul>
+                <input type="url" name="social3" id="social3" class="input-field" placeholder="Enter your url">
+                <!--Field for Number -->
             </div>
         </div>
-        <!--Single Option dropbar -->
         <div class="rowTab">
             <div class="labels">
-                <label for="most-like">Do you enjoy your work</label>
+                <label id="age-label" for="age">Your age</label>
             </div>
             <div class="rightTab">
-                <select id="most-like" name="mostLike" class="dropdown">
-                    <!--class estilo dropdown, id = label-->
-                    <option disabled selected value>Select an option</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
+                <input type="number" name="age" id="age" min="1" max="99" class="input-field" placeholder="Enter your age">
+                <!--Field for Number -->
             </div>
         </div>
-        <!--Multiple Answers -->
         <div class="rowTab">
             <div class="labels">
-                <label for="professions">Please select professions that you would like to apply:</label>
+                <label id="job-label" for="job"> Job:</label>
             </div>
             <div class="rightTab">
-                <ul id="professions" style="list-style: none;">
-                    <li class="checkbox">
-                        <label>
-                            <input name="option" value="1" type="checkbox" class="userRatings">Teacher
-                        </label>
-                    </li>
-                    <li class="checkbox"><label>
-                            <input name="option" value="2" type="checkbox" class="userRatings">Waiter
-                        </label>
-                    </li>
-
-                    <li class="checkbox"><label><input name="option" value="3 " type="checkbox" class="userRatings">Programmer</label>
-                    </li>
-                    <li class="checkbox"><label><input name="option" value="4" type="checkbox" class="userRatings">Other</label>
-                    </li>
-                </ul>
+                <input autofocus type="text" name="job" id="job" class="input-field" placeholder="Enter your job" required>
             </div>
+            <!--Field creation for name -->
+        </div>
+        <div class="rowTab">
+            <div class="labels">
+                <label id="fav-food-label" for="fav-food"> Favorite food:</label>
+            </div>
+            <div class="rightTab">
+                <input autofocus type="text" name="fav-food" id="fav-food" class="input-field" placeholder="Enter your favorite food" required>
+            </div>
+            <!--Field creation for name -->
+        </div>
+        <div class="rowTab">
+            <div class="labels">
+                <label id="least-fav-food-label" for="least-fav-food"> Least favorite food:</label>
+            </div>
+            <div class="rightTab">
+                <input autofocus type="text" name="least-fav-food" id="least-fav-food" class="input-field" placeholder="Enter your least favorite food" required>
+            </div>
+            <!--Field creation for name -->
         </div>
 
         <button id="submit" type="submit">Submit</button>

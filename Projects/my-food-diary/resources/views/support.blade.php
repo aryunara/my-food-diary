@@ -15,7 +15,7 @@
         <div class="row">
             <main class="col-sm-10 offset-sm-1">
 
-                <form action="/support-msg" method="POST">
+                <form action="/support" method="POST">
                     @csrf
                     <input type="hidden" value="{{ Auth::id() }}" name="user_id" required>
                     <br>

@@ -2,7 +2,11 @@
     <sidebar>
         <div class="avatar">
             <div class="avatar__img">
-                <img src="https://picsum.photos/70" alt="avatar">
+                @if(\App\Models\UserInfo::where('user_id', \Illuminate\Support\Facades\Auth::id())->value('avatar') !== null)
+                    <img src="{{ \App\Models\UserInfo::where('user_id', \Illuminate\Support\Facades\Auth::id())->value('avatar') }}" alt="avatar">
+                @else
+                    <img src="https://i0.wp.com/abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png?ssl=1" alt="avatar">
+                @endif
             </div>
             <div class="avatar__name">{{ \Illuminate\Support\Facades\Auth::user()->username }}</div>
         </div>
@@ -35,7 +39,7 @@
                 <i class="menu__icon fa fa-trophy"></i>
                 <span class="menu__text">SETTINGS</span>
             </a>
-            <a class="menu__item" href="/support-msg">
+            <a class="menu__item" href="/support">
                 <i class="menu__icon fa fa-sliders"></i>
                 <span class="menu__text">SUPPORT</span>
             </a>
@@ -44,7 +48,6 @@
                 <span class="menu__text">LOGOUT</span>
             </a>
         </nav>
-        <div class="copyright">copyright &copy; 2018</div>
     </sidebar>
 </div>
 
@@ -112,6 +115,9 @@
     }
     .avatar__img > img {
         display: block;
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
     }
 
     .copyright {

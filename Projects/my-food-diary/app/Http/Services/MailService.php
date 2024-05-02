@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Mail;
 
 class MailService
 {
-    public function send($msg)
+    public function send(object $msg)
     {
         $friendId = (int)$msg->body;
         $friend = User::find($friendId);
@@ -21,7 +21,7 @@ class MailService
         });
     }
 
-    public function sendConfirmationLetter($userId)
+    public function sendConfirmationLetter(int $userId)
     {
         $userId = (int)$userId;
         $user = User::find($userId);

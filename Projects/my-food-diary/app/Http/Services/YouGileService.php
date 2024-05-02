@@ -6,37 +6,26 @@ use Illuminate\Support\Facades\Http;
 
 class YouGileService
 {
-    public function getCompanyId(): mixed
+    private string $token;
+    private string $url;
+
+    public function __construct(string $token, string $url)
     {
-        $data = [
-            "login" => env('YOUGILE_LOGIN'),
-            "password" => env('YOUGILE_PASSWORD'),
-            "name" => env('YOUGILE_NAME')
-        ];
-
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-        ])->post('https://ru.yougile.com/api-v2/auth/companies', $data);
-
-        return $response->json()['content'][0]['id'];
+        $this->token = $token;
+        $this->url = $url;
     }
 
-    public function getToken(): string
-    {
-        return env('YOUGILE_API_TOKEN');
-    }
-
-    public function getColumnsList(): mixed
+    public function getTasks()
     {
         $response = Http::withHeaders([
+            'Authorization' => "Bearer " . $this->token,
             'Content-Type' => 'application/json',
-            'Authorization' => "Bearer ".$this->getToken()
-        ])->get('https://ru.yougile.com/api-v2/columns');
+        ])->post($this->url . "/tasks");
 
         return $response->json();
     }
 
-    public function createSupportMessage($userId, $columnId, $msg)
+    public function createSupportMessage(int $userId, string $columnId, string $msg)
     {
         $data = [
             "title" => "UserID: $userId",
@@ -67,9 +56,9 @@ class YouGileService
         ];
 
         $response = Http::withHeaders([
-            'Authorization' => "Bearer ".$this->getToken(),
+            'Authorization' => "Bearer " . $this->token,
             'Content-Type' => 'application/json',
-        ])->post('https://ru.yougile.com/api-v2/tasks', $data);
+        ])->post($this->url . "/tasks", $data);
 
         return $response->json();
     }

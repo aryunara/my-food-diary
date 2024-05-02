@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function addToFeed($postId)
+    public function addToFeed(int $postId)
     {
         $likerId = Auth::id();
 
@@ -29,7 +29,7 @@ class LikeController extends Controller
         return redirect("/home");
     }
 
-    public function addToPost($postId)
+    public function addToPost(int $postId)
     {
         $likerId = Auth::id();
 

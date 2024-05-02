@@ -6,7 +6,7 @@ use App\Jobs\SendTextJob;
 
 class SendController extends Controller
 {
-    public function sendText($userId)
+    public function sendText(int $userId)
     {
         SendTextJob::dispatch($userId)->onQueue('sendText');
 

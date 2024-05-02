@@ -23,7 +23,7 @@ class FriendRequestController extends Controller
         return view('friend_requests', ['received_rs' => $received_rs, 'sent_rs' => $sent_rs, 'userId' => $userId]);
     }
 
-    public function accept($friendId, $id)
+    public function accept(int $friendId, int $id)
     {
         $userId = Auth::id();
 
@@ -43,7 +43,7 @@ class FriendRequestController extends Controller
         return redirect("/friend-requests");
     }
 
-    public function decline($id)
+    public function decline(int $id)
     {
         FriendRequest::find($id)
             ->update(['status' => 'declined']);
@@ -51,7 +51,7 @@ class FriendRequestController extends Controller
         return redirect("/friend-requests");
     }
 
-    public function cancel($id)
+    public function cancel(int $id)
     {
         FriendRequest::find($id)
             ->update(['status' => 'canceled']);

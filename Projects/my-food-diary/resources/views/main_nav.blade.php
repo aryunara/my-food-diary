@@ -4,7 +4,7 @@
         <nav class="flex-nav" id="nav">
             <a href="#" class="toggleNav"><i class="fa fa-bars"></i> Menu</a>
             <ul>
-                <li><a href="/about" title="About">About me</a></li>
+                <li><a href="/about/{{ $userId }}" title="About">About me</a></li>
                 <li><a href="/main/{{ $userId }}" title="Posts">Posts</a></li>
                 {{ $userId }}
                 <li><a href="/friendlist/{{ $userId }}" title="Friends">Friends</a></li>
