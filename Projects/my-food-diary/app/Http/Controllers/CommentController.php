@@ -20,5 +20,4 @@ class CommentController extends Controller
 
         return redirect("/post/$postId")->withSuccess('Comment created');
     }
-
 }

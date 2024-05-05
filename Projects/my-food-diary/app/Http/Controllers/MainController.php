@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Photo;
 use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use function PHPUnit\Framework\isNull;
 
 class MainController extends Controller
 {

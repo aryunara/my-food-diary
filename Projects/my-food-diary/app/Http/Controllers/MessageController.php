@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MessageRequest;
 use App\Models\Message;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
@@ -78,6 +77,6 @@ class MessageController extends Controller
             'text_changed' => false
         ]);
 
-        return redirect("/dialog/$friendId");
+        return redirect("/dialog/$friendId")->withSuccess('You have sent the message.');
     }
 }

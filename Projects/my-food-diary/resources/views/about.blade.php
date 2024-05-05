@@ -15,98 +15,100 @@
                 <div class="main-sub-box-2">
                     <h1 class="title main-title">HI, I'M {{ $user->username }}</h1>
                     <div class="paragraph">
-                        <p>{{ $user->userInfo->goal }}
-                        </p>
-                    </div>
-                    <div class="button-line">
-                        <div class="round-button">
-                            <a href="https://www.linkedin.com/in/jacqueline-soon-92093b11b/" target="_blank"><img class="button-img linkedIn-button" title=""></a>
-                            <p class="button-text">LinkedIn</p>
-                        </div>
-                        <div class="round-button">
-                            <a href="https://codepen.io/Jiacomina" target="_blank"><img class="button-img codePen-button" title="">
-                            </a>
-                            <p class="button-text">CodePen</p>
-                        </div>
-                        <div class="round-button">
-                            <a href="mailto:jacqueline.gakmay.soon@gmail.com"><img title="" class="button-img email-button"></a>
-                            <p class="button-text">Email</p>
-                        </div>
-                        <div class="round-button">
-                            <a href="https://github.com/Jiacomina" target="_blank"><img class="button-img gitHub-button" title=""></a>
-                            <p class="button-text">GitHub</p>
-                        </div>
-                        <div class="round-button">
-                            <a href="https://www.facebook.com/jacquie.soon" target="_blank"><img class="button-img fb-button" title=""></a>
-                            <p class="button-text">Facebook</p>
-                        </div>
+                        @if(isset($user->userInfo->goal))
+                            <p>{{ $user->userInfo->goal }}</p>
+                        @else
+                            <p>No information</p>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
         <div class="right"></div>
     </div>
-    <div class="bottom"></div>
-    </div>
 
     <!-- ABOUT ME -->
     <div class="about-me sub-page" id="AB">
         <center>
             <h1 class="title">ABOUT ME</h1>
-            <table class="info-box">
-                <tr>
-                    <td><img class="work-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">MY NAME IS...</b>
-                        <br><br>
-                        <b>{{ $user->userInfo->real_name }}</b>
-                    </td>
-                </tr>
-            </table>
-            <table class="info-box">
-                <tr>
-                    <td><img class="work-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">MY PRONOUNS</b>
-                        <br><br>
-                        <b>{{ $user->userInfo->pronouns }}</b>
-                    </td>
-                </tr>
-            </table>
-            <table class="info-box">
-                <tr>
-                    <td><img class="education-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">MY AGE</b>
-                        <br><br>
-                        <b>{{ $user->userInfo->age }}</b>
-                    </td>
-                </tr>
-            </table>
-            <table class="info-box">
-                <tr>
-                    <td><img class="work-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">I WORK AS A...</b>
-                        <br><br>
-                        <b>{{ $user->userInfo->job }}</b>
-                    </td>
-                </tr>
-            </table>
-            <table class="info-box">
-                <tr>
-                    <td><img class="work-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">MY FAVORITE FOOD</b>
-                        <br><br>
-                        <b>{{ $user->userInfo->favorite_food }}</b>
-                    </td>
-                </tr>
-            </table>
-            <table class="info-box">
-                <tr>
-                    <td><img class="work-icon ab-icon" </td>
-                    <td class="paragraph"><b class="grey-title">MY LEAST FAVORITE FOOD</b>
-                        <br><br>
-                        <b>{{ $user->userInfo->least_favorite_food }}</b>
-                    </td>
-                </tr>
-            </table>
+                <table class="info-box">
+                    <tr>
+                        <td><img class="work-icon ab-icon" </td>
+                        <td class="paragraph"><b class="grey-title">MY NAME IS...</b>
+                            <br><br>
+                            @if(isset($user->userInfo->real_name))
+                                <b>{{ $user->userInfo->real_name }}</b>
+                            @else
+                                <b>No information</b>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <table class="info-box">
+                    <tr>
+                        <td><img class="work-icon ab-icon" </td>
+                        <td class="paragraph"><b class="grey-title">MY PRONOUNS</b>
+                            <br><br>
+                            @if(isset($user->userInfo->pronouns))
+                                <b>{{ $user->userInfo->pronouns }}</b>
+                            @else
+                                <b>No information</b>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <table class="info-box">
+                    <tr>
+                        <td><img class="education-icon ab-icon" </td>
+                        <td class="paragraph"><b class="grey-title">MY AGE</b>
+                            <br><br>
+                            @if(isset($user->userInfo->age))
+                                <b>{{ $user->userInfo->age }}</b>
+                            @else
+                                <b>No information</b>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <table class="info-box">
+                    <tr>
+                        <td><img class="work-icon ab-icon" </td>
+                        <td class="paragraph"><b class="grey-title">I WORK AS A...</b>
+                            <br><br>
+                            @if(isset($user->userInfo->job))
+                                <b>{{ $user->userInfo->job }}</b>
+                            @else
+                                <b>No information</b>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <table class="info-box">
+                    <tr>
+                        <td><img class="work-icon ab-icon" </td>
+                        <td class="paragraph"><b class="grey-title">MY FAVORITE FOOD</b>
+                            <br><br>
+                            @if(isset($user->userInfo->favorite_food))
+                                <b>{{ $user->userInfo->favorite_food }}</b>
+                            @else
+                                <b>No information</b>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+                <table class="info-box">
+                    <tr>
+                        <td><img class="work-icon ab-icon" </td>
+                        <td class="paragraph"><b class="grey-title">MY LEAST FAVORITE FOOD</b>
+                            <br><br>
+                            @if(isset($user->userInfo->least_favorite_food))
+                                <b>{{ $user->userInfo->least_favorite_food }}</b>
+                            @else
+                                <b>No information</b>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
         </center>
     </div>
     @endif
@@ -180,7 +182,11 @@
         display: block;
         border-radius: 50%;
         border: 1px solid #DDDDDD;
+        @if(isset($user->userInfo->avatar))
         background: url("{{ $user->userInfo->avatar }}") no-repeat -35px;
+        @else
+        background: url("https://i0.wp.com/abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png?ssl=1") no-repeat 0;
+        @endif
         background-size: cover;
     }
     .sub-title{

@@ -12,7 +12,9 @@
             <div class="rightTab">
                 <input autofocus type="text" name="name" id="name" class="input-field" placeholder="Enter your name" required>
             </div>
-            <!--Field creation for name -->
+            @error('name')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -21,7 +23,9 @@
             <div class="rightTab">
                 <input autofocus type="text" name="pronouns" id="pronouns" class="input-field" placeholder="Enter your pronouns" required>
             </div>
-            <!--Field creation for name -->
+            @error('pronouns')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -29,10 +33,11 @@
             </div>
             <div class="rightTab">
                 <input type="url" name="avatar" id="avatar" class="input-field" required placeholder="Enter url">
-                <!--Field for email -->
             </div>
+            @error('avatar')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
-        <!-- Free Text Area -->
         <div class="rowTab">
             <div class="labels">
                 <label for="goal">Your goal</label>
@@ -40,6 +45,9 @@
             <div class="rightTab">
                 <textarea id="goal" class="input-field" style="height:50px;resize:vertical;" name="goal" placeholder="Describe your goal"></textarea>
             </div>
+            @error('goal')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -47,8 +55,10 @@
             </div>
             <div class="rightTab">
                 <input type="url" name="social1" id="social1" class="input-field" placeholder="Enter your url">
-                <!--Field for Number -->
             </div>
+            @error('social1')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -56,8 +66,10 @@
             </div>
             <div class="rightTab">
                 <input type="url" name="social2" id="social2" class="input-field" placeholder="Enter your url">
-                <!--Field for Number -->
             </div>
+            @error('social2')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -65,8 +77,10 @@
             </div>
             <div class="rightTab">
                 <input type="url" name="social3" id="social3" class="input-field" placeholder="Enter your url">
-                <!--Field for Number -->
             </div>
+            @error('social3')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -74,8 +88,10 @@
             </div>
             <div class="rightTab">
                 <input type="number" name="age" id="age" min="1" max="99" class="input-field" placeholder="Enter your age">
-                <!--Field for Number -->
             </div>
+            @error('age')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -84,7 +100,9 @@
             <div class="rightTab">
                 <input autofocus type="text" name="job" id="job" class="input-field" placeholder="Enter your job" required>
             </div>
-            <!--Field creation for name -->
+            @error('job')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -93,7 +111,9 @@
             <div class="rightTab">
                 <input autofocus type="text" name="fav-food" id="fav-food" class="input-field" placeholder="Enter your favorite food" required>
             </div>
-            <!--Field creation for name -->
+            @error('fav-food')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
         <div class="rowTab">
             <div class="labels">
@@ -102,7 +122,9 @@
             <div class="rightTab">
                 <input autofocus type="text" name="least-fav-food" id="least-fav-food" class="input-field" placeholder="Enter your least favorite food" required>
             </div>
-            <!--Field creation for name -->
+            @error('least-fav-food')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
         </div>
 
         <button id="submit" type="submit">Submit</button>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Friend;
 use App\Models\FriendRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class FriendRequestController extends Controller
 {
@@ -27,20 +29,28 @@ class FriendRequestController extends Controller
     {
         $userId = Auth::id();
 
-        Friend::create([
-            'user_id' => $userId,
-            'friend_id' => $friendId
-        ]);
+        try {
+            DB::transaction(function () use ($userId, $friendId, $id) {
+                Friend::create([
+                    'user_id' => $userId,
+                    'friend_id' => $friendId
+                ]);
 
-        Friend::create([
-            'user_id' => $friendId,
-            'friend_id' => $userId
-        ]);
+                Friend::create([
+                    'user_id' => $friendId,
+                    'friend_id' => $userId
+                ]);
 
-        FriendRequest::find($id)
-            ->update(['status' => 'accepted']);
+                FriendRequest::find($id)
+                    ->update(['status' => 'accepted']);
+            });
 
-        return redirect("/friend-requests");
+            return redirect("/friend-requests")->withSuccess('You have accepted the friend request.');
+        } catch(\Exception $exception) {
+            Log::error($exception);
+
+            return redirect()->back()->withErrors('Error occurred. The friend request have not been accepted.');
+        }
     }
 
     public function decline(int $id)

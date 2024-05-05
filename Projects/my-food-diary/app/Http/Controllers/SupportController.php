@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SupportRequest;
 use App\Http\Services\YouGileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,9 @@ class SupportController extends Controller
         return view('support', ['userId' => $userId]);
     }
 
-    public function sendMessage(Request $request)
+    public function sendMessage(SupportRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $userId = $data['user_id'];
         $msg = $data['msg'];

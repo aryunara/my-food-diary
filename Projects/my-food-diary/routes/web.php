@@ -20,7 +20,7 @@ Route::post('custom-registration', [CustomAuthController::class, 'customRegistra
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 Route::get('/main/{id}', [MainController::class, 'getPosts'])->name('main');
-Route::get('about/{id}', [\App\Http\Controllers\AboutController::class, 'index'])->name('about');
+Route::get('about/{id}', [\App\Http\Controllers\UserInfoController::class, 'index'])->name('about');
 Route::get('post-creation', [PostController::class, 'index'])->name('createPost');
 Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
 Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
@@ -42,8 +42,8 @@ Route::get('/like-post/{id}', [\App\Http\Controllers\LikeController::class, 'add
 Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages');
 Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
 Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);
-Route::get('questionnaire', [\App\Http\Controllers\AboutController::class, 'getQuestionnaire']);
-Route::post('questionnaire', [\App\Http\Controllers\AboutController::class, 'create']);
+Route::get('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'getQuestionnaire']);
+Route::post('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'create']);
 Route::get('support', [\App\Http\Controllers\SupportController::class, 'index']);
 Route::post('support', [\App\Http\Controllers\SupportController::class, 'sendMessage']);
 

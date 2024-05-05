@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserInfoRequest;
 use App\Models\UserInfo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AboutController extends Controller
+class UserInfoController extends Controller
 {
-    public function index($userId)
+    public function index(int $userId)
     {
         return view('about', ['userId' => $userId]);
     }
@@ -20,9 +20,9 @@ class AboutController extends Controller
         return view('questionnaire', ['userId' => $userId]);
     }
 
-    public function create(Request $request)
+    public function create(UserInfoRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         UserInfo::updateOrCreate(
             ['user_id' => $data['user_id']],
@@ -41,7 +41,7 @@ class AboutController extends Controller
             ]
         );
 
-        return redirect("/home");
+        return redirect("/home")->withSuccess('You have sent your information.');
     }
 
 }

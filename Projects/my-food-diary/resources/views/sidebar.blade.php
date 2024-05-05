@@ -31,14 +31,10 @@
                 <i class="menu__icon fa fa-list"></i>
                 <span class="menu__text">CREATE NEW POST</span>
             </a>
-            <a class="menu__item" href="/about">
+            <a class="menu__item" href="/questionnaire">
                 <i class="menu__icon fa fa-envelope"></i>
                 <span class="menu__text">ABOUT ME</span>
-            </a>
-            <a class="menu__item" href="#">
-                <i class="menu__icon fa fa-trophy"></i>
-                <span class="menu__text">SETTINGS</span>
-            </a>
+
             <a class="menu__item" href="/support">
                 <i class="menu__icon fa fa-sliders"></i>
                 <span class="menu__text">SUPPORT</span>

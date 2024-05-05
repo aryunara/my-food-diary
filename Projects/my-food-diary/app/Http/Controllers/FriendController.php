@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FindFriendRequest;
+use App\Http\Requests\FindUserRequest;
 use App\Http\Services\RabbitMQService;
 use App\Models\Friend;
 use App\Models\FriendRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class FriendController extends Controller
 {
@@ -42,7 +45,7 @@ class FriendController extends Controller
         return view('friendlist', ['friends' => $friends, 'userId' => $userId]);
     }
 
-    public function findFriend(Request $request)
+    public function findFriend(FindFriendRequest $request)
     {
         $data = $request->all();
 
@@ -52,7 +55,7 @@ class FriendController extends Controller
         return view('friends', ['friend' => $friend, 'userId' => Auth::id()]);
     }
 
-    public function findUser(Request $request)
+    public function findUser(FindUserRequest $request)
     {
         $data = $request->all();
         $userId = Auth::id();
@@ -120,15 +123,24 @@ class FriendController extends Controller
     {
         $userId = Auth::id();
 
-        Friend::where('user_id', $userId)
-            ->where('friend_id', $friendId)
-            ->delete();
+        try {
+            DB::transaction(function () use ($userId, $friendId) {
 
-        Friend::where('user_id', $friendId)
-            ->where('friend_id', $userId)
-            ->delete();
+                Friend::where('user_id', $userId)
+                    ->where('friend_id', $friendId)
+                    ->delete();
 
-        return redirect("/friends");
+                Friend::where('user_id', $friendId)
+                    ->where('friend_id', $userId)
+                    ->delete();
+            });
+
+            return redirect("/friends")->withSuccess('You have deleted the friend.');
+        } catch(\Exception $exception) {
+            Log::error($exception);
+
+            return redirect()->back()->withErrors('Error occurred. The friend have not been deleted.');
+        }
     }
 
 }

@@ -6,7 +6,6 @@
             <ul>
                 <li><a href="/about/{{ $userId }}" title="About">About me</a></li>
                 <li><a href="/main/{{ $userId }}" title="Posts">Posts</a></li>
-                {{ $userId }}
                 <li><a href="/friendlist/{{ $userId }}" title="Friends">Friends</a></li>
                 @if($userId != \Illuminate\Support\Facades\Auth::id())
                     <li><a href="/dialog/{{ $userId }}" title="Message me">Message me</a></li>
