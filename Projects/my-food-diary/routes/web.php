@@ -50,3 +50,11 @@ Route::post('support', [\App\Http\Controllers\SupportController::class, 'sendMes
 
 Route::get('send-confirmation/{id}', [\App\Http\Controllers\SendController::class, 'sendText']);
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

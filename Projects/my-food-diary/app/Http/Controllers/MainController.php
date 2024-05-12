@@ -15,7 +15,7 @@ class MainController extends Controller
     {
         $posts = Post::where('user_id', $userId)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->cursorPaginate(9);
 
         if (!$posts->count()) {
             return view('main', ['posts' => [], 'userId' => $userId]);

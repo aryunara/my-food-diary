@@ -21,6 +21,9 @@
                         </div>
                     </div>
             @endforeach
+                <div class="pagination-container">
+                    {{ $posts->links() }}
+                </div>
         @endif
     </div>
 
@@ -41,6 +44,12 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* Это создаст 3 равные колонки */
         gap: 10px; /* Пространство между колонками */
+    }
+
+    .pagination-container {
+        margin-top: 20px; /* Отступ сверху */
+        margin-left: 200px;
+        text-align: match-parent; /* Выравнивание по центру */
     }
 
     .empty_state {
