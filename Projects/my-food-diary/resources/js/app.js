@@ -15,12 +15,13 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
+import LikeComponent from "./components/LikeComponent.vue";
 import PostComponent from "./components/PostComponent.vue";
+import HomeComponent from "./components/HomeComponent.vue";
 
-app.component('example-component', ExampleComponent);
+app.component('like-component', LikeComponent);
 app.component('post-component', PostComponent);
-
+app.component('home-component', HomeComponent)
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

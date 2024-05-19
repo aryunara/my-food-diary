@@ -35,7 +35,6 @@ Route::get('friend-requests', [FriendRequestController::class, 'getAll'])->name(
 Route::get('/accept/{friendId}/{id}', [FriendRequestController::class, 'accept'])->name('acceptRequest');
 Route::get('/decline/{id}', [FriendRequestController::class, 'decline'])->name('declineRequest');
 Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest');
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
 Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment');
 Route::get('/like-feed/{id}', [\App\Http\Controllers\LikeController::class, 'addToFeed'])->name('addOnFeedPage');
 Route::get('/like-post/{id}', [\App\Http\Controllers\LikeController::class, 'addToPost'])->name('addOnPostPage');
@@ -46,15 +45,15 @@ Route::get('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'g
 Route::post('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'create']);
 Route::get('support', [\App\Http\Controllers\SupportController::class, 'index']);
 Route::post('support', [\App\Http\Controllers\SupportController::class, 'sendMessage']);
-
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
 
 Route::get('send-confirmation/{id}', [\App\Http\Controllers\SendController::class, 'sendText']);
 
+Route::get('/avatar/{id}', [\App\Http\Controllers\UserInfoController::class, 'getAvatar']);
+Route::get('/photo/{id}', [PhotoController::class, 'getById']);
+Route::get('/username/{id}', [\App\Http\Controllers\UserInfoController::class, 'getUsername']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

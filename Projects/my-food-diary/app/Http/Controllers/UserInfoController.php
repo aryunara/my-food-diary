@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserInfoRequest;
+use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,6 +43,22 @@ class UserInfoController extends Controller
         );
 
         return redirect("/home")->withSuccess('You have sent your information.');
+    }
+
+    public function getAvatar($userId)
+    {
+        $avatar = UserInfo::where('user_id', $userId)
+            ->value('avatar');
+
+        return response()->json($avatar);
+    }
+
+    public function getUsername($userId)
+    {
+        $username = User::where('id', $userId)
+            ->value('username');
+
+        return response()->json($username);
     }
 
 }

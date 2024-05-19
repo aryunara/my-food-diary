@@ -1,13 +1,26 @@
 <script>
 export default {
-    name: "PostComponent"
+    name: "PostComponent",
+
+    data() {
+        return {
+            name: 'Vasya',
+        }
+    },
+
+    methods: {
+        sayHello() {
+          console.log('Hello')
+        },
+    },
 }
 </script>
 
 <template>
     <div>
-        111111111111111111111111111111111111
+        name: {{ name }}
     </div>
+    <button @click="sayHello">Hello</button>
 </template>
 
 <style scoped>
