@@ -45,13 +45,18 @@ Route::get('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'g
 Route::post('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'create']);
 Route::get('support', [\App\Http\Controllers\SupportController::class, 'index']);
 Route::post('support', [\App\Http\Controllers\SupportController::class, 'sendMessage']);
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
+Route::get('/home', function () {
+    return view('home', ['userId' => \Illuminate\Support\Facades\Auth::id()]);
+});
 
 Route::get('send-confirmation/{id}', [\App\Http\Controllers\SendController::class, 'sendText']);
 
 Route::get('/avatar/{id}', [\App\Http\Controllers\UserInfoController::class, 'getAvatar']);
 Route::get('/photo/{id}', [PhotoController::class, 'getById']);
 Route::get('/username/{id}', [\App\Http\Controllers\UserInfoController::class, 'getUsername']);
+Route::get('/likes/{id}', [\App\Http\Controllers\LikeController::class, 'getCount']);
+Route::get('/comments/{id}', [\App\Http\Controllers\CommentController::class, 'getCount']);
+Route::get('/feed', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
 
 Auth::routes();
 

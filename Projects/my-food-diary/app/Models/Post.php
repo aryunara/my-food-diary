@@ -47,6 +47,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function friend()
+    {
+        return $this->belongsTo(Friend::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

@@ -16,22 +16,22 @@
                     </a>
                     <div class="instagram-post-date">{{ post.created_at }}</div>
                 </div>
-                <a :href="'/post/' + post.id">
-                    <div class="instagram-post-image">
-                        <img :src="getPhoto(post.photo_id)">
-                    </div>
-                </a>
+
+                <div class="instagram-post-image">
+                    <a :href="'/post/' + post.id"><img :src="getPhoto(post.photo_id)"></a>
+                </div>
+
                 <div class="instagram-post-bottom">
-                    <!--                    <div class="likes">-->
-                    <!--                        <a :href="`/like-feed/${post.id}`" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">-->
-                    <!--                            <img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png">-->
-                    <!--                        </a>-->
-                    <!--                        <span>{{ post.likes.length }}</span>-->
-                    <!--                        <a :href="`/post/${post.id}`" style="position: relative; top: -4.5px; left: 5px; width: 27px;">-->
-                    <!--                            <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">-->
-                    <!--                        </a>-->
-                    <!--                        <span>{{ post.comments.length }}</span>-->
-                    <!--                    </div>-->
+                    <div class="likes">
+                        <a :href="/like-feed/ + post.id" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">
+                            <img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png">
+                        </a>
+                        <span>{{ getLikes(post.id) }}</span>
+                        <a :href="/post/ + post.id" style="position: relative; top: -4.5px; left: 5px; width: 27px;">
+                            <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
+                        </a>
+                        <span>{{ getComments(post.id) }}</span>
+                    </div>
                 </div>
                 <div class="instagram-post-desc">
                     {{ post.description }}
@@ -42,25 +42,34 @@
 </template>
 
 <script>
+import {offset} from "@popperjs/core";
+
 export default {
     name: "HomeComponent",
 
-    props: {
-        posts: {
-            type: Array,
-            required: true
-        }
-    },
-
     data() {
         return {
+            posts: [],
             avatars: {},
             photos: {},
-            usernames: {}
+            usernames: {},
+            likes: {},
+            comments: {}
         }
     },
 
     methods: {
+        fetch(offset = 0) {
+            axios.get('/feed', {
+                params: {
+                    offset: offset
+                }
+            })
+                .then(response => {
+                    this.posts = this.posts.concat(response.data)
+                })
+        },
+
         getAvatar(userId) {
             if (!this.avatars[userId]) {
                 axios.get("/avatar/" + userId)
@@ -71,7 +80,7 @@ export default {
                         console.error('Error fetching avatar', error);
                     });
             }
-            return this.avatars[userId] || '';
+            return this.avatars[userId] || "https://i0.wp.com/abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png?ssl=1";
         },
 
         getPhoto(photoId) {
@@ -98,7 +107,51 @@ export default {
                     });
             }
             return this.usernames[userId] || '';
+        },
+
+        getLikes(postId) {
+            if (!this.likes[postId]) {
+                axios.get("/likes/" + postId)
+                    .then(response => {
+                        this.likes[postId] = response.data;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching likes', error);
+                    });
+            }
+            return this.likes[postId] || 0;
+        },
+
+        getComments(postId) {
+            if (!this.comments[postId]) {
+                axios.get("/comments/" + postId)
+                    .then(response => {
+                        this.comments[postId] = response.data;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching comments', error);
+                    });
+            }
+            return this.comments[postId] || 0;
         }
+    },
+
+    created() {
+        this.fetch()
+
+        const eventHandler = () => {
+            const scrollTop = document.documentElement.scrollTop
+            const viewPortHeight = window.innerHeight
+
+            const totalHeight = document.documentElement.offsetHeight
+            const atTheBottom = scrollTop + viewPortHeight === totalHeight
+
+            if (atTheBottom) {
+                this.fetch(this.posts.length)
+            }
+        }
+
+        document.addEventListener('scroll', eventHandler);
     }
 }
 </script>
@@ -233,9 +286,13 @@ a {
     font-weight: bold;
     color: #bebebe;
 }
-.instagram-post-image {
+
+a .instagram-post-image {
     position: relative;
+    border: none;
+    text-decoration: none;
 }
+
 .instagram-post-image img {
     max-width: 540px;
     min-width: 440px;
@@ -244,6 +301,8 @@ a {
     overflow: hidden;
     object-fit: cover;
     margin-top: 10px;
+    border: none;
+    text-decoration: none;
 }
 .instagram-post-bottom {
     position: relative;
@@ -281,10 +340,10 @@ a {
     width: 16px;
     margin-left: 10px;
 }
-
 .likes > span {
     position: relative;
-    top: -7px;
+    top: -3px;
+    font-size: 14px;
 }
 .buttons {
     display: flex;

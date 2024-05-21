@@ -15,23 +15,14 @@ class HomeController extends Controller
 
     public function getFeed()
     {
-        $userId = Auth::id();
+        $friendsIds = Auth::user()->friends()->pluck('friend_id');
 
-        $friends = Friend::where('user_id', $userId)
+        $posts = Post::whereIn('user_id', $friendsIds)
+            ->orderBy('created_at', 'desc')
+            ->offset(request('offset'))
+            ->take(6)
             ->get();
 
-        $posts = collect();
-
-        foreach ($friends as $friend) {
-            $friendId = $friend->user->id;
-            $friendPosts = Post::where('user_id', $friendId)
-                ->get();
-
-            $posts = $posts->merge($friendPosts);
-        }
-
-        $sortedPosts = $posts->sortByDesc('created_at');
-
-        return view('home', ['posts' => $sortedPosts, 'userId' => $userId]);
+        return response()->json($posts);
     }
 }

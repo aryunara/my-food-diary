@@ -50,4 +50,12 @@ class LikeController extends Controller
 
         return redirect("/post/$postId");
     }
+
+    public function getCount($postId)
+    {
+        $likes = Like::where('post_id', $postId)
+            ->count();
+
+        return response()->json($likes);
+    }
 }

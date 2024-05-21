@@ -17,10 +17,14 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
+@extends('main_nav')
+@section('main_content')
 
 <div id="app">
-    <home-component :posts="{{ json_encode($posts) }}"></home-component>
+    <home-component></home-component>
 </div>
+
+@endsection
 
 </body>
 </html>
