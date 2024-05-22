@@ -18,11 +18,11 @@
             <div class="col">
                 <ul id="friends-filter" class="friends-list">
                     @if(isset($friend))
-                        <li>{{ $friend->user->username }}</li>
+                        <li>{{ $friend->friendUser->username }}</li>
                     @elseif(!empty($friends))
                         @foreach($friends as $friend)
                             <li>
-                                <a href="/main/{{ $friend->user->id }}">{{ $friend->user->username }}</a>
+                                <a href="/main/{{ $friend->friendUser->id }}">{{ $friend->friendUser->username }}</a>
                             </li>
                         @endforeach
                     @else

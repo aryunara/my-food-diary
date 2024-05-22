@@ -19,14 +19,14 @@ class LikeController extends Controller
             Like::where('post_id', $postId)
                 ->where('liker_id', $likerId)
                 ->delete();
+            return response()->json(true);
         } else {
             Like::create([
                 'post_id' => $postId,
                 'liker_id' => $likerId,
             ]);
+            return response()->json(false);
         }
-
-        return redirect("/home");
     }
 
     public function addToPost(int $postId)

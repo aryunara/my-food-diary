@@ -29,13 +29,13 @@
                 <ul id="friends-filter" class="friends-list">
                         @if(isset($friend))
                             <li>
-                                {{ $friend->user->username }}
+                                {{ $friend->friendUser->username }}
                             </li>
                         @elseif(!empty($friends))
                             @foreach($friends as $friend)
                                 <li>
-                                    <a href="/main/{{ $friend->user->id }}">
-                                        {{ $friend->user->username }}
+                                    <a href="/main/{{ $friend->friend_id }}">
+                                        {{ $friend->friendUser->username }}
                                     </a>
                                     <a href="/delete/{{ $friend->friend_id }}"><button class="delete">Delete</button></a>
                                 </li>

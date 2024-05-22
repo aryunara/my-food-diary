@@ -23,7 +23,7 @@
 
                 <div class="instagram-post-bottom">
                     <div class="likes">
-                        <a :href="/like-feed/ + post.id" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">
+                        <a :href="/like-feed/ + post.id" @click.prevent="likeFeed(post.id)" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">
                             <img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png">
                         </a>
                         <span>{{ getLikes(post.id) }}</span>
@@ -38,11 +38,19 @@
                 </div>
             </div>
         </div>
+
+        <div v-show="loading">
+            <span>Loading...</span>
+        </div>
+
     </div>
 </template>
 
 <script>
 import {offset} from "@popperjs/core";
+import _ from 'lodash'
+
+const likesCount = {};
 
 export default {
     name: "HomeComponent",
@@ -54,12 +62,15 @@ export default {
             photos: {},
             usernames: {},
             likes: {},
-            comments: {}
+            comments: {},
+            loading: false,
         }
     },
 
     methods: {
         fetch(offset = 0) {
+            this.loading = true
+
             axios.get('/feed', {
                 params: {
                     offset: offset
@@ -67,6 +78,10 @@ export default {
             })
                 .then(response => {
                     this.posts = this.posts.concat(response.data)
+                })
+
+                .finally(response => {
+                    this.loading = false
                 })
         },
 
@@ -109,8 +124,20 @@ export default {
             return this.usernames[userId] || '';
         },
 
+        likeFeed(postId) {
+            axios.get("/like-feed/" + postId)
+                .then(response => {
+                    const liked = response.data;
+                    const currentLikesCount = this.getLikes(postId);
+                    likesCount[postId] = liked ? currentLikesCount - 1 : currentLikesCount + 1;
+                })
+                .catch(error => {
+                    console.error('Error fetching likes', error);
+                });
+        },
+
         getLikes(postId) {
-            if (!this.likes[postId]) {
+            if (!likesCount[postId]) {
                 axios.get("/likes/" + postId)
                     .then(response => {
                         this.likes[postId] = response.data;
@@ -118,6 +145,8 @@ export default {
                     .catch(error => {
                         console.error('Error fetching likes', error);
                     });
+            } else {
+                this.likes[postId] = likesCount[postId]
             }
             return this.likes[postId] || 0;
         },
@@ -151,7 +180,9 @@ export default {
             }
         }
 
-        document.addEventListener('scroll', eventHandler);
+        let delayedHandler = _.debounce(eventHandler, 400)
+
+        document.addEventListener('scroll', delayedHandler);
     }
 }
 </script>
