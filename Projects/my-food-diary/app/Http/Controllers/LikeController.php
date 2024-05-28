@@ -3,29 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function addToFeed($postId)
+    public function addToFeed(int $postId)
     {
         $likerId = Auth::id();
+        $post = Post::findOrFail($postId);
 
-        if (Like::where('post_id', $postId)
-            ->where('liker_id', $likerId)
-            ->get()
-            ->count())
-        {
-            Like::where('post_id', $postId)
+        $isLiked = $post->likes()->where('liker_id', $likerId)->exists();
+
+        if ($isLiked) {
+            $post->likes()
                 ->where('liker_id', $likerId)
                 ->delete();
-            return response()->json(true);
-        } else {
-            Like::create([
-                'post_id' => $postId,
-                'liker_id' => $likerId,
-            ]);
+
             return response()->json(false);
+        } else {
+            $post->likes()->create([
+                'liker_id' => $likerId
+            ]);
+
+            return response()->json(true);
         }
     }
 

@@ -23,14 +23,14 @@
 
                 <div class="instagram-post-bottom">
                     <div class="likes">
-                        <a :href="/like-feed/ + post.id" @click.prevent="likeFeed(post.id)" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">
+                        <a :href="/like-feed/ + post.id" @click.prevent="likeFeed(post)" style="position: relative; top: -5px; left: 5px; width: 27px; margin-left: 10px;">
                             <img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png">
                         </a>
-                        <span>{{ getLikes(post.id) }}</span>
+                        <span>{{ post.likes_count }}</span>
                         <a :href="/post/ + post.id" style="position: relative; top: -4.5px; left: 5px; width: 27px;">
                             <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
                         </a>
-                        <span>{{ getComments(post.id) }}</span>
+                        <span>{{ post.comments_count }}</span>
                     </div>
                 </div>
                 <div class="instagram-post-desc">
@@ -50,8 +50,6 @@
 import {offset} from "@popperjs/core";
 import _ from 'lodash'
 
-const likesCount = {};
-
 export default {
     name: "HomeComponent",
 
@@ -61,7 +59,8 @@ export default {
             avatars: {},
             photos: {},
             usernames: {},
-            likes: {},
+            likes_count: {},
+            liked: {},
             comments: {},
             loading: false,
         }
@@ -124,45 +123,23 @@ export default {
             return this.usernames[userId] || '';
         },
 
-        likeFeed(postId) {
-            axios.get("/like-feed/" + postId)
+        likeFeed(post) {
+            if (post.is_liked) {
+                post.likes_count--;
+                post.is_liked = false;
+            } else {
+                post.likes_count++;
+                post.is_liked = true;
+            }
+
+            axios.post("/like-feed/" + post.id)
                 .then(response => {
-                    const liked = response.data;
-                    const currentLikesCount = this.getLikes(postId);
-                    likesCount[postId] = liked ? currentLikesCount - 1 : currentLikesCount + 1;
+                    post.is_liked = response.data;
                 })
                 .catch(error => {
-                    console.error('Error fetching likes', error);
+                    console.error('Error liking post', error);
                 });
         },
-
-        getLikes(postId) {
-            if (!likesCount[postId]) {
-                axios.get("/likes/" + postId)
-                    .then(response => {
-                        this.likes[postId] = response.data;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching likes', error);
-                    });
-            } else {
-                this.likes[postId] = likesCount[postId]
-            }
-            return this.likes[postId] || 0;
-        },
-
-        getComments(postId) {
-            if (!this.comments[postId]) {
-                axios.get("/comments/" + postId)
-                    .then(response => {
-                        this.comments[postId] = response.data;
-                    })
-                    .catch(error => {
-                        console.error('Error fetching comments', error);
-                    });
-            }
-            return this.comments[postId] || 0;
-        }
     },
 
     created() {
@@ -186,6 +163,7 @@ export default {
     }
 }
 </script>
+
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Just+Another+Hand|Lato:400,400i,700,700i|Montserrat+Alternates:400,400i,700,700i|Montserrat:400,400i,700,700i|Permanent+Marker|Shadows+Into+Light|Rock+Salt");

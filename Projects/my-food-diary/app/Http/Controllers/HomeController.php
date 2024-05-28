@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\HomeResource;
 use App\Models\Friend;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class HomeController extends Controller
 {
@@ -18,11 +20,13 @@ class HomeController extends Controller
         $friendsIds = Auth::user()->friends()->pluck('friend_id');
 
         $posts = Post::whereIn('user_id', $friendsIds)
+            ->withCount('likes')
+            ->withCount('comments')
             ->orderBy('created_at', 'desc')
-            ->offset(request('offset'))
+            ->offset(request('offset', 0))
             ->take(6)
             ->get();
 
-        return response()->json($posts);
+        return response()->json(HomeResource::collection($posts));
     }
 }
