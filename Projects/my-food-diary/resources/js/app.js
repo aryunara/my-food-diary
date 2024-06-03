@@ -15,11 +15,9 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import LikeComponent from "./components/LikeComponent.vue";
 import PostComponent from "./components/PostComponent.vue";
 import HomeComponent from "./components/HomeComponent.vue";
 
-app.component('like-component', LikeComponent);
 app.component('post-component', PostComponent);
 app.component('home-component', HomeComponent)
 /**

@@ -21,10 +21,10 @@ class CommentController extends Controller
         return redirect("/post/$postId")->withSuccess('Comment created');
     }
 
-    public function getCount($postId)
+    public function getComments($postId)
     {
         $comments = Comment::where('post_id', $postId)
-            ->count();
+            ->get();
 
         return response()->json($comments);
     }

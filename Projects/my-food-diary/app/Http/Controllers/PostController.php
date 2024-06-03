@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Photo;
 use App\Models\Post;
 use App\Models\Recipe;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Termwind\Components\Dd;
 
 class PostController extends Controller
 {
@@ -68,7 +70,6 @@ class PostController extends Controller
         $post = Post::find($postId);
         $userId = $post->user->id;
 
-        return view('post_info', ['post' => $post, 'userId' => $userId]);
+        return view('post_info', ['post' => (new PostResource($post))->resolve(), 'userId' => $userId]);
     }
-
 }
