@@ -32,16 +32,11 @@
                             </div>
                         </li>
                     </ul>
-                    <form class="form-inline" role="form" action="/add-comment" method="POST">
-                        <div class="form-group">
-                            <input class="form-control" type="text" placeholder="Your comment" name="text"/>
-                        </div>
-                        <input type="hidden" :value="post.id" name="post_id" required>
-                        <input type="hidden" :value="user.id" name="commentator_id" required>
-                        <div class="form-group">
-                            <button class="btn btn-default">Add</button>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <input v-model="text" type="text" id="text" bg-color="white" maxlength="50" label="Comment" placeholder="Enter your comment">
+                        <button @click="addComment(post)" class="btn btn-default">Add</button>
+                    </div>
+
                 </div>
             </div>
 
@@ -51,6 +46,7 @@
 </template>
 
 <script>
+
 export default {
     name: "PostComponent",
 
@@ -70,8 +66,10 @@ export default {
             comments: {},
             username: {},
             likes_count: {},
+            comments_count: {},
             post: this.post,
-            user: this.user
+            user: this.user,
+            text: '',
         }
     },
 
@@ -144,7 +142,36 @@ export default {
                     console.error('Error liking post', error);
                 });
         },
-    },
+
+        createComment(payload) {
+            try {
+                axios.post("/add-comment", payload)
+                    .then(response => {
+                        const newComment = response.data;
+                        if (!this.comments[payload.postId]) {
+                            this.comments[payload.postId] = [];
+                        }
+                        this.comments[payload.postId].push(newComment);
+                        this.post.comments_count++;
+                    })
+            } catch (error) {
+                console.error('Error creating comment', error);
+            }
+        },
+
+        addComment(post) {
+            const payload = {
+                postId: post.id,
+                text: this.text
+            };
+            try {
+                this.createComment(payload);
+                this.text = '';
+            } catch (e) {
+                console.log(e);
+            }
+        },
+    }
 }
 </script>
 

@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function create(CommentRequest $request)
+    public function create(Request $request)
     {
-        $data = $request->validated();
-        $postId = $data['post_id'];
+        $data = $request->all();
 
-        Comment::create([
-            'post_id' => $data['post_id'],
-            'commentator_id' => $data['commentator_id'],
+        $comment = Comment::create([
+            'post_id' => $data['postId'],
+            'commentator_id' => Auth::id(),
             'text' => $data['text']
         ]);
 
-        return redirect("/post/$postId")->withSuccess('Comment created');
+        return response()->json($comment);
     }
 
     public function getComments($postId)
