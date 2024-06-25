@@ -1,7 +1,14 @@
+@extends('main_nav')
+@section('main_content')
+
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <title>Post creating</title>
+    </head>
 <div id="form-outer">
-    <p id="description">
-        Please fill in information about yourself (you can skip it)
-    </p>
+    <header id="page-header" class="text-white col-sm-12" style="background-color: #b05858">
+        <h1 id="main-heading" class="text-center">Fill the information</h1>
+    </header>
     <form id="survey-form" method="POST" action="/questionnaire">
         @csrf
         <input type="hidden" name="user_id" id="user_id" class="input-field" value="{{ \Illuminate\Support\Facades\Auth::id() }}" required>
@@ -127,9 +134,11 @@
             @enderror
         </div>
 
-        <button id="submit" type="submit">Submit</button>
+        <button id="submit" class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>
+
+@endsection
 
 <style>
     @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);

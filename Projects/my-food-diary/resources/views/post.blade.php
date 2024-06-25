@@ -7,8 +7,9 @@
 </head>
 
 <body>
+<br>
 <div class="container">
-    <header id="page-header" class="bg-dark text-white col-sm-12">
+    <header id="page-header" class="text-white col-sm-12" style="background-color: #75250c">
         <h1 id="main-heading" class="text-center">Post creating</h1>
     </header>
 
@@ -21,33 +22,31 @@
                     @error('user_id')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                <input type="text" placeholder="Enter photo's url" name="path" required>
+                <textarea type="text" rows="2" cols="90" placeholder="Enter photo's url" name="path" required></textarea>
                     @error('path')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <br>
-                <input type="text" placeholder="Description to the post" name="description" required>
+                    <br><br>
+                <textarea type="text" rows="5" cols="90" placeholder="Description to the post" name="description" required></textarea>
                     @error('description')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <br>
-                    <br>
-                <input type="text" placeholder="Write the recipe name" name="recipe_name">
+                    <br><br>
+                <textarea type="text" rows="5" cols="90" placeholder="Write the recipe name" name="recipe_name"></textarea>
                     @error('recipe_name')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <br>
-                <input type="text" placeholder="Cooking time" name="cooking_time">
+                    <br><br>
+                <textarea type="text" rows="2" cols="90" placeholder="Cooking time" name="cooking_time"></textarea>
                     @error('cooking_time')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <br>
-                <input type="text" placeholder="Description to the recipe" name="recipe_description">
+                    <br><br>
+                <textarea type="text" rows="5" cols="90" placeholder="Description to the recipe" name="recipe_description"></textarea>
                     @error('recipe_description')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <br>
-                    <br>
+                    <br><br>
 
                 <button id="submit-button" type="submit" class="btn btn-primary">
                     Submit

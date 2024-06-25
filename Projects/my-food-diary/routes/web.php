@@ -19,42 +19,42 @@ Route::get('register', [CustomAuthController::class, 'registration'])->name('reg
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
-Route::get('/main/{id}', [MainController::class, 'getPosts'])->name('main');
-Route::get('about/{id}', [\App\Http\Controllers\UserInfoController::class, 'index'])->name('about');
-Route::get('post-creation', [PostController::class, 'index'])->name('createPost');
-Route::post('post-creation', [PostController::class, 'create'])->name('createPost');
-Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto');
-Route::get('/post/{id}', [PostController::class, 'getPostById'])->name('getPostInfo');
-Route::get('/friendlist/{id}', [FriendController::class, 'getFriendList'])->name('friendlist');
-Route::get('friends', [FriendController::class, 'getAll'])->name('friends');
-Route::post('find-user', [FriendController::class, 'findUser'])->name('findUser');
-Route::post('find-friend', [FriendController::class, 'findFriend'])->name('findFriend');
-Route::get('/add/{id}', [FriendController::class, 'create'])->name('createFriend');
-Route::get('/delete/{id}', [FriendController::class, 'delete'])->name('deleteFriend');
-Route::get('friend-requests', [FriendRequestController::class, 'getAll'])->name('getRequests');
-Route::get('/accept/{friendId}/{id}', [FriendRequestController::class, 'accept'])->name('acceptRequest');
-Route::get('/decline/{id}', [FriendRequestController::class, 'decline'])->name('declineRequest');
-Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest');
-Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment');
-Route::post('/like-feed/{id}', [\App\Http\Controllers\LikeController::class, 'addToFeed'])->name('addOnFeedPage');
-Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages');
-Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog']);
-Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create']);
-Route::get('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'getQuestionnaire']);
-Route::post('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'create']);
-Route::get('support', [\App\Http\Controllers\SupportController::class, 'index']);
-Route::post('support', [\App\Http\Controllers\SupportController::class, 'sendMessage']);
+Route::get('/main/{id}', [MainController::class, 'getPosts'])->name('main')->middleware('auth');
+Route::get('about/{id}', [\App\Http\Controllers\UserInfoController::class, 'index'])->name('about')->middleware('auth');
+Route::get('post-creation', [PostController::class, 'index'])->name('createPost')->middleware('auth');
+Route::post('post-creation', [PostController::class, 'create'])->name('createPost')->middleware('auth');
+Route::post('photo', [PhotoController::class, 'create'])->name('createPhoto')->middleware('auth');
+Route::get('/post/{id}', [PostController::class, 'getPostById'])->name('getPostInfo')->middleware('auth');
+Route::get('/friendlist/{id}', [FriendController::class, 'getFriendList'])->name('friendlist')->middleware('auth');
+Route::get('friends', [FriendController::class, 'getAll'])->name('friends')->middleware('auth');
+Route::post('find-user', [FriendController::class, 'findUser'])->name('findUser')->middleware('auth');
+Route::post('find-friend', [FriendController::class, 'findFriend'])->name('findFriend')->middleware('auth');
+Route::get('/add/{id}', [FriendController::class, 'create'])->name('createFriend')->middleware('auth');
+Route::get('/delete/{id}', [FriendController::class, 'delete'])->name('deleteFriend')->middleware('auth');
+Route::get('friend-requests', [FriendRequestController::class, 'getAll'])->name('getRequests')->middleware('auth');
+Route::get('/accept/{friendId}/{id}', [FriendRequestController::class, 'accept'])->name('acceptRequest')->middleware('auth');
+Route::get('/decline/{id}', [FriendRequestController::class, 'decline'])->name('declineRequest')->middleware('auth');
+Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest')->middleware('auth');
+Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment')->middleware('auth');
+Route::post('/like-feed/{id}', [\App\Http\Controllers\LikeController::class, 'addToFeed'])->name('addOnFeedPage')->middleware('auth');
+Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages')->middleware('auth');
+Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog'])->middleware('auth');
+Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create'])->middleware('auth');
+Route::get('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'getQuestionnaire'])->middleware('auth');
+Route::post('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'create'])->middleware('auth');
+Route::get('support', [\App\Http\Controllers\SupportController::class, 'index'])->middleware('auth');
+Route::post('support', [\App\Http\Controllers\SupportController::class, 'sendMessage'])->middleware('auth');
 Route::get('/home', function () {
     return view('home', ['userId' => \Illuminate\Support\Facades\Auth::id()]);
 });
 
-Route::get('send-confirmation/{id}', [\App\Http\Controllers\SendController::class, 'sendText']);
+Route::get('send-confirmation/{id}', [\App\Http\Controllers\SendController::class, 'sendText'])->middleware('auth');
 
-Route::get('/avatar/{id}', [\App\Http\Controllers\UserInfoController::class, 'getAvatar']);
-Route::get('/photo/{id}', [PhotoController::class, 'getById']);
-Route::get('/username/{id}', [\App\Http\Controllers\UserInfoController::class, 'getUsername']);
-Route::get('/comments/{id}', [\App\Http\Controllers\CommentController::class, 'getComments']);
-Route::get('/feed', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed');
+Route::get('/avatar/{id}', [\App\Http\Controllers\UserInfoController::class, 'getAvatar'])->middleware('auth');
+Route::get('/photo/{id}', [PhotoController::class, 'getById'])->middleware('auth');
+Route::get('/username/{id}', [\App\Http\Controllers\UserInfoController::class, 'getUsername'])->middleware('auth');
+Route::get('/comments/{id}', [\App\Http\Controllers\CommentController::class, 'getComments'])->middleware('auth');
+Route::get('/feed', [\App\Http\Controllers\HomeController::class, 'getFeed'])->name('getFeed')->middleware('auth');
 
 Auth::routes();
 

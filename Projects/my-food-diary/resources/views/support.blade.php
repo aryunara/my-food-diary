@@ -7,8 +7,9 @@
     </head>
 
     <body>
+    <br>
     <div class="container">
-        <header id="page-header" class="bg-dark text-white col-sm-12">
+        <header id="page-header" class="text-white col-sm-12" style="background-color: #4c670f">
             <h1 id="main-heading" class="text-center">Support</h1>
         </header>
 
@@ -18,9 +19,8 @@
                 <form action="/support" method="POST">
                     @csrf
                     <input type="hidden" value="{{ Auth::id() }}" name="user_id" required>
-                    <br>
-                    <input type="text" placeholder="Describe your problem" name="msg" required>
-                    <button id="submit-button" type="submit" class="btn btn-primary">
+                    <p><textarea rows="5" cols="85" type="text" class="text" placeholder="Describe your problem" name="msg" required></textarea></p>
+                        <button id="submit-button" type="submit" class="btn btn-primary">
                         Submit
                     </button>
                 </form>
@@ -39,3 +39,4 @@
     </body>
 
 @endsection
+
