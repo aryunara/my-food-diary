@@ -11,27 +11,6 @@ class MessageController extends Controller
 {
     public function getAll()
     {
-        $userId = Auth::id();
-
-        $friends = User::whereIn('id', function ($query) use ($userId) {
-            $query->select('sender_id')
-                ->from('messages')
-                ->where('recipient_id', $userId)
-                ->union(
-                    Message::select('recipient_id')
-                        ->from('messages')
-                        ->where('sender_id', $userId)
-                );
-        })
-            ->whereNotIn('id', [$userId])
-            ->distinct()
-            ->get();
-
-        return view('messages', ['userId' => $userId, 'friends' => $friends]);
-    }
-
-    public function getDialog(int $friendId)
-    {
         $user = Auth::user();
         $userId = Auth::id();
 
@@ -49,6 +28,13 @@ class MessageController extends Controller
             ->distinct()
             ->get();
 
+        return view('messages', ['user' => $user, 'userId' => $userId, 'friends' => $friends]);
+    }
+
+    public function getDialog(int $friendId)
+    {
+        $userId = Auth::id();
+
         $dialog = Message::where(function ($query) use ($friendId, $userId) {
             $query->where('sender_id', '=', $userId)
                 ->orWhere('sender_id', '=', $friendId);
@@ -60,23 +46,24 @@ class MessageController extends Controller
             ->orderBy('created_at')
             ->get();
 
-        return view('messages', ['userId' => $friendId, 'user' => $user, 'dialog' => $dialog, 'friends' => $friends, 'friendId' => $friendId]);
+        return response()->json($dialog);
     }
 
     public function create(MessageRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
 
-        $userId = $data['sender_id'];
         $friendId = $data['recipient_id'];
+        $userId = $data['sender_id'];
+        $text = $data['text'];
 
-        Message::create([
+        $message = Message::create([
             'sender_id' => $userId,
             'recipient_id' => $friendId,
-            'text' => $data['text'],
+            'text' => $text,
             'text_changed' => false
         ]);
 
-        return redirect("/dialog/$friendId")->withSuccess('You have sent the message.');
+        return response()->json($message);
     }
 }

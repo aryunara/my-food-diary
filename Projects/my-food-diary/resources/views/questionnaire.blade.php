@@ -17,7 +17,7 @@
                 <label id="name-label" for="name"> Full name:</label>
             </div>
             <div class="rightTab">
-                <input autofocus type="text" name="name" id="name" class="input-field" placeholder="Enter your name" required>
+                <input autofocus type="text" name="name" id="name" class="input-field" placeholder="Enter your name">
             </div>
             @error('name')
                 <span class="text-danger">{{ $message }}</span>
@@ -28,7 +28,7 @@
                 <label id="pronouns-label" for="pronouns"> Pronouns:</label>
             </div>
             <div class="rightTab">
-                <input autofocus type="text" name="pronouns" id="pronouns" class="input-field" placeholder="Enter your pronouns" required>
+                <input autofocus type="text" name="pronouns" id="pronouns" class="input-field" placeholder="Enter your pronouns">
             </div>
             @error('pronouns')
                 <span class="text-danger">{{ $message }}</span>
@@ -39,7 +39,7 @@
                 <label id="avatar-label" for="avatar"> Avatar url:</label>
             </div>
             <div class="rightTab">
-                <input type="url" name="avatar" id="avatar" class="input-field" required placeholder="Enter url">
+                <input type="url" name="avatar" id="avatar" class="input-field" placeholder="Enter url">
             </div>
             @error('avatar')
                 <span class="text-danger">{{ $message }}</span>
@@ -105,7 +105,7 @@
                 <label id="job-label" for="job"> Job:</label>
             </div>
             <div class="rightTab">
-                <input autofocus type="text" name="job" id="job" class="input-field" placeholder="Enter your job" required>
+                <input autofocus type="text" name="job" id="job" class="input-field" placeholder="Enter your job">
             </div>
             @error('job')
                 <span class="text-danger">{{ $message }}</span>
@@ -116,7 +116,7 @@
                 <label id="fav-food-label" for="fav-food"> Favorite food:</label>
             </div>
             <div class="rightTab">
-                <input autofocus type="text" name="fav-food" id="fav-food" class="input-field" placeholder="Enter your favorite food" required>
+                <input autofocus type="text" name="fav-food" id="fav-food" class="input-field" placeholder="Enter your favorite food">
             </div>
             @error('fav-food')
                 <span class="text-danger">{{ $message }}</span>
@@ -127,7 +127,7 @@
                 <label id="least-fav-food-label" for="least-fav-food"> Least favorite food:</label>
             </div>
             <div class="rightTab">
-                <input autofocus type="text" name="least-fav-food" id="least-fav-food" class="input-field" placeholder="Enter your least favorite food" required>
+                <input autofocus type="text" name="least-fav-food" id="least-fav-food" class="input-field" placeholder="Enter your least favorite food">
             </div>
             @error('least-fav-food')
                 <span class="text-danger">{{ $message }}</span>

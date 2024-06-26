@@ -22,18 +22,18 @@ class UserInfoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer'],
-            'real_name' => ['string', 'max:30'],
-            'pronouns' => ['string', 'max:20'],
-            'avatar' => ['url'],
-            'goal' => ['string', 'max:150'],
-            'social1' => ['url'],
-            'social2' => ['url'],
-            'social3' => ['url'],
-            'age' => ['min:1', 'max:99'],
-            'job' => ['string', 'max:50'],
-            'favorite_food' => ['string', 'max:30'],
-            'least_favorite_food' => ['string', 'max:30'],
+            'user_id' => ['integer', 'required'],
+            'name' => ['string', 'max:30', 'nullable'],
+            'pronouns' => ['string', 'max:20', 'nullable'],
+            'avatar' => ['url', 'nullable'],
+            'goal' => ['string', 'max:150', 'nullable'],
+            'social1' => ['url', 'nullable'],
+            'social2' => ['url', 'nullable'],
+            'social3' => ['url', 'nullable'],
+            'age' => ['min:1', 'max:99', 'nullable'],
+            'job' => ['string', 'max:50', 'nullable'],
+            'fav-food' => ['string', 'max:30', 'nullable'],
+            'least-fav-food' => ['string', 'max:30', 'nullable'],
         ];
     }
 }

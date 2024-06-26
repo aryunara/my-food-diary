@@ -17,9 +17,9 @@
                     <div class="instagram-post-date">{{ post.created_at }}</div>
                 </div>
 
-                <div class="instagram-post-image">
-                    <a :href="'/post/' + post.id"><img :src="getPhoto(post.photo_id)"></a>
-                </div>
+                <a :href="/post/ + post.id">
+                    <div class="instagram-post-image"><img :src="getPhoto(post.photo_id)"></div>
+                </a>
 
                 <div class="instagram-post-bottom">
                     <div class="likes">

@@ -10,7 +10,7 @@
                 @if($userId != \Illuminate\Support\Facades\Auth::id())
                     <li><a href="/dialog/{{ $userId }}" title="Message me">Message me</a></li>
                 @else
-                    <li><a href="/messages" title="Message me">Message me</a></li>
+                    <li><a href="/send-message" title="Message me">Message me</a></li>
                 @endif
             </ul>
         </nav>

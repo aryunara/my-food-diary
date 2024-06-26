@@ -17,9 +17,11 @@ const app = createApp({});
 
 import PostComponent from "./components/PostComponent.vue";
 import HomeComponent from "./components/HomeComponent.vue";
+import MessageComponent from "./components/MessageComponent.vue";
 
 app.component('post-component', PostComponent);
-app.component('home-component', HomeComponent)
+app.component('home-component', HomeComponent);
+app.component('message-component', MessageComponent);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
