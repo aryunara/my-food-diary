@@ -28,11 +28,38 @@ class MessageController extends Controller
             ->distinct()
             ->get();
 
-        return view('messages', ['user' => $user, 'userId' => $userId, 'friends' => $friends]);
+        $users = User::all();
+
+        return view('messages', ['user' => $user, 'userId' => $userId, 'friends' => $friends, 'users' => $users]);
     }
 
-    public function getDialog(int $friendId)
+    public function getDialog($friendId)
     {
+        $userId = Auth::id();
+        $user = Auth::user();
+
+        $friends = User::whereIn('id', function ($query) use ($userId) {
+            $query->select('sender_id')
+                ->from('messages')
+                ->where('recipient_id', $userId)
+                ->union(
+                    Message::select('recipient_id')
+                        ->from('messages')
+                        ->where('sender_id', $userId)
+                );
+        })
+            ->whereNotIn('id', [$userId])
+            ->distinct()
+            ->get();
+
+        $users = User::all();
+
+        return view('messages', ['user' => $user, 'friends' => $friends, 'friendId' => $friendId, 'users' => $users, 'userId' => $userId]);
+    }
+
+    public function getDialogApi($friendId)
+    {
+        $friendId = (int)$friendId;
         $userId = Auth::id();
 
         $dialog = Message::where(function ($query) use ($friendId, $userId) {

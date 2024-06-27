@@ -6,7 +6,7 @@
             </header>
             <ul>
                 <li v-for="friend in friends" :key="friend.id">
-                    <router-link :to="{ name: 'Dialog', params: { friendId: friend.id, friends: friends, user: user, users: users } }">
+                    <router-link :to="{ name: 'Dialog', params: { friendId: friend.id, friends: friends, user: user } }">
                         <div>
                             <h2>{{ friend.username }}</h2>
                         </div>
@@ -18,36 +18,101 @@
         <main>
             <header>
                 <div>
-                    <h2>Please select a chat from the list</h2>
+                    <h2>Chat with {{ currentFriend ? currentFriend.username : 'Unknown' }}</h2>
                 </div>
             </header>
-            <div class="empty_state">
-                <h3>No messages</h3>
-                <p>There have been no messages in this section yet</p>
-                <a :href="'/friends'"><button>Send message</button></a>
-            </div>
-            <footer></footer>
+
+            <ul id="chat">
+                <li v-for="message in dialog" :key="message.id" :class="message.sender_id === user.id ? 'me' : 'you'">
+                    <div class="entete">
+                        <span :class="['status', message.sender_id === user.id ? 'blue' : 'green']"></span>
+                        <h2>{{ message.sender_id === user.id ? user.username : currentFriend.username }}</h2>
+                        <h3> {{ new Date(message.created_at).toLocaleString() }}</h3>
+                    </div>
+                    <div class="message">
+                        {{ message.text }}
+                    </div>
+                </li>
+            </ul>
+
+            <footer>
+                <div class="form-group">
+                    <textarea v-model="message" placeholder="Type your message"></textarea>
+                    <button @click="sendMessage" class="btn btn-default">Send</button>
+                </div>
+            </footer>
         </main>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-    name: "MessageComponent",
+    name: 'DialogComponent',
     props: {
-        friends: {
-            type: Array,
+        friendId: {
+            type: Number,
             required: true
         },
         user: {
             type: Object,
             required: true
         },
+        friends: {
+            type: Array,
+            required: true
+        },
         users: {
         }
+    },
+    data() {
+        return {
+            currentFriend: null,
+            dialog: [],
+            message: '',
+            users: this.users,
+        };
+    },
+    created() {
+        this.getDialog(this.friendId);
+    },
+    methods: {
+        getDialog(friendId) {
+            axios.get("/dialog-api/" + friendId)
+                .then(response => {
+                    this.dialog = response.data;
+                    this.currentFriend = this.users.find(friend => friend.id === parseInt(friendId));
+                })
+                .catch(error => {
+                    console.error('Error fetching dialog', error);
+                });
+        },
+
+        createMessage(payload) {
+            axios.post("/send-message", payload)
+                .then(response => {
+                    const newMessage = response.data;
+                    this.dialog.push(newMessage); // Добавляем новое сообщение в массив dialog
+                })
+                .catch(error => {
+                    console.error('Error creating message', error);
+                });
+        },
+
+        sendMessage() {
+            const payload = {
+                sender_id: this.user.id, // Идентификатор отправителя
+                recipient_id: this.currentFriend.id, // Идентификатор получателя
+                text: this.message // Текст сообщения
+            };
+            this.createMessage(payload);
+            this.message = ''; // Очищаем поле ввода после отправки сообщения
+        },
     }
-}
+};
 </script>
+
 
 <style scoped>
 body {

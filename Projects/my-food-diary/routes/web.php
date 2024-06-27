@@ -38,6 +38,7 @@ Route::get('/cancel/{id}', [FriendRequestController::class, 'cancel'])->name('ca
 Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment')->middleware('auth');
 Route::post('/like-feed/{id}', [\App\Http\Controllers\LikeController::class, 'addToFeed'])->name('addOnFeedPage')->middleware('auth');
 Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages')->middleware('auth');
+Route::get('/dialog-api/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialogApi'])->middleware('auth');
 Route::get('/dialog/{friendId}', [\App\Http\Controllers\MessageController::class, 'getDialog'])->middleware('auth');
 Route::post('/send-message', [\App\Http\Controllers\MessageController::class, 'create'])->middleware('auth');
 Route::get('questionnaire', [\App\Http\Controllers\UserInfoController::class, 'getQuestionnaire'])->middleware('auth');
