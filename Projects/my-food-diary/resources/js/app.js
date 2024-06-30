@@ -6,6 +6,7 @@ import PostComponent from "./components/PostComponent.vue";
 import HomeComponent from "./components/HomeComponent.vue";
 import MessageComponent from "./components/MessageComponent.vue";
 import DialogComponent from "./components/DialogComponent.vue";
+import FriendComponent from "./components/FriendComponent.vue";
 
 const routes = [
     {
@@ -32,6 +33,7 @@ app.component('post-component', PostComponent);
 app.component('home-component', HomeComponent);
 app.component('message-component', MessageComponent);
 app.component('dialog-component', DialogComponent);
+app.component('friend-component', FriendComponent);
 
 app.use(router);
 app.mount('#app');

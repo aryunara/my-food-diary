@@ -37,12 +37,11 @@
                     {{ post.description }}
                 </div>
             </div>
-        </div>
 
-        <div v-show="loading">
-            <span>Loading...</span>
+            <div v-show="loading">
+                <span>Loading...</span>
+            </div>
         </div>
-
     </div>
 </template>
 
@@ -171,6 +170,7 @@ export default {
 body {
     background-color: #101010;
 }
+
 /* Стили для обычной ссылки */
 a {
     color: #000; /* Цвет текста */

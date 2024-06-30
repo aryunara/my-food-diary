@@ -46,8 +46,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'DialogComponent',
     props: {
@@ -76,6 +74,11 @@ export default {
     },
     created() {
         this.getDialog(this.friendId);
+    },
+    watch: {
+        friendId(newFriendId) {
+            this.getDialog(newFriendId);
+        }
     },
     methods: {
         getDialog(friendId) {
@@ -360,20 +363,20 @@ main header h3 {
 }
 
 main footer {
-    height: 155px;
-    padding: 0px 10px 60px 20px;
+    height: 100px;
+    padding: 10px 20px;
     background-color: #ffffff;
 }
 main footer textarea {
     resize: none;
     border: none;
     display: block;
-    width: 95%;
+    width: 92%;
     height: 60px;
     border-radius: 3px;
-    padding: 20px;
+    padding: 10px;
     font-size: 13px;
-    margin-bottom: 13px;
+    margin-bottom: 0;
 }
 main footer textarea::placeholder {
     color: #101010;
@@ -383,15 +386,13 @@ main footer .btn-default {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
-    color: #222222;
-    vertical-align: top;
-    margin-left: 910px;
-    margin-top: -50px;
-    display: inline-block;
-}
-
-main footer .text-danger {
-    color: #c21c24;
+    color: #faffe3;
+    background-color: #f09f94;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 900px;
+    margin-top: -80px;
 }
 
 </style>

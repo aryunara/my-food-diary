@@ -24,11 +24,9 @@ class FriendController extends Controller
         $userId = Auth::id();
 
         $friends = Friend::where('user_id', $userId)
+            ->join('users', 'friends.friend_id', '=', 'users.id')
+            ->select('friends.*', 'users.username as username')
             ->get();
-
-        if (!$friends->count()) {
-            return view('friends', ['friends' => [], 'userId' => $userId]);
-        }
 
         return view('friends', ['friends' => $friends, 'userId' => $userId]);
     }

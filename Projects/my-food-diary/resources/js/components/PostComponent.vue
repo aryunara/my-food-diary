@@ -17,7 +17,7 @@
                     <a :href="/like-feed/ + post.id" @click.prevent="likeFeed(post)" style="position: relative; top: -1px; right: 5px; width: 28px; margin-left: 10px;">
                         <img class="love-icon" src="https://spng.pngfind.com/pngs/s/6-62693_facebook-heart-transparent-facebook-heart-icon-hd-png.png"></a>
                     <span>{{ post.likes_count }}</span>
-                        <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
+                    <img class="comment-icon" src="https://www.nicepng.com/png/full/49-499826_png-library-library-comment-transparent-icon-facebook-comment.png">
                     <span>{{ post.comments_count }}</span>
                 </div>
                 <div class="actionBox">
