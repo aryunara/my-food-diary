@@ -21,7 +21,7 @@
 @section('main_content')
 
     <div id="app">
-        <friend-component :friends="{{ json_encode($friends) }}"></friend-component>
+        <friend-component :friends="{{ json_encode($friends) }}" :users="{{ json_encode($users) }}" :current-user-id="{{ json_encode($userId) }}"></friend-component>
     </div>
 
 @endsection

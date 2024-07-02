@@ -1,5 +1,5 @@
 <template>
-    <div id="container">
+    <div id="message-container">
         <aside>
             <header>
                 <input type="text" placeholder="search"/>
@@ -54,7 +54,7 @@ body {
     background-color: #ffffff;
     font-family: Arial;
 }
-#container {
+#message-container {
     width: 1400px;
     height: 750px;
     background-color: #ffffff;
@@ -160,6 +160,7 @@ aside li:hover a {
 h2,
 h3 {
     margin: 0;
+    text-decoration: none;
 }
 aside li img {
     border-radius: 50%;

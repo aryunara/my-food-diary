@@ -28,7 +28,13 @@ class FriendController extends Controller
             ->select('friends.*', 'users.username as username')
             ->get();
 
-        return view('friends', ['friends' => $friends, 'userId' => $userId]);
+        $users = User::all();
+
+        if (!$friends->count()) {
+            return view('friends', ['friends' => [], 'userId' => $userId, 'users' => $users]);
+        }
+
+        return view('friends', ['friends' => $friends, 'userId' => $userId, 'users' => $users]);
     }
 
     public function getFriendList(int $userId)
@@ -43,57 +49,6 @@ class FriendController extends Controller
         return view('friendlist', ['friends' => $friends, 'userId' => $userId]);
     }
 
-    public function findFriend(FindFriendRequest $request)
-    {
-        $data = $request->all();
-
-        $friend = User::where('username', $data['find-friend'])
-            ->first();
-
-        return view('friends', ['friend' => $friend, 'userId' => Auth::id()]);
-    }
-
-    public function findUser(FindUserRequest $request)
-    {
-        $data = $request->all();
-        $userId = Auth::id();
-
-        $friends = Friend::where('user_id', $userId)
-            ->get();
-
-        $user = User::where('username', $data['find-user'])
-            ->first();
-
-        if (!isset($user)) {
-            return view('friends', ['user' => [], 'friends' => $friends, 'userId' => $userId]);
-        }
-
-        $userIsFriend = Friend::where('user_id', $userId)
-            ->where('friend_id', $user->id)
-            ->get();
-
-        if (FriendRequest::where('sender_id', $userId)
-            ->where('receiver_id', $user->id)
-            ->where('status', 'created')
-            ->get()
-            ->count()) {
-            $userIsFriend = $user;
-        }
-
-        if (!$friends->count()) {
-            if ($userIsFriend->count()) {
-                return view('friends', ['user' => $user, 'userIsFriend' => true, 'friends' => [], 'userId' => $userId]);
-            }
-            return view('friends', ['user' => $user, 'userIsFriend' => false, 'friends' => [], 'userId' => $userId]);
-        }
-
-        if ($userIsFriend->count()) {
-            return view('friends', ['user' => $user, 'userIsFriend' => true, 'friends' => $friends, 'userId' => $userId]);
-        }
-
-        return view('friends', ['user' => $user, 'userIsFriend' => false, 'friends' => $friends, 'userId' => $userId]);
-    }
-
     public function create(int $friendId)
     {
         $userId = Auth::id();
@@ -102,7 +57,7 @@ class FriendController extends Controller
             ->where('friend_id', $friendId)
             ->get()
             ->count()) {
-            return redirect("/friends");
+            return response()->json(false);
         }
 
         FriendRequest::updateOrCreate([
@@ -114,7 +69,7 @@ class FriendController extends Controller
         $rabbitMQService = new RabbitMQService();
         $rabbitMQService->sendMsg('friend_request', $friendId);
 
-        return redirect("/friends")->withSuccess('You have sent friend request');
+        return response()->json(true);
     }
 
     public function delete(int $friendId)
@@ -133,11 +88,11 @@ class FriendController extends Controller
                     ->delete();
             });
 
-            return redirect("/friends")->withSuccess('You have deleted the friend.');
+            return response()->json(true);
         } catch(\Exception $exception) {
             Log::error($exception);
 
-            return redirect()->back()->withErrors('Error occurred. The friend have not been deleted.');
+            return response()->json(false);
         }
     }
 

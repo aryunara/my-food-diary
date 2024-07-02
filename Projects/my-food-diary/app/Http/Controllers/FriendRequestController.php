@@ -25,6 +25,17 @@ class FriendRequestController extends Controller
         return view('friend_requests', ['received_rs' => $received_rs, 'sent_rs' => $sent_rs, 'userId' => $userId]);
     }
 
+    public function isSent(int $friendId)
+    {
+        $userId = Auth::id();
+
+        $request = FriendRequest::where('sender_id', $userId)
+            ->where('receiver_id', $friendId)
+            ->exists();
+
+        return response()->json($request);
+    }
+
     public function accept(int $friendId, int $id)
     {
         $userId = Auth::id();

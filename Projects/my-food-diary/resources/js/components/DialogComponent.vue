@@ -1,5 +1,5 @@
 <template>
-    <div id="container">
+    <div id="dialog-container">
         <aside>
             <header>
                 <input type="text" placeholder="search"/>
@@ -122,7 +122,7 @@ body {
     background-color: #ffffff;
     font-family: Arial;
 }
-#container {
+#dialog-container {
     width: 1400px;
     height: 750px;
     background-color: #ffffff;
@@ -387,7 +387,7 @@ main footer .btn-default {
     text-transform: uppercase;
     font-weight: bold;
     color: #faffe3;
-    background-color: #f09f94;
+    background-color: #348ac7;
     border: none;
     border-radius: 5px;
     cursor: pointer;

@@ -3,7 +3,7 @@
         <div class="photo-details">
             <div class="photo">
                 <a href="#recipe" style="display: block; width: 100%; height: 100%;">
-                    <img :src="getPhoto(post.photo_id)" style="width: 100%; height: 100%; object-fit: cover; overflow: hidden;">
+                    <img :src="getPhoto(post.photo_id)" style="width: 100%; height: 100%; object-fit: cover; overflow: hidden; border-radius: 0;">
                 </a>
             </div>
 
@@ -34,7 +34,7 @@
                     </ul>
                     <div class="form-group">
                         <input v-model="text" type="text" id="text" bg-color="white" maxlength="50" label="Comment" placeholder="Enter your comment">
-                        <button @click="addComment(post)" class="btn btn-default">Add</button>
+                        <button @click="addComment(post)" class="button">Add</button>
                     </div>
 
                 </div>
@@ -178,7 +178,7 @@ export default {
 <style scoped>
 body {
     font-family: Arial, sans-serif;
-    background: #ddd;
+    background: #ffffff;
     display: grid;
     margin: 0;
 }
@@ -218,7 +218,7 @@ body {
 .commentList li {
     margin: 10px 0 0;
     padding: 10px; /* Добавьте отступы вокруг каждого комментария */
-    background-color: #f9f9f9; /* Добавьте фоновый цвет для отделения комментариев */
+    background-color: #ffffff /* Добавьте фоновый цвет для отделения комментариев */
 }
 .commentList li > div {
     display:table-cell;
@@ -231,6 +231,8 @@ body {
 }
 .commenterImage img {
     width:100%;
+    height: 100%;
+    object-fit: cover;
     border-radius:50%;
 }
 .commentText p {
@@ -258,6 +260,9 @@ body {
     grid-template-rows: 0 min-content 1fr min-content;
     grid-gap: 10px;
     align-items: center;
+    background-color: white; /* Белый фон */
+    padding: 20px; /* Отступы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
     grid-template-areas:
         "photo . . ." /* add padding */
 		"photo avatar author date"
@@ -274,6 +279,7 @@ body {
 			"date date like";
         padding: 0;
     }
+
 
     .photo {
         grid-area: photo;
@@ -357,19 +363,19 @@ body {
     }
 
     .button {
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 13px;
-        padding: 5px 10px;
-        border: 1px solid #aaa;
-        background-color: #eee;
-        background-image: linear-gradient(top, #fff, #f0f0f0);
-        border-radius: 2px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-        color: #666;
-        text-decoration: none;
-        text-shadow: 0 1px 0 #fff;
-        cursor: pointer;
-        transition: all 0.2s ease-out;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        padding: 8px 8px;
+        margin-left: 220px;
+        margin-top: 10px;
+        width: 50%;
+        max-width: 200px;
+        background: #348ac7;
+        color: white;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        font-size: 12px;
 
         &:hover {
             border-color: #999;
