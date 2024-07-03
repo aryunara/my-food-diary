@@ -1,49 +1,36 @@
 <template>
-    <div id="friend-container">
-        <div class="head">FRIENDS</div>
+    <div id="friend-request-container">
+        <div class="head">FRIEND REQUESTS</div>
 
         <div class="row filter">
-            <div class="col">
-                <input v-model="findFriendName" type="text" class="search" id="search-list" placeholder="Enter friend's name" name="find-friend"/>
-                <button @click="findFriend" id="submit-button" type="submit" class="btn btn-primary">
-                    Search
-                </button>
-            </div>
-
-            <div class="col">
-                <input v-model="findUserName" type="text" class="search" id="search-list" placeholder="Enter user's name" name="find-user"/>
-                <button @click="findUser" id="submit-button" type="submit" class="btn btn-primary">
-                    Search
-                </button>
-            </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <h3>Your friends</h3>
+                <h3>Received requests</h3>
                 <ul id="friends-filter" class="friends-list">
-                    <li v-for="friend in filteredFriends" :key="friend.friend_id">
-                        <a :href="'/main/' + friend.friend_id">{{ friend.username }} </a>
+                    <li v-if="receivedRequests.length" v-for="request in receivedRequests" :key="request.id">
+                        <a :href="'/main/' + request.sender_id">{{ request.sender.username }}</a>
                         <div>
-                            <button @click="deleteFriend(friend.friend_id)" class="delete">X</button>
+                            <button @click="acceptRequest(request)" class="accept">V</button>
+                            <button @click="declineRequest(request.id)" class="decline">X</button>
                         </div>
                     </li>
-                    <li v-if="!filteredFriends.length">No one was found for your request.</li>
+                    <li v-else>You have not received any requests.</li>
                 </ul>
             </div>
 
             <div class="col">
-                <h3>Find user</h3>
+                <h3>Sent requests</h3>
                 <ul id="friends-filter" class="friends-list">
-                    <li v-if="user">
-                        <a :href="'/main/' + user.id">{{ user.username }}</a>
-                        <div v-if="!userIsFriend(user) && isRequestSent === false && user.id !== currentUserId">
-                            <button @click="addFriend(user)" class="add">V</button>
+                    <li v-if="sentRequests.length" v-for="request in sentRequests" :key="request.id">
+                        <a :href="'/main/' + request.recipient_id">{{ request.receiver.username }}</a>
+                        <div>
+                            <button @click="cancelRequest(request.id)" class="cancel">X</button>
                         </div>
                     </li>
-                    <li v-else>No one was found for your request.</li>
+                    <li v-else>You have not sent any requests.</li>
                 </ul>
-                <a href="/friend-requests"><button class="friend-requests">Friend requests</button></a>
             </div>
         </div>
     </div>
@@ -51,104 +38,66 @@
 
 <script>
 export default {
-    name: "FriendComponent",
+    name: "FriendRequestComponent",
     props: {
-        friends: {
+        receivedRequests: {
             type: Array,
             required: true
         },
-        users: {
+        sentRequests: {
             type: Array,
             required: true
         },
-        currentUserId: {
-            type: Number,
-            required: true
-        }
     },
     data() {
         return {
-            findFriendName: '',
-            findUserName: '',
-            user: null,
-            filteredFriends: this.friends,
-            isRequestSent: false,
-        };
+            receivedRequests: this.receivedRequests,
+            sentRequests: this.sentRequests,
+        }
     },
     methods: {
-        findFriend() {
-            if (this.findFriendName) {
-                this.filteredFriends = this.friends.filter(friend =>
-                    friend.username.toLowerCase() === this.findFriendName.toLowerCase()
-                );
-            } else {
-                this.filteredFriends = this.friends;
-            }
-        },
-        findUser() {
-            if (this.findUserName) {
-                const foundUser = this.users.find(user =>
-                    user.username.toLowerCase() === this.findUserName.toLowerCase()
-                );
-                this.user = foundUser ? foundUser : null;
-                if (this.user) {
-                    this.checkIfRequestSent(this.user.id);
-                }
-            } else {
-                this.user = null;
-            }
-        },
-        userIsFriend(user) {
-            return this.friends.some(friend => friend.friend_id === user.id);
-        },
-        deleteFriend(friendId) {
-            axios.post('/delete-friend/' + friendId)
+        acceptRequest(request) {
+            axios.post('/accept-request/' + request.sender_id + '/' + request.id)
                 .then(response => {
+                    console.log(response.data);
                     if (response.data) {
-                        this.filteredFriends = this.friends.filter(friend => friend.friend_id !== friendId);
-                    } else {
-                        this.filteredFriends = this.friends;
-                        console.error('Response error (removing friend)');
+                        this.receivedRequests = this.receivedRequests.filter(req => req.id !== request.id);
                     }
                 })
                 .catch(error => {
-                    this.filteredFriends = this.friends;
-                    console.error('Error removing friend', error);
+                    console.error('Error accepting request', error);
                 });
+
         },
-        addFriend(user) {
-            axios.post('/add-friend/' + user.id)
+        declineRequest(requestId) {
+            axios.post('/decline-request/' + requestId)
                 .then(response => {
-                    if (response.data) {
-                        this.user = null;
-                        this.isRequestSent = true;
-                    } else {
-                        console.error('Error adding friend');
-                        this.isRequestSent = false;
-                    }
+                    this.receivedRequests = this.receivedRequests.filter(req => req.id !== requestId);
                 })
                 .catch(error => {
-                    console.error('Error adding friend', error);
+                    console.error('Error declining request', error);
                 });
+
         },
-        checkIfRequestSent(userId) {
-            axios.post('/request-sent/' + userId)
+        cancelRequest(requestId) {
+            axios.post('/cancel-request/' + requestId)
                 .then(response => {
-                    this.isRequestSent = response.data;
+                    this.sentRequests = this.sentRequests.filter(req => req.id !== requestId);
                 })
                 .catch(error => {
-                    console.error('Error receiving isRequestSent information', error);
+                    console.error('Error canceling request', error);
                 });
+
         }
     }
 };
 </script>
 
-<style>
+<style scoped>
 body {
     background-color: #a0a0a0;
 }
-#friend-container{
+#friend-request-container {
     width: 1400px;
     border-radius:15px;
     background-color:#fff;
@@ -216,7 +165,7 @@ h2{
     background-color: transparent; /* Убираем задний фон ссылки */
 }
 
-.delete {
+.decline {
     position: absolute;
     text-decoration: none;
     text-transform: uppercase;
@@ -224,26 +173,41 @@ h2{
     color: #faffe3;
     width: 30px;
     background-color: #c21c24;
+    margin-left: 620px;
+    margin-top: -50px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 620px;
-    margin-top: -50px;
     z-index: 10;
 }
-.add {
+.accept {
     position: absolute;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
     color: #faffe3;
     width: 30px;
+    margin-left: 580px;
+    margin-top: -50px;
     background-color: #00971c;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    z-index: 10;
+}
+.cancel {
+    position: absolute;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #faffe3;
+    width: 30px;
     margin-left: 620px;
     margin-top: -50px;
+    background-color: #c21c24;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     z-index: 10;
 }
 .friend-requests {

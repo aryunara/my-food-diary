@@ -16,10 +16,16 @@ class FriendRequestController extends Controller
 
         $received_rs = FriendRequest::where('receiver_id', $userId)
             ->where('status', 'created')
+            ->with(['sender' => function($query) {
+                $query->select('id', 'username');
+            }])
             ->get();
 
         $sent_rs = FriendRequest::where('sender_id', $userId)
             ->where('status', 'created')
+            ->with(['receiver' => function($query) {
+                $query->select('id', 'username');
+            }])
             ->get();
 
         return view('friend_requests', ['received_rs' => $received_rs, 'sent_rs' => $sent_rs, 'userId' => $userId]);
@@ -29,11 +35,12 @@ class FriendRequestController extends Controller
     {
         $userId = Auth::id();
 
-        $request = FriendRequest::where('sender_id', $userId)
+        $requestExists = FriendRequest::where('sender_id', $userId)
             ->where('receiver_id', $friendId)
+            ->where('status', 'created')
             ->exists();
 
-        return response()->json($request);
+        return response()->json($requestExists);
     }
 
     public function accept(int $friendId, int $id)
@@ -56,11 +63,11 @@ class FriendRequestController extends Controller
                     ->update(['status' => 'accepted']);
             });
 
-            return redirect("/friend-requests")->withSuccess('You have accepted the friend request.');
+            return response()->json(true);
         } catch(\Exception $exception) {
             Log::error($exception);
 
-            return redirect()->back()->withErrors('Error occurred. The friend request have not been accepted.');
+            return response()->json(false);
         }
     }
 
@@ -68,15 +75,11 @@ class FriendRequestController extends Controller
     {
         FriendRequest::find($id)
             ->update(['status' => 'declined']);
-
-        return redirect("/friend-requests");
     }
 
     public function cancel(int $id)
     {
         FriendRequest::find($id)
             ->update(['status' => 'canceled']);
-
-        return redirect("/friend-requests");
     }
 }

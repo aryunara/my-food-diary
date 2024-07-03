@@ -31,9 +31,9 @@ Route::post('/add-friend/{id}', [FriendController::class, 'create'])->name('crea
 Route::post('/delete-friend/{id}', [FriendController::class, 'delete'])->name('deleteFriend')->middleware('auth');
 Route::get('friend-requests', [FriendRequestController::class, 'getAll'])->name('getRequests')->middleware('auth');
 Route::post('/request-sent/{id}', [FriendRequestController::class, 'isSent'])->name('isRequestSent')->middleware('auth');
-Route::get('/accept-request/{friendId}/{id}', [FriendRequestController::class, 'accept'])->name('acceptRequest')->middleware('auth');
-Route::get('/decline-request/{id}', [FriendRequestController::class, 'decline'])->name('declineRequest')->middleware('auth');
-Route::get('/cancel-request/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest')->middleware('auth');
+Route::post('/accept-request/{friendId}/{id}', [FriendRequestController::class, 'accept'])->name('acceptRequest')->middleware('auth');
+Route::post('/decline-request/{id}', [FriendRequestController::class, 'decline'])->name('declineRequest')->middleware('auth');
+Route::post('/cancel-request/{id}', [FriendRequestController::class, 'cancel'])->name('cancelRequest')->middleware('auth');
 Route::post('/add-comment', [\App\Http\Controllers\CommentController::class, 'create'])->name('addComment')->middleware('auth');
 Route::post('/like-feed/{id}', [\App\Http\Controllers\LikeController::class, 'addToFeed'])->name('addOnFeedPage')->middleware('auth');
 Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'getAll'])->name('getMessages')->middleware('auth');
