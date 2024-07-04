@@ -22,16 +22,22 @@ class PostController extends Controller
         return view('post', ['userId' => $userId]);
     }
 
+
     public function create(PostRequest $request)
     {
         $validated = $request->validated();
+
+        $image = $validated['image'];
+        $path = $image->store('images', 'public');
+        $path = "http://0.0.0.0:8081/storage/$path";
+
         $userId = $validated['user_id'];
 
         try {
-            DB::transaction(function () use ($validated) {
+            DB::transaction(function () use ($path, $validated) {
                 $photo = Photo::create([
                     'user_id' => $validated['user_id'],
-                    'path' => $validated['path'],
+                    'path' => $path,
                 ]);
 
                 if (isset($validated['recipe_name'], $validated['cooking_time'], $validated['recipe_description'])) {

@@ -23,7 +23,7 @@ class PostRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'integer'],
-            'path' => ['required', 'url'],
+            'image' => ['required', 'image:jpg, jpeg, png'],
             'description' => ['required', 'max:255'],
             'recipe_name' => ['nullable', 'string', 'max:20', 'min:1'],
             'cooking_time' => ['nullable', 'integer', 'max:100', 'min:1'],

@@ -224,9 +224,9 @@ body {
     display:table-cell;
 }
 .commenterImage {
-    width:30px;
+    width: 24px;
     margin-right:5px;
-    height:100%;
+    height: 24px;
     float:left;
 }
 .commenterImage img {

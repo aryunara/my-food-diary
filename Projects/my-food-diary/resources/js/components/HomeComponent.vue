@@ -171,10 +171,9 @@ body {
     background-color: #101010;
 }
 
-/* Стили для обычной ссылки */
 a {
-    color: #000; /* Цвет текста */
-    text-decoration: none; /* Убираем подчеркивание */
+    background-color: transparent; /* Убирает серый фон у всех ссылок */
+    text-decoration: none; /* Убирает подчеркивание текста у ссылок */
 }
 
 .empty_state {
@@ -259,6 +258,11 @@ a {
     cursor: default;
     font-family: "Roboto";
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 6px 50px 0 rgba(0, 0, 0, 0.1);
+    color: inherit; /* Сохраняет цвет текста у ссылок */
+}
+.instagram-post a {
+    background-color: transparent; /* Убирает серый фон у ссылок внутри постов */
+    color: inherit; /* Сохраняет цвет текста у ссылок */
 }
 .instagram-post-top {
     position: relative;
@@ -268,12 +272,18 @@ a {
 }
 .instagram-post-avatar {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    height: 50px;
-    width: 50px;
+    top: 15px;
+    left: 20px;
+    height: 40px;
+    width: 40px;
     overflow: hidden;
-    border-radius: 100%;
+    border-radius: 50%;
+}
+.instagram-post-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Адаптация изображения под размеры контейнера */
+    border-radius: 50%; /* Круглый аватар */
 }
 .instagram-post-name {
     position: absolute;

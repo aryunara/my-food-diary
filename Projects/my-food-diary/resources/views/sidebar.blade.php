@@ -15,7 +15,7 @@
                 <i class="menu__icon fa fa-home"></i>
                 <span class="menu__text">HOME</span>
             </a>
-            <a class="menu__item menu__item--active" href="/friends">
+            <a class="menu__item" href="/friends">
                 <i class="menu__icon fa fa-calendar"></i>
                 <span class="menu__text">FRIENDS</span>
             </a>
@@ -54,7 +54,6 @@
      */
 
     /* WRAPPER */
-
     .wrapper {
         display: grid;
         grid-template-rows: 70px 1fr 70px;
@@ -62,8 +61,7 @@
         grid-template-areas:
     "sidebar"
     "content";
-        width: 100vw; /* unnecessary, but let's keep things consistent */
-        height: 100vh;
+        height: 100%;
     }
 
     @media screen and (min-width: 850px) {
@@ -194,6 +192,7 @@
         padding: 16px 16px 16px 14px;
         border-left: 4px solid transparent;
         color: inherit;
+        background-color: white;
         text-decoration: none;
         transition: color ease 0.3s;
     }

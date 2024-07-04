@@ -16,13 +16,13 @@
     <div class="row">
         <main class="col-sm-10 offset-sm-1">
 
-            <form action="/post-creation" method="POST">
+            <form action="/post-creation" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" value="{{ Auth::id() }}" name="user_id" required>
                     @error('user_id')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                <textarea type="text" rows="2" cols="90" placeholder="Enter photo's url" name="path" required></textarea>
+                <input type="file" placeholder="Download the image" name="image" id="image" class="form-control" required></input>
                     @error('path')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

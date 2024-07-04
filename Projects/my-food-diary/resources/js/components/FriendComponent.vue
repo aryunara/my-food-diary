@@ -250,9 +250,9 @@ h2{
     position: absolute;
     margin-top: -460px;
     margin-left: -330px;
-    width: 300px;
+    width: 200px;
     border:none;
-    background-color: #c21c24;
+    background-color: #348ac7;
     color: #faffe3;
     line-height:31px;
     padding: 0 10px;
