@@ -22,27 +22,32 @@
                     @error('user_id')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                <input type="file" placeholder="Download the image" name="image" id="image" class="form-control" required></input>
+                <label for="image">Upload image</label>
+                <input type="file" placeholder="Upload image" name="image" id="image" class="form-control" required>
                     @error('path')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                     <br><br>
+                <label for="description">Write a description</label>
                 <textarea type="text" rows="5" cols="90" placeholder="Description to the post" name="description" required></textarea>
                     @error('description')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                     <br><br>
-                <textarea type="text" rows="5" cols="90" placeholder="Write the recipe name" name="recipe_name"></textarea>
+                <label for="recipe_name">Write a recipe name</label>
+                <textarea type="text" rows="5" cols="90" placeholder="Recipe name" name="recipe_name"></textarea>
                     @error('recipe_name')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                     <br><br>
+                <label for="cooking_time">Write the cooking time</label>
                 <textarea type="text" rows="2" cols="90" placeholder="Cooking time" name="cooking_time"></textarea>
                     @error('cooking_time')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                     <br><br>
-                <textarea type="text" rows="5" cols="90" placeholder="Description to the recipe" name="recipe_description"></textarea>
+                <label for="recipe_description">Write a description of the recipe</label>
+                <textarea type="text" rows="5" cols="90" placeholder="Description of the recipe" name="recipe_description"></textarea>
                     @error('recipe_description')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
