@@ -28,7 +28,8 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                <input type="file" placeholder="Download the image" name="image" id="image" class="form-control" required></input>
+                <label for="image">Upload image</label>
+                <input type="file" placeholder="Upload image" name="image" id="image" class="form-control" required>
                     <?php $__errorArgs = ['path'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -40,6 +41,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                     <br><br>
+                <label for="description">Write a description</label>
                 <textarea type="text" rows="5" cols="90" placeholder="Description to the post" name="description" required></textarea>
                     <?php $__errorArgs = ['description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -52,7 +54,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                     <br><br>
-                <textarea type="text" rows="5" cols="90" placeholder="Write the recipe name" name="recipe_name"></textarea>
+                <label for="recipe_name">Write a recipe name</label>
+                <textarea type="text" rows="5" cols="90" placeholder="Recipe name" name="recipe_name"></textarea>
                     <?php $__errorArgs = ['recipe_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -64,6 +67,7 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                     <br><br>
+                <label for="cooking_time">Write the cooking time</label>
                 <textarea type="text" rows="2" cols="90" placeholder="Cooking time" name="cooking_time"></textarea>
                     <?php $__errorArgs = ['cooking_time'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -76,7 +80,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                     <br><br>
-                <textarea type="text" rows="5" cols="90" placeholder="Description to the recipe" name="recipe_description"></textarea>
+                <label for="recipe_description">Write a description of the recipe</label>
+                <textarea type="text" rows="5" cols="90" placeholder="Description of the recipe" name="recipe_description"></textarea>
                     <?php $__errorArgs = ['recipe_description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
